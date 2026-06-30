@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // --- 1. HUMAN ANATOMY DATABASE RUNTIME FAILSAFE CACHE ---
+    // --- 1. DEVICE DATABASE CACHE LAYER ---
     const anatomyPreloadedDatabase = {
         "head": [
             { name: "Micro-Neuro Instruments Kit", sku: "SKU-MN-992", specialty: "Neurosurgery Cranial Open Access" },
@@ -19,21 +19,35 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
     };
 
-    // --- 2. LUXURY MAGNETIC TARGET CONTROLLER ---
-    const magneticElements = document.querySelectorAll('.magnetic-target');
-    magneticElements.forEach(el => {
-        el.addEventListener('mousemove', (e) => {
-            const rect = el.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) scale(1.02)`;
-        });
-        el.addEventListener('mouseleave', () => {
-            el.style.transform = 'translate(0px, 0px) scale(1)';
-        });
-    });
+    // --- 2. ERROR-FREE TWO-WAY CHATBOT TOGGLE LOOP ---
+    const chatIcon = document.getElementById("chatbot-icon");
+    const chatWindow = document.getElementById("chatbot-window");
+    const closeBtn = document.getElementById("close-chat");
+    const sendBtn = document.getElementById("send-chat");
+    const inputField = document.getElementById("chat-input-field");
+    const outputStream = document.getElementById("chat-stream-output");
 
-    // --- 3. INERTIAL ANCHOR SCROLLING SMOOTHER ---
+    if (chatIcon && chatWindow) {
+        // Toggles the visibility state perfectly back and forth on icon click
+        chatIcon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            chatWindow.classList.toggle("hidden");
+        });
+
+        if (closeBtn) {
+            closeBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                chatWindow.classList.add("hidden");
+            });
+        }
+
+        // Avoid click leakage inside typing panel
+        chatWindow.addEventListener("click", (e) => {
+            e.stopPropagation();
+        });
+    }
+
+    // --- 3. INERTIAL SCROLL SMOOTHING VIA ANCHOR NODES ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -50,27 +64,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- 4. VIEWPORT PROGRESS INDICATORS ---
+    // --- 4. SCROLL INTERSECTION PROGRESS AND HEADER OPTIMIZATIONS ---
     const scrollProgressBar = document.getElementById("scroll-progress-bar");
     const mainHeader = document.querySelector(".main-header");
     
     window.addEventListener("scroll", () => {
         const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (totalHeight > 0) {
-            const progress = (window.pageYOffset / totalHeight) * 100;
-            if(scrollProgressBar) scrollProgressBar.style.width = `${progress}%`;
+        if (totalHeight > 0 && scrollProgressBar) {
+            scrollProgressBar.style.width = `${(window.pageYOffset / totalHeight) * 100}%`;
         }
 
         if(mainHeader) {
-            if (window.scrollY > 50) {
-                mainHeader.classList.add("header-scrolled");
-            } else {
-                mainHeader.classList.remove("header-scrolled");
-            }
+            if (window.scrollY > 50) mainHeader.classList.add("header-scrolled");
+            else mainHeader.classList.remove("header-scrolled");
         }
     });
 
-    // --- 5. BI-DIRECTIONAL SECTIONS REVEAL PIPELINE ---
+    // --- 5. BI-DIRECTIONAL MOTION REVEAL PIPELINE ---
     try {
         const revealElements = document.querySelectorAll(".scroll-trigger-reveal");
         const revealObserver = new IntersectionObserver((entries) => {
@@ -84,10 +94,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }, { threshold: 0.05, rootMargin: "0px 0px -40px 0px" });
         revealElements.forEach(element => revealObserver.observe(element));
     } catch (e) {
-        console.error("Reveal engine error:", e);
+        console.error("Intersection reveal initialization fault:", e);
     }
 
-    // --- 6. DRAGGABLE HERO CAROUSEL CONTROLLER (5s TIMEOUT CYCLE) ---
+    // --- 6. DRAGGABLE HERO CAROUSEL PLATFORM (5s CYCLING TIMEOUT) ---
     const sliderViewport = document.getElementById("hero-draggable-viewport");
     const sliderWrapper = document.getElementById("hero-slider-wrapper");
     const textNodes = document.querySelectorAll(".hero-slide-text-node");
@@ -161,37 +171,6 @@ document.addEventListener("DOMContentLoaded", () => {
             initAutoCycle();
         });
 
-        // Touch Triggers for Portable Devices
-        sliderViewport.addEventListener("touchstart", (e) => {
-            clearInterval(autoCycleTimer);
-            activeDragMode = true;
-            sliderWrapper.style.transition = "none";
-            initialCursorPositionX = e.touches[0].clientX;
-            const matrix = new WebKitCSSMatrix(window.getComputedStyle(sliderWrapper).transform);
-            cumulativeTransformX = matrix.m41;
-        }, { passive: true });
-
-        sliderViewport.addEventListener("touchmove", (e) => {
-            if (!activeDragMode) return;
-            const deltaX = e.touches[0].clientX - initialCursorPositionX;
-            sliderWrapper.style.transform = `translateX(${cumulativeTransformX + deltaX}px)`;
-        }, { passive: true });
-
-        sliderViewport.addEventListener("touchend", (e) => {
-            if (!activeDragMode) return;
-            activeDragMode = false;
-            const displacementX = e.changedTouches[0].clientX - initialCursorPositionX;
-            const structuralWidth = sliderViewport.offsetWidth;
-            
-            if (Math.abs(displacementX) > structuralWidth * 0.15) {
-                if (displacementX > 0) renderActiveSlide(currentSlideIndex - 1);
-                else renderActiveSlide(currentSlideIndex + 1);
-            } else {
-                renderActiveSlide(currentSlideIndex);
-            }
-            initAutoCycle();
-        });
-
         beads.forEach(bead => {
             bead.addEventListener("click", () => {
                 renderActiveSlide(parseInt(bead.getAttribute("data-slide-index"), 10));
@@ -202,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
         initAutoCycle();
     }
 
-    // --- 7. ACCELERATED 3D TILT MATRIX ---
+    // --- 7. HARDWARE ACCELERATED 3D TILT MATRIX ---
     const tiltCards = document.querySelectorAll(".tilt-target");
     tiltCards.forEach(card => {
         card.addEventListener("mousemove", (e) => {
@@ -212,17 +191,17 @@ document.addEventListener("DOMContentLoaded", () => {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            const rotateX = ((centerY - y) / centerY) * 12; 
-            const rotateY = ((x - centerX) / centerX) * 12;
+            const rotateX = ((centerY - y) / centerY) * 10; 
+            const rotateY = ((x - centerX) / centerX) * 10;
             
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
         });
         card.addEventListener("mouseleave", () => {
             card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
         });
     });
 
-    // --- 8. MOUSE SPOTLIGHT DRIVER ---
+    // --- 8. MOUSE SPOTLIGHT FIELDS ---
     const spotlightGrid = document.querySelector(".mouse-spotlight-grid");
     if (spotlightGrid) {
         spotlightGrid.addEventListener("mousemove", (e) => {
@@ -234,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- 9. HERO PARALLAX & VARIABLE ZOOM ARTIFACTS ---
+    // --- 9. HERO IMAGE PARALLAX AND DYNAMIC SCROLL ZOOMS ---
     const parallaxBg = document.getElementById("hero-parallax-bg");
     const zoomImages = document.querySelectorAll(".scroll-zoom-img");
     
@@ -254,7 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- 10. METRICS COUNT ENGINE ---
+    // --- 10. METRICS COUNT SCHEDULERS ---
     try {
         const countObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -283,10 +262,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         document.querySelectorAll(".count-target").forEach(el => countObserver.observe(el));
     } catch (e) {
-        console.error("Counter run failure:", e);
+        console.error("Counter fail logs:", e);
     }
 
-    // --- 11. ANATOMICAL LOOKUP ENGINE & DUAL LAYERS ---
+    // --- 11. ANATOMICAL LOOKUP BLUEPRINT ENGINES ---
     try {
         const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
         const fetchTarget = document.getElementById("anatomy-fetch-target");
@@ -301,7 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="instrument-item">
                             <h5>${item.name} (${item.sku})</h5>
                             <p>${item.specialty}</p>
-                            <span class="cached-badge"><i class="fas fa-shield-alt"></i> Verified Specialty</span>
+                            <span class="cached-badge"><i class="fas fa-microchip"></i> ISO Traceable Spec</span>
                         </div>`;
                 });
             }
@@ -312,7 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (label) label.innerText = e.target.getAttribute("data-anatomy-region").toUpperCase();
             });
             spot.addEventListener("mouseleave", () => {
-                if (label) label.innerText = "Select Anatomy Target";
+                if (label) label.innerText = "Select Structural Node";
             });
             spot.addEventListener("click", async (e) => {
                 hotspots.forEach(h => h.classList.remove("active-node"));
@@ -337,49 +316,33 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     } catch (e) {
-        console.error("Anatomy loop fail:", e);
+        console.error("Anatomy alignment runtime fault:", e);
     }
 
-    // --- 12. FLOATING AI CONVERSATIONAL INTERFACES ---
-    try {
-        const chatIcon = document.getElementById("chatbot-icon");
-        const chatWindow = document.getElementById("chatbot-window");
-        const closeBtn = document.getElementById("close-chat");
-        const sendBtn = document.getElementById("send-chat");
-        const inputField = document.getElementById("chat-input-field");
-        const outputStream = document.getElementById("chat-stream-output");
+    // --- 12. DISPATCH CHAT SUBMISSION LOOPS ---
+    async function sendChat() {
+        if (!inputField || !outputStream) return;
+        const text = inputField.value.trim();
+        if (!text) return;
 
-        if (chatIcon && chatWindow && closeBtn) {
-            chatIcon.addEventListener("click", () => chatWindow.classList.remove("hidden"));
-            closeBtn.addEventListener("click", () => chatWindow.classList.add("hidden"));
+        outputStream.innerHTML += `<p class="user-msg">${text}</p>`;
+        inputField.value = "";
+        outputStream.scrollTop = outputStream.scrollHeight;
+
+        try {
+            const res = await fetch("http://127.0.0.1:8000/api/chatbot/query", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: text })
+            });
+            const data = await res.json();
+            outputStream.innerHTML += `<p class="bot-msg">${data.reply}</p>`;
+        } catch (err) {
+            outputStream.innerHTML += `<p class="bot-msg" style="color:var(--crimson-accent);">Failed to connect to Surgis AI.</p>`;
         }
-
-        async function sendChat() {
-            if (!inputField || !outputStream) return;
-            const text = inputField.value.trim();
-            if (!text) return;
-
-            outputStream.innerHTML += `<p class="user-msg">${text}</p>`;
-            inputField.value = "";
-            outputStream.scrollTop = outputStream.scrollHeight;
-
-            try {
-                const res = await fetch("http://127.0.0.1:8000/api/chatbot/query", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ message: text })
-                });
-                const data = await res.json();
-                outputStream.innerHTML += `<p class="bot-msg">${data.reply}</p>`;
-            } catch (err) {
-                outputStream.innerHTML += `<p class="bot-msg" style="color:var(--crimson-accent);">Failed to connect to Surgis AI.</p>`;
-            }
-            outputStream.scrollTop = outputStream.scrollHeight;
-        }
-
-        if (sendBtn) sendBtn.addEventListener("click", sendChat);
-        if (inputField) inputField.addEventListener("keypress", (e) => { if (e.key === "Enter") sendChat(); });
-    } catch (e) {
-        console.error("Chatbot system execution handling fault:", e);
+        outputStream.scrollTop = outputStream.scrollHeight;
     }
+
+    if (sendBtn) sendBtn.addEventListener("click", sendChat);
+    if (inputField) inputField.addEventListener("keypress", (e) => { if (e.key === "Enter") sendChat(); });
 });
