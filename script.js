@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // --- 1. LOCAL DATA PRE-CACHE FOR ANATOMICAL COORDINATES LOOKUP ---
+    // --- 1. LOCAL DATA PRE-CACHE FOR HUMAN BLUEPRINT INDEXING ---
     const anatomyPreloadedDatabase = {
         "head": [
             { name: "Micro-Neuro Instruments Kit", sku: "SKU-MN-992", specialty: "Neurosurgery Cranial Open Access" },
@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const outputStream = document.getElementById("chat-stream-output");
 
     if (chatIcon && chatWindow) {
-        // Toggles between open and hidden visibility states perfectly on alternate clicks
         chatIcon.addEventListener("click", (e) => {
             e.stopPropagation();
             chatWindow.classList.toggle("hidden");
@@ -90,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
         clearInterval(autoCycleTimer);
         autoCycleTimer = setInterval(() => {
             renderActiveSlide(currentSlideIndex + 1);
-        }, 3000); // 3-Second Automatic Sliding Phase Controls
+        }, 3000); 
     }
 
     if(sliderViewport && sliderWrapper) {
@@ -126,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
             initAutoCycle();
         });
 
-        // Touch Interactivity mapping for tablet surfaces
+        // Touch Interactivity mapping for mobile/tablet surfaces
         sliderViewport.addEventListener("touchstart", (e) => {
             clearInterval(autoCycleTimer);
             activeDragMode = true;
@@ -181,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else if (index < currentIdx) {
                     const multiplier = currentIdx - index;
                     c.style.transform = `translateX(${60 + (multiplier * 20)}px) translateZ(-${multiplier * 30}px) scale(0.88)`;
-                    c.style.opacity = "0.25"; // Fades back gracefully into the deck array path
+                    c.style.opacity = "0.25"; 
                     c.style.zIndex = `${30 - multiplier}`;
                 } else {
                     const multiplier = index - currentIdx;
@@ -236,7 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- 8. ANATOMICAL INDEX LINKAGE CHANNELS ---
+    // --- 8. ANATOMICAL INDEX BLUEPRINT LINKAGE CHANNELS ---
     const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
     const fetchTarget = document.getElementById("anatomy-fetch-target");
     const label = document.getElementById("anatomy-ui-marker");
