@@ -1,273 +1,243 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surgiments | Master Surgical Instrumentation Logistics</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+@charset "UTF-8";
 
-    <div id="scroll-progress-bar"></div>
+/* ==========================================================================
+   1. CLINICAL BRAND MATRIX (AEGEAN BLUE & METALLIC RED CORES)
+   ========================================================================== */
+:root {
+    --bg-dark-core: #020612;
+    --aegean-blue: #0b2244;         /* Official Master Deep Blue */
+    --crimson-red: #b20d15;         /* Official Branding Red Accent */
+    --white: #ffffff;
+    --bg-light-secondary: #f8fafc;
     
-    <div class="crystalline-shard-overlay topo-left"></div>
-    <div class="crystalline-shard-overlay topo-right"></div>
-    <div class="ambient-luminous-flare"></div>
+    --card-surface: rgba(255, 255, 255, 0.95);
+    --glass-blur: blur(20px);
+    --border-glass: rgba(11, 34, 68, 0.08);
+    
+    --text-dark: #0f172a;
+    --text-muted: #64748b;
+    --text-light: #f8fafc;
+    --shadow-premium: 0 25px 50px -12px rgba(11, 34, 68, 0.08);
+    
+    --transition-curve: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-snappy: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
 
-    <header class="main-header">
-        <div class="header-left-brand">
-            <img src="images/logo.png" alt="Surgiments Header Logo" id="header-brand-logo">
-        </div>
-        
-        <nav class="nav-links">
-            <a href="#home" class="nav-item dynamic-underline">Home</a>
-            <a href="#heritage" class="nav-item dynamic-underline">About Us</a>
-            <a href="#catalog" class="nav-item dynamic-underline">Products</a>
-            <a href="#anatomy" class="nav-item dynamic-underline">Anatomical Index</a>
-            <a href="#testimonials" class="nav-item dynamic-underline">Testimonials</a>
-        </nav>
+/* ==========================================================================
+   2. RE-DEDUPLICATED LAYOUT CONTROLS & GEOMETRIC CAPPING MASKS
+   ========================================================================== */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+html { scroll-behavior: smooth; }
+body { background-color: var(--white); color: var(--text-dark); -webkit-font-smoothing: antialiased; }
+#scroll-progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--crimson-red), #e01a24); z-index: 100000; }
 
-        <div class="header-right-block">
-            <div class="search-wrapper">
-                <input type="text" placeholder="Search instruments..." id="global-search">
-                <i class="fas fa-search"></i>
-            </div>
-            <div class="auth-buttons">
-                <button class="btn-text normal-auth-trigger">Client Gateway</button>
-                <button class="btn-pill-sm normal-auth-trigger"><i class="fas fa-file-invoice"></i> Request RFQ</button>
-            </div>
-        </div>
-    </header>
+/* Structural Crystalline Overlays matching 1000492271.jpg */
+.crystalline-shard-overlay { position: absolute; width: 45vw; height: 70vh; pointer-events: none; z-index: 1; background-size: contain; background-repeat: no-repeat; opacity: 0.12; }
+.topo-left { top: 5%; left: -5%; background-image: linear-gradient(140deg, var(--crimson-red) 0%, var(--aegean-blue) 50%, transparent 100%); clip-path: polygon(0% 0%, 100% 0%, 65% 100%, 0% 80%); }
+.topo-right { top: 25%; right: -8%; background-image: linear-gradient(220deg, var(--crystal-blue-bright) 0%, #020c22 60%, transparent 100%); clip-path: polygon(30% 0%, 100% 20%, 100% 100%, 0% 70%); }
+.ambient-luminous-flare { position: fixed; width: 700px; height: 700px; border-radius: 50%; top: 20%; left: 15%; background: radial-gradient(circle, rgba(0,102,255,0.04) 0%, transparent 70%); pointer-events: none; z-index: 0; filter: blur(100px); }
 
-    <section id="home" class="hero-full-viewport scroll-trigger-reveal">
-        <div class="slider-draggable-track" id="hero-draggable-viewport">
-            <div class="slider-wrapper-inner" id="hero-slider-wrapper">
-                <div class="slide-image-node">
-                    <img src="images/hero-slide-1.jpg" alt="Surgiments Precision Engineering Masterpiece" class="scroll-zoom-img" draggable="false">
-                </div>
-                <div class="slide-image-node">
-                    <img src="images/hero-slide-2.jpg" alt="Crystalline Passivation Lab Processing" class="scroll-zoom-img" draggable="false">
-                </div>
-                <div class="slide-image-node">
-                    <img src="images/hero-slide-3.jpg" alt="Advanced Micro-Canal Instrumentation Line" class="scroll-zoom-img" draggable="false">
-                </div>
-                <div class="slide-image-node">
-                    <img src="images/hero-slide-4.jpg" alt="Orthopedic Rigidity Structural Testing" class="scroll-zoom-img" draggable="false">
-                </div>
-                <div class="slide-image-node">
-                    <img src="images/hero-slide-5.jpg" alt="Cardio-Thoracic Open Surgical Assembly" class="scroll-zoom-img" draggable="false">
-                </div>
-                <div class="slide-image-node">
-                    <img src="images/hero-slide-6.jpg" alt="60 Years Metallurgy Heritage Celebrating Mastery" class="scroll-zoom-img" draggable="false">
-                </div>
-            </div>
-            <div class="slider-pagination-beads" id="slider-pagination-container">
-                <span class="bead active" data-slide-index="0"></span>
-                <span class="bead" data-slide-index="1"></span>
-                <span class="bead" data-slide-index="2"></span>
-                <span class="bead" data-slide-index="3"></span>
-                <span class="bead" data-slide-index="4"></span>
-                <span class="bead" data-slide-index="5"></span>
-            </div>
-        </div>
-    </section>
+/* Master Dynamic Themes Call Layers */
+.blue-theme { background: var(--aegean-blue) !important; color: var(--white) !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 0px !important; }
+.blue-theme h5, .blue-theme h3, .blue-theme p, .blue-theme .stat-number-wrapper, .blue-theme .map-address-card h5 { color: var(--white) !important; }
 
-    <section id="heritage" class="credibility-section scroll-trigger-reveal">
-        <div class="credibility-container">
-            <div class="stat-box blue-theme tilt-target">
-                <div class="stat-number-wrapper"><span class="count-target" data-target="60">0</span>+</div>
-                <p>Years of Metallurgy Heritage</p>
-            </div>
-            <div class="stat-box blue-theme tilt-target">
-                <div class="stat-number-wrapper"><span class="count-target" data-target="100000">0</span>+</div>
-                <p>Device Blueprints Cataloged</p>
-            </div>
-            <div class="stat-box blue-theme tilt-target">
-                <div class="stat-number-wrapper">CE Annex IV</div>
-                <p>1998 Institutional Compliance Mark</p>
-            </div>
-            <div class="stat-box blue-theme tilt-target">
-                <div class="stat-number-wrapper">CE Directive V</div>
-                <p>2014 Production Quality Control Standards</p>
-            </div>
-        </div>
-    </section>
+.red-theme { background: var(--crimson-red) !important; color: var(--white) !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 0px !important; }
+.red-theme h3, .red-theme p, .red-theme .reviewer-meta { color: var(--white) !important; }
 
-    <section id="catalog" class="catalog-section scroll-trigger-reveal">
-        <div class="catalog-header-text">
-            <span class="section-tag">SPECIALIZED PORTFOLIO</span>
-            <h2>Specialized Instrumentation Series</h2>
-            <p>Hover over individual classifications to expand item descriptions while forcing alternative cards to smoothly step back and hide inside the stack.</p>
-        </div>
-        
-        <div class="stacking-deck-container">
-            <div class="portfolio-deck-card tilt-target red-hover-node" data-card-idx="0">
-                <div class="card-num-indicator">01</div>
-                <h3>Neuro & Skull Base</h3>
-                <div class="card-description-summary">
-                    <p>Premium micro-canal retractors, self-retaining scalp stabilizers, and dural access tools forged for delicate cranial procedures.</p>
-                </div>
-            </div>
-            <div class="portfolio-deck-card tilt-target red-hover-node" data-card-idx="1">
-                <div class="card-num-indicator">02</div>
-                <h3>Cardio-Thoracic Line</h3>
-                <p>High-tensile sternal spreaders, pediatric rib retractors, and micro-vascular tissue forceps built for extreme durability.</p>
-                <div class="card-description-summary">
-                    <p>Optimized for precise arterial control and open-chest visibility variables under intensive operating theater lights.</p>
-                </div>
-            </div>
-            <div class="portfolio-deck-card tilt-target red-hover-node" data-card-idx="2">
-                <div class="card-num-indicator">03</div>
-                <h3>Orthopedic Trauma</h3>
-                <div class="card-description-summary">
-                    <p>Heavy-duty Liston bone cutting pliers, high-torque bone awls, wire tighteners, and custom articulation instrumentation sets.</p>
-                </div>
-            </div>
-            <div class="portfolio-deck-card tilt-target red-hover-node" data-card-idx="3">
-                <div class="card-num-indicator">04</div>
-                <h3>Minimally Invasive</h3>
-                <div class="card-description-summary">
-                    <p>Ultra-slender insulation-verified shafts optimized for laparoscopic tissue dissection, arthroscopy, and fine sinoscopy.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+.glass-hull { background: var(--card-surface); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); transition: var(--transition-curve); }
 
-    <section id="anatomy" class="anatomy-section scroll-trigger-reveal">
-        <div class="white-glow-bg opacity-glow-layer"></div>
-        <div class="anatomy-grid-layout">
-            <div class="anatomy-left-vector">
-                <h3>Anatomical Alignment Index</h3>
-                <p>Click target coordinates across your custom blueprint sketch asset to resolve mapped localized device databases instantly.</p>
-                
-                <div class="real-anatomy-container blue-theme">
-                    <img src="images/human-anatomy.jpg" alt="Clinical Anatomy Coordinate Canvas" class="real-anatomy-img">
-                    <div class="anatomy-svg-hotspot" data-anatomy-region="head" style="top: 12%; left: 50%;"></div>
-                    <div class="anatomy-svg-hotspot" data-anatomy-region="torso" style="top: 38%; left: 50%;"></div>
-                    <div class="anatomy-svg-hotspot" data-anatomy-region="extremities" style="top: 55%; left: 32%;"></div>
-                    <div class="anatomy-svg-hotspot" data-anatomy-region="extremities" style="top: 55%; left: 68%;"></div>
-                    
-                    <div class="hover-label-overlay" id="anatomy-ui-marker">Select Structural Node</div>
-                </div>
-            </div>
-            
-            <div class="anatomy-right-list">
-                <h4>Dynamic Technical Specifications Database</h4>
-                <div class="instrument-viewport" id="anatomy-fetch-target">
-                    <div class="fallback-prompt"><i class="fas fa-mouse-pointer"></i> Interact with blueprint nodes to retrieve technical material lists.</div>
-                </div>
-            </div>
-        </div>
-    </section>
+/* ==========================================================================
+   3. CLINICAL NAVBAR HEADER (SOLID AEGEAN BLUE)
+   ========================================================================== */
+.main-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 4%; background: var(--aegean-blue); position: fixed; width: 100%; top: 0; z-index: 9999; border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+.header-left-brand { display: flex; align-items: center; }
+.header-left-brand img { height: 50px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2)); }
 
-    <section id="testimonials" class="testimonials-section scroll-trigger-reveal">
-        <div class="testimonial-split-layout">
-            <div class="testimonial-left-media">
-                <div class="video-mockup-frame zoom-scroll-container blue-theme">
-                    <img src="https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Surgiments Production Passivation Tracking" class="scroll-zoom-img">
-                    <div class="play-overlay-icon"><i class="fas fa-play"></i></div>
-                </div>
-            </div>
-            <div class="testimonial-right-feed text-track-mouse-tilt">
-                <h3>Practitioner Reviews</h3>
-                <div class="review-bubble mouse-hover-reactive-card red-theme">
-                    <div class="star-rating">★★★★★</div>
-                    <p>"The balanced hand feel and tolerances of their micro-retractors provide superior reliability."</p>
-                    <span class="reviewer-meta">Chief Surgical Logistics Officer, MedTech Europe Group</span>
-                </div>
-            </div>
-        </div>
-    </section>
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-item { text-decoration: none; color: rgba(255, 255, 255, 0.75); padding: 8px 18px; font-weight: 600; font-size: 14px; position: relative; transition: var(--transition-snappy); }
+.nav-item:hover { color: var(--white); }
+.dynamic-underline::after { content: ''; position: absolute; bottom: 0; left: 18px; right: 18px; height: 2px; background: var(--crimson-red); transform: scaleX(0); transition: transform 0.3s ease; transform-origin: right; }
+.nav-item:hover::after { transform: scaleX(1); transform-origin: left; }
 
-    <section class="access-split-grid scroll-trigger-reveal">
-        <div class="map-embed-wrapper">
-            <div class="map-rendering-layer blue-theme">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.821376840733!2d77.78937021118671!3d12.764132819853922!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae7109da6b99a7%3A0x8f61a2e615728d35!2sSURGIMENTS!5e0!3m2!1sen!2s!4v1719240000000!5m2!1sen!2s" 
-                    class="live-google-map-frame" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-                <div class="map-address-card blue-theme">
-                    <h5>SURGIMENTS FACILITY</h5>
-                    <p>No. N/30, SIDCO Industrial Estate, III Phase, Hosur, TN 635126</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="client-auth-card blue-theme">
-            <div class="auth-tabs-header">
-                <button class="auth-tab-btn active" data-target-form="client-form">Client Procurement</button>
-                <button class="auth-tab-btn" data-target-form="admin-form">Administrative Console</button>
-            </div>
-            
-            <div id="client-form" class="auth-panel-node active">
-                <p>Access your configurations and procurement lists.</p>
-                <form class="portal-form-context" onsubmit="event.preventDefault();">
-                    <input type="email" placeholder="Institutional Email Address" required autocomplete="email">
-                    <input type="password" placeholder="Secure Password" required autocomplete="current-password">
-                    <button class="form-submit-trigger red-theme">Authenticate Client Gateway</button>
-                </form>
-            </div>
-            
-            <div id="admin-form" class="auth-panel-node">
-                <p>Access root registers, design data sheets, and logs tracking updates.</p>
-                <form class="portal-form-context" onsubmit="event.preventDefault();">
-                    <input type="email" placeholder="Administrative Identifier" required>
-                    <input type="password" placeholder="Root Network Password" required>
-                    <button class="form-submit-trigger red-theme">Authenticate Admin Session</button>
-                </form>
-            </div>
-        </div>
-    </section>
+.header-dropdown-container { position: relative; }
+.macro-dropdown { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--white); border-radius: 16px; padding: 22px; opacity: 0; visibility: hidden; min-width: 300px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid var(--border-glass); transition: var(--transition-curve); }
+.header-dropdown-container:hover .macro-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(10px); }
+.dropdown-column h4 { font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.dropdown-column a { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-dark); padding: 10px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: var(--transition-snappy); }
+.dropdown-column a:hover { background: var(--bg-light-secondary); color: var(--crimson-red); }
 
-    <footer class="corporate-footer scroll-trigger-reveal">
-        <div class="footer-top-grid">
-            <div class="footer-brand-column">
-                <h3>SURGIMENTS</h3>
-                <p>Meeting the critical technical requirements of medical practitioners completely, efficiently, and flawlessly across global logistics networks since 1964.</p>
-            </div>
-            <div class="footer-nav-column">
-                <h4>Navigation Index</h4>
-                <a href="#home">Home Base</a>
-                <a href="#heritage">About Us</a>
-                <a href="#catalog">Products Portfolio</a>
-            </div>
-            <div class="footer-contact-column">
-                <h4>Industrial Facility Routing</h4>
-                <p><i class="fas fa-envelope"></i> logistics@surgiments.com</p>
-                <p><i class="fas fa-phone-alt"></i> +1 (800) 450-9001</p>
-            </div>
-            <div class="footer-qr-code-column">
-                <div class="qr-code-placeholder-card">
-                    <img src="images/contact-qr.png" alt="Surgiments Address phonebook sync QR" class="physical-qr-image-asset">
-                    <span>Scan to Sync Contact, Map & Facility Phonebook Automatically</span>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom-bar">
-            <p>© 2026 Surgiments. Developed by Swaminathan Leo.</p>
-        </div>
-    </footer>
+.header-right-block { display: flex; align-items: center; gap: 18px; }
+.search-wrapper { position: relative; display: flex; align-items: center; }
+.search-wrapper input { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.15); padding: 10px 18px 10px 40px; border-radius: 50px; font-size: 13px; width: 190px; transition: var(--transition-curve); color: var(--white); outline: none; }
+.search-wrapper input:focus { width: 240px; border-color: var(--white); background: rgba(255,255,255,0.15); }
+.search-wrapper i { position: absolute; left: 16px; color: rgba(255,255,255,0.5); font-size: 13px; }
 
-    <div id="chatbot-icon"><i class="fas fa-robot" id="ai-wave"></i></div>
-    <div id="chatbot-window" class="hidden blue-theme">
-        <div class="chat-header">
-            <div class="ai-title-badge"><span class="live-indicator"></span> SURGIS AI</div>
-            <button id="close-chat"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="chat-body" id="chat-stream-output">
-            <p class="bot-msg">Welcome. Specify an equipment classification query or SKU to verify design applications instantly.</p>
-        </div>
-        <div class="chat-input">
-            <input type="text" id="chat-input-field" placeholder="Ask Surgis AI...">
-            <button id="send-chat"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
+/* Fixed Anchored Controls without physics distortions */
+.auth-buttons { display: flex; gap: 12px; align-items: center; }
+.btn-text { background: none; border: none; font-size: 14px; font-weight: 600; cursor: pointer; color: rgba(255,255,255,0.85); white-space: nowrap; transition: var(--transition-snappy); transform: none !important; }
+.btn-text:hover { color: var(--white); }
+.btn-pill-sm { background: var(--crimson-red); color: var(--white); border: none; padding: 10px 22px; border-radius: 50px; font-size: 13px; font-weight: 600; cursor: pointer; transition: var(--transition-snappy); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transform: none !important; }
+.btn-pill-sm:hover { background: #d4131d; box-shadow: 0 4px 15px rgba(178, 13, 21, 0.4); }
 
-    <script src="script.js"></script>
-</body>
-</html>
+/* ==========================================================================
+   4. FULL-VIEWPORT HERO PROMOTIONAL ACCENTS
+   ========================================================================== */
+.hero-full-viewport { width: 100vw; height: calc(100vh - 90px); margin-top: 90px; position: relative; overflow: hidden; background: var(--bg-dark-core); }
+.slider-draggable-track { width: 100%; height: 100%; position: relative; cursor: grab; }
+.slider-draggable-track:active { cursor: grabbing; }
+.slider-wrapper-inner { display: flex; width: 100%; height: 100%; will-change: transform; }
+.slide-image-node { flex: 0 0 100%; width: 100%; height: 100%; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.slide-image-node img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: transform 0.2s ease-out; }
+
+.slider-pagination-beads { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; }
+.slider-pagination-beads .bead { width: 10px; height: 10px; background: rgba(255, 255, 255, 0.3); border-radius: 50%; cursor: pointer; transition: var(--transition-snappy); }
+.slider-pagination-beads .bead.active { background: var(--crimson-red); transform: scale(1.2); width: 22px; border-radius: 5px; box-shadow: 0 0 10px var(--crimson-red); }
+
+/* ==========================================================================
+   5. SECTIONS REVEAL RULES
+   ========================================================================== */
+.scroll-trigger-reveal { opacity: 0; transform: translateY(40px) scale(0.99); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity; position: relative; }
+.scroll-trigger-reveal.reveal-active { opacity: 1; transform: translateY(0) scale(1); }
+
+/* ==========================================================================
+   6. METALLURGY TILES (SHARP BLUE RECTANGLES)
+   ========================================================================== */
+.credibility-section { padding: 100px 5%; background: var(--white); border-bottom: 1px solid rgba(11,34,68,0.06); }
+.credibility-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+.credibility-container .stat-box { padding: 50px 20px; border-radius: 0px !important; }
+.stat-number-wrapper { font-size: 42px; font-weight: 800; }
+.stat-box p { font-size: 13px; font-weight: 700; margin-top: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ==========================================================================
+   7. INTERACTIVE STACKING CARD DECK MATRIX
+   ========================================================================== */
+.catalog-section { padding: 120px 5%; background: var(--bg-light-secondary); }
+.catalog-header-text { margin-bottom: 60px; }
+.section-tag { font-size: 12px; font-weight: 800; color: var(--crimson-red); letter-spacing: 2px; display: inline-block; margin-bottom: 12px; }
+.catalog-header-text h2 { font-size: 38px; font-weight: 800; color: var(--aegean-blue); letter-spacing: -1px; }
+.catalog-header-text p { color: var(--text-muted); margin-top: 10px; font-size: 16px; }
+
+.stacking-deck-container { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 40px 0; perspective: 1200px; transform-style: preserve-3d; }
+.portfolio-deck-card { background: var(--white); border: 1px solid var(--border-glass); padding: 50px 30px; border-radius: 0px !important; flex: 1; min-height: 350px; position: relative; box-shadow: var(--shadow-premium); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease; will-change: transform, opacity; z-index: 10; cursor: pointer; }
+.card-num-indicator { font-size: 13px; font-weight: 700; color: var(--aegean-blue); margin-bottom: 20px; }
+.portfolio-deck-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 15px; color: var(--aegean-blue); }
+.card-description-summary { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+/* Red hover state transformation mechanics requested */
+.portfolio-deck-card:hover { background: var(--crimson-red) !important; border-color: var(--crimson-red) !important; }
+.portfolio-deck-card:hover h3, .portfolio-deck-card:hover .card-num-indicator, .portfolio-deck-card:hover .card-description-summary p { color: var(--white) !important; }
+
+/* ==========================================================================
+   8. ANATOMICAL LOOKUP MATRIX
+   ========================================================================== */
+.anatomy-section { padding: 120px 5%; background: var(--white); border-bottom: 1px solid rgba(11,34,68,0.06); }
+.anatomy-grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; background: var(--bg-light-secondary); padding: 50px; border-radius: 0px; border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); }
+.anatomy-left-vector h3 { font-size: 28px; font-weight: 800; color: var(--aegean-blue); }
+.anatomy-left-vector p { color: var(--text-muted); margin-top: 10px; font-size: 14px; }
+.real-anatomy-container { position: relative; height: 480px; display: flex; align-items: center; justify-content: center; margin-top: 30px; }
+.real-anatomy-img { height: 90%; width: auto; object-fit: contain; filter: opacity(0.85) drop-shadow(0 0 15px rgba(11, 34, 68, 0.05)); }
+
+.anatomy-svg-hotspot { position: absolute; width: 24px; height: 24px; background: var(--crimson-red); border-radius: 50%; border: 4px solid var(--white); box-shadow: 0 0 15px rgba(178, 13, 21, 0.5); cursor: pointer; transition: 0.3s ease; transform: translate(-50%, -50%); z-index: 10; }
+.anatomy-svg-hotspot:hover, .anatomy-svg-hotspot.active-node { transform: translate(-50%, -50%) scale(1.4); box-shadow: 0 0 0 10px rgba(178, 13, 21, 0.2), 0 0 20px var(--crimson-red); }
+.hover-label-overlay { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); font-size: 12px; font-weight: 700; background: var(--aegean-blue); color: var(--white); padding: 10px 24px; border-radius: 50px; pointer-events: none; text-transform: uppercase; letter-spacing: 1px; }
+
+.anatomy-right-list h4 { font-size: 16px; font-weight: 700; color: var(--aegean-blue); text-transform: uppercase; letter-spacing: 0.8px; border-bottom: 1px solid var(--border-glass); padding-bottom: 18px; }
+.instrument-viewport { height: 380px; overflow-y: auto; padding-right: 12px; margin-top: 24px; }
+.instrument-item { background: var(--white); padding: 22px; border-radius: 0px; margin-bottom: 14px; border: 1px solid var(--border-glass); transition: var(--transition-snappy); position: relative; }
+.instrument-item h5 { font-size: 16px; color: var(--text-dark); font-weight: 600; }
+.instrument-item p { color: var(--text-muted); font-size: 13px; margin-top: 6px; }
+.instrument-item:hover { border-color: var(--crimson-red); transform: translateX(6px); }
+.fallback-prompt { color: var(--text-muted); font-size: 14px; text-align: center; margin-top: 120px; }
+.cached-badge { position: absolute; top: 14px; right: 18px; font-size: 10px; font-weight: 700; color: var(--crimson-red); background: rgba(178, 13, 21, 0.06); padding: 3px 10px; border-radius: 50px; text-transform: uppercase; border: 1px solid rgba(178, 13, 21, 0.15); }
+
+/* ==========================================================================
+   9. REVIEWS SPLIT LAYOUT
+   ========================================================================== */
+.testimonials-section { padding: 120px 5%; background: var(--white); }
+.testimonial-split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.video-mockup-frame { height: 380px; position: relative; }
+.video-mockup-frame img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); }
+.play-overlay-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: var(--aegean-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; color: var(--white); }
+
+.testimonial-right-feed h3 { font-size: 36px; font-weight: 800; color: var(--aegean-blue); margin-bottom: 30px; letter-spacing: -0.5px; }
+.mouse-hover-reactive-card { padding: 40px; border-radius: 0px !important; box-shadow: 0 30px 60px rgba(11,34,68,0.06); transition: transform 0.1s ease-out; will-change: transform; }
+.review-bubble p { font-size: 16px; line-height: 1.7; font-style: italic; }
+.reviewer-meta { display: block; margin-top: 20px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
+
+/* ==========================================================================
+   10. INTEGRATED GRID TERMINAL PLATFORMS (MAP LINK LEFT, CONSOLE RIGHT)
+   ========================================================================== */
+.access-split-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; padding: 120px 5%; background: var(--bg-light-secondary); }
+.map-rendering-layer { height: 100%; width: 100%; border-radius: 0px; position: relative; overflow: hidden; min-height: 480px; box-shadow: var(--shadow-premium); }
+.live-google-map-frame { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 1; }
+.map-address-card { position: absolute; bottom: 25px; left: 25px; right: 25px; padding: 24px; border-radius: 0px; z-index: 2; box-shadow: var(--shadow-premium); }
+.map-address-card h5 { font-size: 15px; font-weight: 700; letter-spacing: 0.5px; }
+.map-address-card p { font-size: 13px; margin-top: 6px; opacity: 0.8; }
+
+.client-auth-card { padding: 45px; border-radius: 0px !important; display: flex; flex-direction: column; justify-content: flex-start; background: var(--white); border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); }
+.auth-tabs-header { display: flex; gap: 10px; border-bottom: 2px solid var(--bg-light-secondary); padding-bottom: 15px; margin-bottom: 25px; }
+.auth-tab-btn { background: none; border: none; padding: 8px 16px; font-size: 13px; font-weight: 700; color: var(--text-muted); cursor: pointer; text-transform: uppercase; }
+.auth-tab-btn.active { color: var(--crimson-red); border-bottom: 2px solid var(--crimson-red); margin-bottom: -17px; }
+
+.auth-panel-node { display: none; }
+.auth-panel-node.active { display: block; }
+.client-auth-card p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; }
+.portal-form-context input { width: 100%; padding: 16px; border-radius: 0px; background: var(--bg-light-secondary); border: 1px solid var(--border-glass); margin-bottom: 16px; outline: none; color: var(--text-dark); font-size: 14px; }
+.portal-form-context input:focus { border-color: var(--aegean-blue); background: var(--white); }
+
+.form-submit-trigger { width: 100%; padding: 16px; border-radius: 0px; border: none; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; cursor: pointer; transition: var(--transition-snappy); }
+.form-submit-trigger:hover { background: #d4131d !important; box-shadow: 0 4px 15px rgba(178,13,21,0.3); }
+
+/* ==========================================================================
+   11. FOOTER AND STRUCTURAL QR ACCENT MODULES
+   ========================================================================== */
+.corporate-footer { background: var(--bg-dark-core); color: var(--white); padding: 100px 5% 40px; border-radius: 0px; }
+.footer-top-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 60px; }
+.footer-brand-column h3 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 20px; }
+.footer-brand-column p { color: #94a3b8; font-size: 14px; line-height: 1.8; }
+.footer-nav-column h4, .footer-contact-column h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; margin-bottom: 26px; letter-spacing: 1px; color: #475569; }
+.footer-nav-column a { display: block; color: #94a3b8; text-decoration: none; margin-bottom: 16px; transition: var(--transition-snappy); font-size: 14px; }
+.footer-nav-column a:hover { color: var(--white); transform: translateX(5px); }
+.footer-contact-column p { color: #94a3b8; font-size: 14px; margin-bottom: 16px; }
+
+/* Right aligned structural slot targeting your phonebook sync asset */
+.footer-qr-code-column { display: flex; justify-content: flex-end; align-items: flex-start; }
+.qr-code-placeholder-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 20px; text-align: center; width: 100%; max-width: 220px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.physical-qr-image-asset { width: 130px; height: 140px; object-fit: contain; background: #ffffff; padding: 6px; }
+.qr-code-placeholder-card span { font-size: 11px; color: #64748b; line-height: 1.4; display: block; font-weight: 500; }
+
+.footer-bottom-bar { border-top: 1px solid rgba(255, 255, 255, 0.03); padding-top: 40px; text-align: center; color: #475569; font-size: 13px; font-weight: 500; }
+
+/* ==========================================================================
+   12. SURGIS FLOATING AI ENGINE SYSTEMS (BOTTOM RIGHT PLACEMENT)
+   ========================================================================== */
+#chatbot-icon { position: fixed; bottom: 35px; right: 35px; width: 60px; height: 60px; background: var(--aegean-blue); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 9999; border: 1px solid rgba(255,255,255,0.1); }
+#chatbot-icon:hover { background: var(--crimson-red); transform: scale(1.05); }
+
+#chatbot-window { position: fixed; bottom: 115px; right: 35px; width: 370px; border-radius: 20px; z-index: 9999; border: 1px solid var(--border-glass); display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s; transform-origin: bottom right; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+#chatbot-window.hidden { opacity: 0; transform: translateY(40px) scale(0.9); pointer-events: none; }
+.chat-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.ai-title-badge { font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+.live-indicator { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; box-shadow: 0 0 10px #22c55e; }
+#close-chat { background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; font-size: 16px; }
+#close-chat:hover { color: var(--white); }
+
+.chat-body { height: 320px; padding: 20px; overflow-y: auto; background: var(--white); display: flex; flex-direction: column; gap: 14px; }
+.bot-msg { background: var(--bg-light-secondary); color: var(--text-dark); padding: 14px 16px; border-radius: 18px 18px 18px 4px; font-size: 13px; max-width: 85%; align-self: flex-start; border: 1px solid var(--border-glass); line-height: 1.5; }
+.user-msg { background: var(--crimson-red); color: var(--white); padding: 14px 16px; border-radius: 18px 18px 4px 18px; font-size: 13px; max-width: 85%; align-self: flex-end; line-height: 1.5; }
+.chat-input { display: flex; padding: 16px; border-top: 1px solid var(--border-glass); gap: 10px; background: var(--bg-light-secondary); }
+.chat-input input { flex: 1; border: none; outline: none; background: var(--white); padding: 12px 20px; border-radius: 50px; font-size: 13px; color: var(--text-dark); border: 1px solid var(--border-glass); }
+.chat-input button { background: var(--aegean-blue); color: var(--white); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.chat-input button:hover { background: var(--crimson-red); }
+
+/* ==========================================================================
+   13. SCREEN VIEWPORT BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 1200px) { .hero-full-viewport { height: 500px; } .hero-section { gap: 40px; padding: 60px 5% 100px; } }
+@media (max-width: 992px) { .nav-links { display: none; } .credibility-container { grid-template-columns: repeat(2, 1fr); gap: 20px; } .stacking-deck-container { flex-direction: column; gap: 20px; } .anatomy-grid-layout, .testimonial-split-layout, .access-split-grid { grid-template-columns: 1fr; gap: 40px; padding: 35px; } .footer-top-grid { grid-template-columns: 1fr; gap: 40px; } }
+@media (max-width: 576px) { .credibility-container { grid-template-columns: 1fr; } .auth-buttons, .search-wrapper { display: none; } #chatbot-window { width: calc(100vw - 40px); right: 20px; bottom: 95px; } }
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-light-secondary); }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
