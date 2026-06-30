@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // --- 1. LOCAL DATA PRE-CACHE FOR HUMAN ANATOMY LOOKUP (FAILSAFE LAYER) ---
+    // --- 1. HUMAN ANATOMY DATABASE PRE-CACHE LAYER ---
     const anatomyPreloadedDatabase = {
         "head": [
             { name: "Micro-Neuro Instruments Kit", sku: "SKU-MN-992", specialty: "Neurosurgery Cranial Open Access" },
@@ -19,7 +19,22 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
     };
 
-    // --- 2. APPLE-STYLE SMOOTH ANCHOR NAV SCROLLING ---
+    // --- 2. MAGNETIC INTERACTION ENGINE FOR CTA ELEMENTS ---
+    const magneticElements = document.querySelectorAll('.magnetic-target');
+    magneticElements.forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            // Pull the element slightly toward the cursor position
+            el.style.transform = `translate(${x * 0.35}px, ${y * 0.35}px) scale(1.02)`;
+        });
+        el.addEventListener('mouseleave', () => {
+            el.style.transform = 'translate(0px, 0px) scale(1)';
+        });
+    });
+
+    // --- 3. APPLE-STYLE INERTIAL ANCHOR NAVIGATION SMOOTHING ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -36,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- 3. HEADER INTERACTION & VIEWPORT PROGRESS BAR ---
+    // --- 4. SCROLL INTERSECTION & RESPONSIVE PROGRESS INDICATORS ---
     const scrollProgressBar = document.getElementById("scroll-progress-bar");
     const mainHeader = document.querySelector(".main-header");
     
@@ -56,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // --- 4. RUNTIME OPTIMIZED BI-DIRECTIONAL SECTION REVEALS ---
+    // --- 5. HIGH-PERFORMANCE REVEAL LOGIC FOR SECTIONS ---
     try {
         const revealElements = document.querySelectorAll(".scroll-trigger-reveal");
         const revealObserver = new IntersectionObserver((entries) => {
@@ -67,17 +82,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     entry.target.classList.remove("reveal-active");
                 }
             });
-        }, {
-            threshold: 0.05,
-            rootMargin: "0px 0px -40px 0px"
-        });
-
+        }, { threshold: 0.05, rootMargin: "0px 0px -40px 0px" });
         revealElements.forEach(element => revealObserver.observe(element));
     } catch (e) {
-        console.error("Section reveal layout tracking initiation error:", e);
+        console.error("Reveal engine setup fault:", e);
     }
 
-    // --- 5. FLUID DRAGGABLE HERO CAROUSEL ENGINE (5s AUTO-CYCLE) ---
+    // --- 6. DRAGGABLE HERO CAROUSEL ENGINE (5s CYCLE LOOP) ---
     const sliderViewport = document.getElementById("hero-draggable-viewport");
     const sliderWrapper = document.getElementById("hero-slider-wrapper");
     const textNodes = document.querySelectorAll(".hero-slide-text-node");
@@ -90,15 +101,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let activeDragMode = false;
     let initialCursorPositionX = 0;
     let cumulativeTransformX = 0;
-    let primaryOffsetTrack = 0;
 
     function renderActiveSlide(index) {
         currentSlideIndex = (index + countTotalSlides) % countTotalSlides;
-        primaryOffsetTrack = -currentSlideIndex * 100;
+        const offsetTrack = -currentSlideIndex * 100;
         
         if (sliderWrapper) {
-            sliderWrapper.style.transition = "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)";
-            sliderWrapper.style.transform = `translateX(${primaryOffsetTrack}%)`;
+            sliderWrapper.style.transition = "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
+            sliderWrapper.style.transform = `translateX(${offsetTrack}%)`;
         }
         
         textNodes.forEach((node, idx) => {
@@ -116,17 +126,17 @@ document.addEventListener("DOMContentLoaded", () => {
         clearInterval(autoCycleTimer);
         autoCycleTimer = setInterval(() => {
             renderActiveSlide(currentSlideIndex + 1);
-        }, 5000); // Continuous 5-Second Interval Cycle Loop
+        }, 5000);
     }
 
     if(sliderViewport && sliderWrapper) {
+        // Desktop Drag System Setup
         sliderViewport.addEventListener("mousedown", (e) => {
             activeDragMode = true;
             clearInterval(autoCycleTimer);
             sliderWrapper.style.transition = "none";
             initialCursorPositionX = e.clientX;
-            const computedStyle = window.getComputedStyle(sliderWrapper);
-            const matrix = new WebKitCSSMatrix(computedStyle.transform);
+            const matrix = new WebKitCSSMatrix(window.getComputedStyle(sliderWrapper).transform);
             cumulativeTransformX = matrix.m41;
             sliderViewport.style.cursor = "grabbing";
         });
@@ -141,7 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!activeDragMode) return;
             activeDragMode = false;
             sliderViewport.style.cursor = "grab";
-            
             const displacementX = e.clientX - initialCursorPositionX;
             const structuralWidth = sliderViewport.offsetWidth;
             
@@ -154,13 +163,13 @@ document.addEventListener("DOMContentLoaded", () => {
             initAutoCycle();
         });
 
+        // Mobile/Tablet Touch System
         sliderViewport.addEventListener("touchstart", (e) => {
             clearInterval(autoCycleTimer);
             activeDragMode = true;
             sliderWrapper.style.transition = "none";
             initialCursorPositionX = e.touches[0].clientX;
-            const computedStyle = window.getComputedStyle(sliderWrapper);
-            const matrix = new WebKitCSSMatrix(computedStyle.transform);
+            const matrix = new WebKitCSSMatrix(window.getComputedStyle(sliderWrapper).transform);
             cumulativeTransformX = matrix.m41;
         }, { passive: true });
 
@@ -187,8 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         beads.forEach(bead => {
             bead.addEventListener("click", () => {
-                const requestedIndex = parseInt(bead.getAttribute("data-slide-index"), 10);
-                renderActiveSlide(requestedIndex);
+                renderActiveSlide(parseInt(bead.getAttribute("data-slide-index"), 10));
                 initAutoCycle();
             });
         });
@@ -196,53 +204,45 @@ document.addEventListener("DOMContentLoaded", () => {
         initAutoCycle();
     }
 
-    // --- 6. HIGH-PERFORMANCE 3D CARD TILT MECHANISM ---
+    // --- 7. HIGH-PERFORMANCE 3D CARD TILT ARCHITECTURE ---
     const tiltCards = document.querySelectorAll(".tilt-target");
     tiltCards.forEach(card => {
         card.addEventListener("mousemove", (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left; 
             const y = e.clientY - rect.top; 
-            
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            const rotateX = ((centerY - y) / centerY) * 10; 
-            const rotateY = ((x - centerX) / centerX) * 10;
+            const rotateX = ((centerY - y) / centerY) * 12; // Amplified rotational impact
+            const rotateY = ((x - centerX) / centerX) * 12;
             
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
         });
-
         card.addEventListener("mouseleave", () => {
             card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
         });
     });
 
-    // --- 7. MOUSE SPOTLIGHT RADIAL GRADIENT MATRIX ---
+    // --- 8. MOUSE SPOTLIGHT RADIAL MOCKUP MATRIX ---
     const spotlightGrid = document.querySelector(".mouse-spotlight-grid");
     if (spotlightGrid) {
         spotlightGrid.addEventListener("mousemove", (e) => {
-            const elements = document.querySelectorAll(".spotlight-element");
-            elements.forEach(el => {
+            document.querySelectorAll(".spotlight-element").forEach(el => {
                 const rect = el.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                el.style.setProperty("--mouse-x", `${x}px`);
-                el.style.setProperty("--mouse-y", `${y}px`);
+                el.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+                el.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
             });
         });
     }
 
-    // --- 8. HERO PARALLAX & SCROLL IMAGE ZOOM ENGINE ---
+    // --- 9. HERO PARALLAX EFFECTS & SCROLL IMAGE ZOOM ---
     const parallaxBg = document.getElementById("hero-parallax-bg");
     const zoomImages = document.querySelectorAll(".scroll-zoom-img");
     
     window.addEventListener("scroll", () => {
         const scrolled = window.pageYOffset;
-        
-        if (parallaxBg) {
-            parallaxBg.style.transform = `translateY(${scrolled * 0.4}px)`;
-        }
+        if (parallaxBg) parallaxBg.style.transform = `translateY(${scrolled * 0.4}px)`;
 
         zoomImages.forEach(img => {
             const parentSection = img.closest("section");
@@ -250,16 +250,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 const rect = parentSection.getBoundingClientRect();
                 if (rect.top < window.innerHeight && rect.bottom > 0) {
                     const viewScrollFactor = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-                    const scaleVal = 1 + (viewScrollFactor * 0.12); 
-                    img.style.transform = `scale(${scaleVal})`;
+                    img.style.transform = `scale(${1 + (viewScrollFactor * 0.15)})`;
                 }
             }
         });
     });
 
-    // --- 9. AUTO-RESETTING NUMERICAL COUNTER ENGINE ---
+    // --- 10. METRICS INTERSECTION COUNT RUNTIMES ---
     try {
-        const countElements = document.querySelectorAll(".count-target");
         const countObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -285,88 +283,66 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         });
-
-        countElements.forEach(el => countObserver.observe(el));
+        document.querySelectorAll(".count-target").forEach(el => countObserver.observe(el));
     } catch (e) {
-        console.error("Metrics engine runtime log tracking error:", e);
+        console.error("Counter engine tracking fail:", e);
     }
 
-    // --- 10. ANATOMY MAPPING LOOKUP CONTEXT PIPELINE WITH DUAL-LAYER FETCH ---
+    // --- 11. ANATOMICAL ENGINE LOOKUP CONTEXTS ---
     try {
         const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
         const fetchTarget = document.getElementById("anatomy-fetch-target");
         const label = document.getElementById("anatomy-ui-marker");
 
-        // Failsafe Rendering Sub-Routine
         function appendFailsafeData(regionCode) {
             fetchTarget.innerHTML = "";
             const staticListing = anatomyPreloadedDatabase[regionCode];
-            
-            if (staticListing && staticListing.length > 0) {
+            if (staticListing) {
                 staticListing.forEach(item => {
                     fetchTarget.innerHTML += `
                         <div class="instrument-item">
                             <h5>${item.name} (${item.sku})</h5>
                             <p>${item.specialty}</p>
-                            <span class="cached-badge"><i class="fas fa-shield-alt"></i> Local Verified Spec</span>
+                            <span class="cached-badge"><i class="fas fa-shield-alt"></i> Cached Data Spec</span>
                         </div>`;
                 });
-            } else {
-                fetchTarget.innerHTML = `<div class="fallback-prompt">No instruments found cataloged for ${regionCode}.</div>`;
             }
         }
 
         hotspots.forEach(spot => {
             spot.addEventListener("mouseenter", (e) => {
-                if (label) {
-                    label.innerText = e.target.getAttribute("data-anatomy-region").toUpperCase();
-                }
+                if (label) label.innerText = e.target.getAttribute("data-anatomy-region").toUpperCase();
             });
-
             spot.addEventListener("mouseleave", () => {
-                if (label) {
-                    label.innerText = "Select Anatomy Target";
-                }
+                if (label) label.innerText = "Select Anatomy Target";
             });
-
             spot.addEventListener("click", async (e) => {
                 hotspots.forEach(h => h.classList.remove("active-node"));
                 e.target.classList.add("active-node");
                 const region = e.target.getAttribute("data-anatomy-region");
 
                 if (fetchTarget) {
-                    fetchTarget.innerHTML = `<div class="fallback-prompt">Querying production database for ${region}...</div>`;
-
+                    fetchTarget.innerHTML = `<div class="fallback-prompt">Querying database for ${region}...</div>`;
                     try {
-                        // Attempt Primary Live Database API Connection Loop
                         const res = await fetch(`http://127.0.0.1:8000/api/instruments/?anatomy=${region}`);
-                        if (!res.ok) throw new Error("API Offline");
-                        
+                        if (!res.ok) throw new Error();
                         const data = await res.json();
                         fetchTarget.innerHTML = "";
-
-                        if (data.length === 0) {
-                            appendFailsafeData(region);
-                            return;
-                        }
-
+                        if (data.length === 0) { appendFailsafeData(region); return; }
                         data.forEach(item => {
                             fetchTarget.innerHTML += `<div class="instrument-item"><h5>${item.name} (${item.sku})</h5><p>${item.specialty}</p></div>`;
                         });
-
                     } catch (err) {
-                        // Smooth Fallback to Preloaded Anatomy Data Structure Layers
-                        console.warn(`Primary database connection fault. Triggering local data layer for: ${region}`);
                         appendFailsafeData(region);
                     }
                 }
             });
         });
     } catch (e) {
-        console.error("Anatomy mapping module initialization pipeline error:", e);
+        console.error("Anatomy framework loop initialization fault:", e);
     }
 
-    // --- 11. SURGIS AI CONVERSATIONAL DRIVER ---
+    // --- 12. SURGIS AI CONVERSATIONAL FLOATING LOGIC ---
     try {
         const chatIcon = document.getElementById("chatbot-icon");
         const chatWindow = document.getElementById("chatbot-window");
@@ -395,7 +371,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ message: text })
                 });
-
                 const data = await res.json();
                 outputStream.innerHTML += `<p class="bot-msg">${data.reply}</p>`;
             } catch (err) {
@@ -405,12 +380,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (sendBtn) sendBtn.addEventListener("click", sendChat);
-        if (inputField) {
-            inputField.addEventListener("keypress", (e) => {
-                if (e.key === "Enter") sendChat();
-            });
-        }
+        if (inputField) inputField.addEventListener("keypress", (e) => { if (e.key === "Enter") sendChat(); });
     } catch (e) {
-        console.error("Chatbot loop execution handling block error:", e);
+        console.error("Chatbot loop execution handling error:", e);
     }
 });
