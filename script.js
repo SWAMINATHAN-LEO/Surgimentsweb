@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // --- 1. HUMAN ANATOMY DATABASE PRE-CACHE LAYER ---
+    // --- 1. HUMAN ANATOMY DATABASE RUNTIME FAILSAFE CACHE ---
     const anatomyPreloadedDatabase = {
         "head": [
             { name: "Micro-Neuro Instruments Kit", sku: "SKU-MN-992", specialty: "Neurosurgery Cranial Open Access" },
@@ -19,22 +19,21 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
     };
 
-    // --- 2. MAGNETIC INTERACTION ENGINE FOR CTA ELEMENTS ---
+    // --- 2. LUXURY MAGNETIC TARGET CONTROLLER ---
     const magneticElements = document.querySelectorAll('.magnetic-target');
     magneticElements.forEach(el => {
         el.addEventListener('mousemove', (e) => {
             const rect = el.getBoundingClientRect();
             const x = e.clientX - rect.left - rect.width / 2;
             const y = e.clientY - rect.top - rect.height / 2;
-            // Pull the element slightly toward the cursor position
-            el.style.transform = `translate(${x * 0.35}px, ${y * 0.35}px) scale(1.02)`;
+            el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) scale(1.02)`;
         });
         el.addEventListener('mouseleave', () => {
             el.style.transform = 'translate(0px, 0px) scale(1)';
         });
     });
 
-    // --- 3. APPLE-STYLE INERTIAL ANCHOR NAVIGATION SMOOTHING ---
+    // --- 3. INERTIAL ANCHOR SCROLLING SMOOTHER ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -51,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- 4. SCROLL INTERSECTION & RESPONSIVE PROGRESS INDICATORS ---
+    // --- 4. VIEWPORT PROGRESS INDICATORS ---
     const scrollProgressBar = document.getElementById("scroll-progress-bar");
     const mainHeader = document.querySelector(".main-header");
     
@@ -71,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // --- 5. HIGH-PERFORMANCE REVEAL LOGIC FOR SECTIONS ---
+    // --- 5. BI-DIRECTIONAL SECTIONS REVEAL PIPELINE ---
     try {
         const revealElements = document.querySelectorAll(".scroll-trigger-reveal");
         const revealObserver = new IntersectionObserver((entries) => {
@@ -85,10 +84,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }, { threshold: 0.05, rootMargin: "0px 0px -40px 0px" });
         revealElements.forEach(element => revealObserver.observe(element));
     } catch (e) {
-        console.error("Reveal engine setup fault:", e);
+        console.error("Reveal engine error:", e);
     }
 
-    // --- 6. DRAGGABLE HERO CAROUSEL ENGINE (5s CYCLE LOOP) ---
+    // --- 6. DRAGGABLE HERO CAROUSEL CONTROLLER (5s TIMEOUT CYCLE) ---
     const sliderViewport = document.getElementById("hero-draggable-viewport");
     const sliderWrapper = document.getElementById("hero-slider-wrapper");
     const textNodes = document.querySelectorAll(".hero-slide-text-node");
@@ -130,7 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if(sliderViewport && sliderWrapper) {
-        // Desktop Drag System Setup
         sliderViewport.addEventListener("mousedown", (e) => {
             activeDragMode = true;
             clearInterval(autoCycleTimer);
@@ -163,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
             initAutoCycle();
         });
 
-        // Mobile/Tablet Touch System
+        // Touch Triggers for Portable Devices
         sliderViewport.addEventListener("touchstart", (e) => {
             clearInterval(autoCycleTimer);
             activeDragMode = true;
@@ -204,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
         initAutoCycle();
     }
 
-    // --- 7. HIGH-PERFORMANCE 3D CARD TILT ARCHITECTURE ---
+    // --- 7. ACCELERATED 3D TILT MATRIX ---
     const tiltCards = document.querySelectorAll(".tilt-target");
     tiltCards.forEach(card => {
         card.addEventListener("mousemove", (e) => {
@@ -214,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            const rotateX = ((centerY - y) / centerY) * 12; // Amplified rotational impact
+            const rotateX = ((centerY - y) / centerY) * 12; 
             const rotateY = ((x - centerX) / centerX) * 12;
             
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
@@ -224,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- 8. MOUSE SPOTLIGHT RADIAL MOCKUP MATRIX ---
+    // --- 8. MOUSE SPOTLIGHT DRIVER ---
     const spotlightGrid = document.querySelector(".mouse-spotlight-grid");
     if (spotlightGrid) {
         spotlightGrid.addEventListener("mousemove", (e) => {
@@ -236,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- 9. HERO PARALLAX EFFECTS & SCROLL IMAGE ZOOM ---
+    // --- 9. HERO PARALLAX & VARIABLE ZOOM ARTIFACTS ---
     const parallaxBg = document.getElementById("hero-parallax-bg");
     const zoomImages = document.querySelectorAll(".scroll-zoom-img");
     
@@ -256,7 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- 10. METRICS INTERSECTION COUNT RUNTIMES ---
+    // --- 10. METRICS COUNT ENGINE ---
     try {
         const countObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -285,10 +283,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         document.querySelectorAll(".count-target").forEach(el => countObserver.observe(el));
     } catch (e) {
-        console.error("Counter engine tracking fail:", e);
+        console.error("Counter run failure:", e);
     }
 
-    // --- 11. ANATOMICAL ENGINE LOOKUP CONTEXTS ---
+    // --- 11. ANATOMICAL LOOKUP ENGINE & DUAL LAYERS ---
     try {
         const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
         const fetchTarget = document.getElementById("anatomy-fetch-target");
@@ -303,7 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="instrument-item">
                             <h5>${item.name} (${item.sku})</h5>
                             <p>${item.specialty}</p>
-                            <span class="cached-badge"><i class="fas fa-shield-alt"></i> Cached Data Spec</span>
+                            <span class="cached-badge"><i class="fas fa-shield-alt"></i> Verified Specialty</span>
                         </div>`;
                 });
             }
@@ -322,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const region = e.target.getAttribute("data-anatomy-region");
 
                 if (fetchTarget) {
-                    fetchTarget.innerHTML = `<div class="fallback-prompt">Querying database for ${region}...</div>`;
+                    fetchTarget.innerHTML = `<div class="fallback-prompt">Querying master specification indexes for ${region}...</div>`;
                     try {
                         const res = await fetch(`http://127.0.0.1:8000/api/instruments/?anatomy=${region}`);
                         if (!res.ok) throw new Error();
@@ -339,10 +337,10 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     } catch (e) {
-        console.error("Anatomy framework loop initialization fault:", e);
+        console.error("Anatomy loop fail:", e);
     }
 
-    // --- 12. SURGIS AI CONVERSATIONAL FLOATING LOGIC ---
+    // --- 12. FLOATING AI CONVERSATIONAL INTERFACES ---
     try {
         const chatIcon = document.getElementById("chatbot-icon");
         const chatWindow = document.getElementById("chatbot-window");
@@ -382,6 +380,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (sendBtn) sendBtn.addEventListener("click", sendChat);
         if (inputField) inputField.addEventListener("keypress", (e) => { if (e.key === "Enter") sendChat(); });
     } catch (e) {
-        console.error("Chatbot loop execution handling error:", e);
+        console.error("Chatbot system execution handling fault:", e);
     }
 });
