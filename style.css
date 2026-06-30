@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /* ==========================================================================
-   1. BRAND VARIABLE MATRIX (AEGEAN BLUE & METALLIC RED THEME ARCHE-TYPES)
+   1. BRAND VARIABLE MATRIX (AEGEAN BLUE & METALLIC RED CORES)
    ========================================================================== */
 :root {
     --bg-dark-core: #020612;
@@ -24,7 +24,7 @@
 }
 
 /* ==========================================================================
-   2. GLOBAL CANVASES & VIEWPORT ELEMENTS
+   2. GLOBAL CANVASES & VIEWPORT ELEMENTS (ROUNDED EDGES ENFORCED)
    ========================================================================== */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 html { scroll-behavior: smooth; }
@@ -36,13 +36,14 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 .topo-right { top: 25%; right: -8%; background-image: linear-gradient(220deg, #0066ff 0%, #020c22 60%, transparent 100%); clip-path: polygon(30% 0%, 100% 20%, 100% 100%, 0% 70%); }
 .ambient-luminous-flare { position: fixed; width: 700px; height: 700px; border-radius: 50%; top: 20%; left: 15%; background: radial-gradient(circle, rgba(0,102,255,0.04) 0%, transparent 70%); pointer-events: none; z-index: 0; filter: blur(100px); }
 
-.blue-theme { background: var(--aegean-blue) !important; color: var(--white) !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 0px !important; }
+/* Unified Global Rounded Corner Mixins for Squares and Rectangles */
+.blue-theme { background: var(--aegean-blue) !important; color: var(--white) !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 20px !important; }
 .blue-theme h5, .blue-theme h3, .blue-theme p, .blue-theme .stat-number-wrapper, .blue-theme .map-address-card h5 { color: var(--white) !important; }
 
-.red-theme { background: var(--crimson-red) !important; color: var(--white) !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 0px !important; }
+.red-theme { background: var(--crimson-red) !important; color: var(--white) !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 20px !important; }
 .red-theme h3, .red-theme p, .red-theme .reviewer-meta { color: var(--white) !important; }
 
-.glass-hull { background: var(--card-surface); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); transition: var(--transition-curve); }
+.glass-hull { background: var(--card-surface); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); border-radius: 20px !important; transition: var(--transition-curve); }
 
 /* ==========================================================================
    3. CLINICAL NAVBAR HEADER (SOLID AEGEAN BLUE & FIXED OVERLAP PATCH)
@@ -50,7 +51,6 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 .main-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 4%; background: var(--aegean-blue); position: fixed; width: 100%; top: 0; left: 0; height: 80px; z-index: 9999; border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
 .header-left-brand { display: flex; align-items: center; }
 
-/* Fixed Image Dimensions to Stop Logo Scaling Defect seen in image_800d3d */
 .header-left-brand img { 
     height: 52px !important; 
     max-height: 52px !important; 
@@ -65,11 +65,11 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 .dynamic-underline::after { content: ''; position: absolute; bottom: 0; left: 18px; right: 18px; height: 2px; background: var(--crimson-red); transform: scaleX(0); transition: transform 0.3s ease; transform-origin: right; }
 .nav-item:hover::after { transform: scaleX(1); transform-origin: left; }
 
+.macro-dropdown { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--white); border-radius: 20px; padding: 22px; opacity: 0; visibility: hidden; min-width: 300px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid var(--border-glass); transition: var(--transition-curve); }
 .header-dropdown-container { position: relative; }
-.macro-dropdown { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--white); border-radius: 16px; padding: 22px; opacity: 0; visibility: hidden; min-width: 300px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid var(--border-glass); transition: var(--transition-curve); }
 .header-dropdown-container:hover .macro-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(10px); }
 .dropdown-column h4 { font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
-.dropdown-column a { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-dark); padding: 10px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: var(--transition-snappy); }
+.dropdown-column a { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-dark); padding: 10px; border-radius: 12px; font-size: 14px; font-weight: 500; transition: var(--transition-snappy); }
 .dropdown-column a:hover { background: var(--bg-light-secondary); color: var(--crimson-red); }
 
 .header-right-block { display: flex; align-items: center; gap: 18px; }
@@ -85,14 +85,14 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 .btn-pill-sm:hover { background: #d4131d; box-shadow: 0 4px 15px rgba(178, 13, 21, 0.4); }
 
 /* ==========================================================================
-   4. FULL-VIEWPORT HERO HORIZONTAL SLIDER RE-STABILIZATION
+   4. FULL-VIEWPORT HERO HORIZONTAL SLIDER (IMAGE RESOLUTION FIXES)
    ========================================================================== */
 .hero-full-viewport { 
     width: 100vw; 
     height: calc(100vh - 80px); 
     position: relative; 
     overflow: hidden; 
-    background: #040914; /* Stably masks alternate asset loads */
+    background: #040914; 
     z-index: 2;
 }
 .slider-draggable-track { width: 100%; height: 100%; position: relative; cursor: grab; }
@@ -111,14 +111,14 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
     background: #02050d;
 }
 
-/* Forces structural rendering limits even if GitHub asset paths break */
+/* Explicit scaling rules guaranteeing image structural containment */
 .slide-image-node img { 
     width: 100% !important; 
     height: 100% !important; 
+    min-width: 100% !important;
     min-height: 100% !important;
     object-fit: cover !important; 
     pointer-events: none; 
-    transition: transform 0.2s ease-out; 
 }
 
 .slider-pagination-beads { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; }
@@ -134,16 +134,16 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 .scroll-trigger-reveal.reveal-active { opacity: 1; transform: translateY(0) scale(1); }
 
 /* ==========================================================================
-   6. METALLURGY TILES
+   6. METALLURGY TILES (ROUNDED RECTANGLES)
    ========================================================================== */
 .credibility-section { padding: 100px 5%; background: var(--white); border-bottom: 1px solid rgba(11,34,68,0.06); position: relative; z-index: 10; }
 .credibility-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
-.credibility-container .stat-box { padding: 50px 20px; border-radius: 0px !important; }
+.credibility-container .stat-box { padding: 50px 20px; border-radius: 20px !important; }
 .stat-number-wrapper { font-size: 42px; font-weight: 800; }
 .stat-box p { font-size: 13px; font-weight: 700; margin-top: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
 
 /* ==========================================================================
-   7. INTERACTIVE STACKING CARD DECK MATRIX
+   7. INTERACTIVE STACKING DECK CARD MATRIX (ROUNDED CONTOURS & HOVER PHYSICS)
    ========================================================================== */
 .catalog-section { padding: 120px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; }
 .catalog-header-text { margin-bottom: 60px; }
@@ -151,20 +151,39 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 .catalog-header-text h2 { font-size: 38px; font-weight: 800; color: var(--aegean-blue); letter-spacing: -1px; }
 .catalog-header-text p { color: var(--text-muted); margin-top: 10px; font-size: 16px; }
 
-.stacking-deck-container { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 40px 0; perspective: 1200px; transform-style: preserve-3d; }
-.portfolio-deck-card { background: var(--white); border: 1px solid var(--border-glass); padding: 50px 30px; border-radius: 0px !important; flex: 1; min-height: 350px; position: relative; box-shadow: var(--shadow-premium); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease; will-change: transform, opacity; z-index: 10; cursor: pointer; }
-.card-num-indicator { font-size: 13px; font-weight: 700; color: var(--aegean-blue); margin-bottom: 20px; }
+.stacking-deck-container { display: flex; justify-content: center; align-items: center; gap: 24px; padding: 40px 0; perspective: 1200px; transform-style: preserve-3d; }
+
+.portfolio-deck-card { 
+    background: var(--white); 
+    border: 1px solid var(--border-glass); 
+    padding: 50px 30px; 
+    border-radius: 20px !important; /* Premium rounded corner styling */
+    flex: 1; 
+    min-height: 350px; 
+    position: relative; 
+    box-shadow: var(--shadow-premium); 
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; 
+    will-change: transform, opacity; 
+    z-index: 10; 
+    cursor: pointer; 
+}
+.card-num-indicator { font-size: 14px; font-weight: 800; color: var(--crystal-blue-bright); margin-bottom: 20px; }
 .portfolio-deck-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 15px; color: var(--aegean-blue); }
 .card-description-summary { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
 
-.portfolio-deck-card:hover { background: var(--crimson-red) !important; border-color: var(--crimson-red) !important; }
+/* Premium Crimson Red Interactive Hover Shifting Matrices */
+.portfolio-deck-card:hover { 
+    background: var(--crimson-red) !important; 
+    border-color: var(--crimson-red) !important; 
+    box-shadow: 0 30px 60px rgba(178, 13, 21, 0.25) !important;
+}
 .portfolio-deck-card:hover h3, .portfolio-deck-card:hover .card-num-indicator, .portfolio-deck-card:hover .card-description-summary p { color: var(--white) !important; }
 
 /* ==========================================================================
-   8. ANATOMICAL LOOKUP MATRIX
+   8. ANATOMICAL LOOKUP MATRIX (ROUNDED CONTOURS)
    ========================================================================== */
 .anatomy-section { padding: 120px 5%; background: var(--white); border-bottom: 1px solid rgba(11,34,68,0.06); position: relative; z-index: 10; }
-.anatomy-grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; background: var(--bg-light-secondary); padding: 50px; border-radius: 0px; border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); }
+.anatomy-grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; background: var(--bg-light-secondary); padding: 50px; border-radius: 20px; border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); }
 .anatomy-left-vector h3 { font-size: 28px; font-weight: 800; color: var(--aegean-blue); }
 .anatomy-left-vector p { color: var(--text-muted); margin-top: 10px; font-size: 14px; }
 .real-anatomy-container { position: relative; height: 480px; display: flex; align-items: center; justify-content: center; margin-top: 30px; }
@@ -176,7 +195,7 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 
 .anatomy-right-list h4 { font-size: 16px; font-weight: 700; color: var(--aegean-blue); text-transform: uppercase; letter-spacing: 0.8px; border-bottom: 1px solid var(--border-glass); padding-bottom: 18px; }
 .instrument-viewport { height: 380px; overflow-y: auto; padding-right: 12px; margin-top: 24px; }
-.instrument-item { background: var(--white); padding: 22px; border-radius: 0px; margin-bottom: 14px; border: 1px solid var(--border-glass); transition: var(--transition-snappy); position: relative; }
+.instrument-item { background: var(--white); padding: 22px; border-radius: 12px; margin-bottom: 14px; border: 1px solid var(--border-glass); transition: var(--transition-snappy); position: relative; }
 .instrument-item h5 { font-size: 16px; color: var(--text-dark); font-weight: 600; }
 .instrument-item p { color: var(--text-muted); font-size: 13px; margin-top: 6px; }
 .instrument-item:hover { border-color: var(--crimson-red); transform: translateX(6px); }
@@ -188,26 +207,26 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
    ========================================================================== */
 .testimonials-section { padding: 120px 5%; background: var(--white); position: relative; z-index: 10; }
 .testimonial-split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-.video-mockup-frame { height: 380px; position: relative; }
+.video-mockup-frame { height: 380px; position: relative; border-radius: 20px; overflow: hidden; }
 .video-mockup-frame img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); }
 .play-overlay-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: var(--aegean-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; color: var(--white); }
 
 .testimonial-right-feed h3 { font-size: 36px; font-weight: 800; color: var(--aegean-blue); margin-bottom: 30px; letter-spacing: -0.5px; }
-.mouse-hover-reactive-card { padding: 40px; border-radius: 0px !important; box-shadow: 0 30px 60px rgba(11,34,68,0.06); transition: transform 0.1s ease-out; will-change: transform; }
+.mouse-hover-reactive-card { padding: 40px; border-radius: 20px !important; box-shadow: 0 30px 60px rgba(11,34,68,0.06); transition: transform 0.1s ease-out; will-change: transform; }
 .review-bubble p { font-size: 16px; line-height: 1.7; font-style: italic; }
 .reviewer-meta { display: block; margin-top: 20px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
 
 /* ==========================================================================
-   10. COMBINED LIVE MAP & TERMINAL ACCESS SPACE
+   10. COMBINED LIVE MAP & ACCESS PORTALS (ROUNDED CONTOURS)
    ========================================================================== */
 .access-split-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; padding: 120px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; }
-.map-rendering-layer { height: 100%; width: 100%; border-radius: 0px; position: relative; overflow: hidden; min-height: 480px; box-shadow: var(--shadow-premium); }
+.map-rendering-layer { height: 100%; width: 100%; border-radius: 20px; position: relative; overflow: hidden; min-height: 480px; box-shadow: var(--shadow-premium); }
 .live-google-map-frame { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 1; }
-.map-address-card { position: absolute; bottom: 25px; left: 25px; right: 25px; padding: 24px; border-radius: 0px; z-index: 2; box-shadow: var(--shadow-premium); }
+.map-address-card { position: absolute; bottom: 25px; left: 25px; right: 25px; padding: 24px; border-radius: 12px; z-index: 2; box-shadow: var(--shadow-premium); }
 .map-address-card h5 { font-size: 15px; font-weight: 700; letter-spacing: 0.5px; }
 .map-address-card p { font-size: 13px; margin-top: 6px; opacity: 0.8; }
 
-.client-auth-card { padding: 45px; border-radius: 0px !important; display: flex; flex-direction: column; justify-content: flex-start; background: var(--white); border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); }
+.client-auth-card { padding: 45px; border-radius: 20px !important; display: flex; flex-direction: column; justify-content: flex-start; background: var(--white); border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); }
 .auth-tabs-header { display: flex; gap: 10px; border-bottom: 2px solid var(--bg-light-secondary); padding-bottom: 15px; margin-bottom: 25px; }
 .auth-tab-btn { background: none; border: none; padding: 8px 16px; font-size: 13px; font-weight: 700; color: var(--text-muted); cursor: pointer; text-transform: uppercase; }
 .auth-tab-btn.active { color: var(--crimson-red); border-bottom: 2px solid var(--crimson-red); margin-bottom: -17px; }
@@ -215,17 +234,17 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 .auth-panel-node { display: none; }
 .auth-panel-node.active { display: block; }
 .client-auth-card p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; }
-.portal-form-context input { width: 100%; padding: 16px; border-radius: 0px; background: var(--bg-light-secondary); border: 1px solid var(--border-glass); margin-bottom: 16px; outline: none; color: var(--text-dark); font-size: 14px; }
+.portal-form-context input { width: 100%; padding: 16px; border-radius: 12px; background: var(--bg-light-secondary); border: 1px solid var(--border-glass); margin-bottom: 16px; outline: none; color: var(--text-dark); font-size: 14px; }
 .portal-form-context input:focus { border-color: var(--aegean-blue); background: var(--white); }
 
-.form-submit-trigger { width: 100%; padding: 16px; border-radius: 0px; border: none; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; cursor: pointer; transition: var(--transition-snappy); }
+.form-submit-trigger { width: 100%; padding: 16px; border-radius: 12px; border: none; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; cursor: pointer; transition: var(--transition-snappy); }
 .form-submit-trigger:hover { background: #d4131d !important; box-shadow: 0 4px 15px rgba(178,13,21,0.3); }
 
 /* ==========================================================================
-   11. FOOTER AND STRUCTURAL QR ACCENT MODULES
+   11. FOOTER AND MAGNIFIED QR PLATFORMS
    ========================================================================== */
-.corporate-footer { background: var(--bg-dark-core); color: var(--white); padding: 100px 5% 40px; border-radius: 0px; position: relative; z-index: 10; }
-.footer-top-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 60px; }
+.corporate-footer { background: var(--bg-dark-core); color: var(--white); padding: 100px 5% 40px; border-radius: 40px 40px 0 0; position: relative; z-index: 10; }
+.footer-top-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.8fr; gap: 40px; margin-bottom: 60px; }
 .footer-brand-column h3 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 20px; }
 .footer-brand-column p { color: #94a3b8; font-size: 14px; line-height: 1.8; }
 .footer-nav-column h4, .footer-contact-column h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; margin-bottom: 26px; letter-spacing: 1px; color: #475569; }
@@ -233,15 +252,39 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 .footer-nav-column a:hover { color: var(--white); transform: translateX(5px); }
 .footer-contact-column p { color: #94a3b8; font-size: 14px; margin-bottom: 16px; }
 
+/* Magnified Highly Accessible Right-Aligned QR Target Box */
 .footer-qr-code-column { display: flex; justify-content: flex-end; align-items: flex-start; }
-.qr-code-placeholder-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 20px; text-align: center; width: 100%; max-width: 220px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-.physical-qr-image-asset { width: 130px; height: 140px; object-fit: contain; background: #ffffff; padding: 6px; }
-.qr-code-placeholder-card span { font-size: 11px; color: #64748b; line-height: 1.4; display: block; font-weight: 500; }
+
+.qr-code-placeholder-card { 
+    background: rgba(255,255,255,0.05); 
+    border: 1px solid rgba(255,255,255,0.1); 
+    padding: 24px; 
+    text-align: center; 
+    width: 100%; 
+    max-width: 250px; /* Expanded Width Parameters */
+    border-radius: 20px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 14px; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+
+.physical-qr-image-asset { 
+    width: 170px !important; /* Maximized Image Frame Sizing */
+    height: 170px !important; 
+    object-fit: contain; 
+    background: #ffffff; 
+    padding: 8px; 
+    border-radius: 12px;
+}
+
+.qr-code-placeholder-card span { font-size: 11px; color: #94a3b8; line-height: 1.4; display: block; font-weight: 600; }
 
 .footer-bottom-bar { border-top: 1px solid rgba(255, 255, 255, 0.03); padding-top: 40px; text-align: center; color: #475569; font-size: 13px; font-weight: 500; }
 
 /* ==========================================================================
-   12. SECURED SURGIS DIALOG WINDOW SYSTEM
+   12. SECURED SURGIS DIALOG WINDOW SYSTEM (BOTTOM RIGHT PLACEMENT)
    ========================================================================== */
 #chatbot-icon { position: fixed; bottom: 35px; right: 35px; width: 60px; height: 60px; background: var(--aegean-blue); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 10000; border: 1px solid rgba(255,255,255,0.1); }
 #chatbot-icon:hover { background: var(--crimson-red); transform: scale(1.05); }
@@ -262,9 +305,11 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 .chat-input button { background: var(--aegean-blue); color: var(--white); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 .chat-input button:hover { background: var(--crimson-red); }
 
-/* Screen Breakpoints */
+/* ==========================================================================
+   13. SCREEN VIEWPORT BREAKPOINTS
+   ========================================================================== */
 @media (max-width: 1200px) { .hero-full-viewport { height: 500px; } }
-@media (max-width: 992px) { .nav-links { display: none; } .credibility-container { grid-template-columns: repeat(2, 1fr); gap: 20px; } .stacking-deck-container { flex-direction: column; gap: 20px; } .anatomy-grid-layout, .testimonial-split-layout, .access-split-grid { grid-template-columns: 1fr; gap: 40px; padding: 35px; } .footer-top-grid { grid-template-columns: 1fr; gap: 40px; } }
+@media (max-width: 992px) { .nav-links { display: none; } .credibility-container { grid-template-columns: repeat(2, 1fr); gap: 20px; } .stacking-deck-container { flex-direction: column; gap: 20px; } .anatomy-grid-layout, .testimonial-split-layout, .access-split-grid { grid-template-columns: 1fr; gap: 40px; padding: 35px; } .footer-top-grid { grid-template-columns: 1fr; gap: 40px; } .qr-code-placeholder-card { max-width: 100%; } }
 @media (max-width: 576px) { .credibility-container { grid-template-columns: 1fr; } .auth-buttons, .search-wrapper { display: none; } #chatbot-window { width: calc(100vw - 40px); right: 20px; bottom: 95px; } }
 
 ::-webkit-scrollbar { width: 8px; }
