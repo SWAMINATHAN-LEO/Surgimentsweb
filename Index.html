@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surgiments | Precision Surgical Instruments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="scroll-progress-bar"></div>
+
+    <header class="main-header">
+        <div class="header-spacer"></div> 
+        
+        <nav class="nav-links">
+            <a href="#home" class="nav-item">Home</a>
+            <a href="#about" class="nav-item">About Us</a>
+            
+            <div class="header-dropdown-container">
+                <a href="#catalog" class="nav-item drop-trigger">Products <i class="fas fa-chevron-down"></i></a>
+                <div class="macro-dropdown">
+                    <div class="dropdown-column">
+                        <h4>Classification Categories</h4>
+                        <a href="#catalog"><i class="fas fa-th-large"></i> Browse Categories</a>
+                        <a href="#catalog"><i class="fas fa-stethoscope"></i> Explore Specialties</a>
+                        <a href="#catalog"><i class="fas fa-box-open"></i> Find Procedure Kits</a>
+                        <a href="#catalog"><i class="fas fa-stream"></i> Product Lines</a>
+                        <a href="#catalog"><i class="fas fa-microchip"></i> Manufacturing Series</a>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#services" class="nav-item">Services</a>
+            <a href="#testimonials" class="nav-item">Testimonials</a>
+            <a href="#contact" class="nav-item">Contact Us</a>
+        </nav>
+
+        <div class="header-right-block">
+            <div class="search-wrapper">
+                <input type="text" placeholder="Search instruments..." id="global-search">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="auth-buttons">
+                <button class="btn-text">Sign In</button>
+                <button class="btn-pill-sm">Sign Up</button>
+            </div>
+            <div class="social-plugins">
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="centered-brand-logo scroll-trigger-reveal">
+        <img src="images/logo.png" alt="Surgiments Logo" id="main-brand-logo">
+    </div>
+
+    <section id="home" class="hero-section scroll-trigger-reveal">
+        <div class="hero-parallax-background" id="hero-parallax-bg"></div>
+        <div class="hero-left-text">
+            <div class="trust-indicator"><span class="pulse-dot"></span> Dynamic Manufacturing Innovation</div>
+            <div class="slider-text-window">
+                <h1 id="hero-title" class="slide-text-active">Precision surgical instruments.</h1>
+                <p id="hero-subtitle" class="slide-text-active">Engineered to flawless tolerances for mission-critical operating environments worldwide.</p>
+            </div>
+            <div class="hero-cta-group">
+                <a href="#catalog" class="btn-gradient-animated">Explore Portfolio <i class="fas fa-arrow-right"></i></a>
+                <button class="btn-pill-secondary">Technical Specs</button>
+            </div>
+        </div>
+        <div class="hero-right-visual">
+            <div class="slider-image-container zoom-scroll-container">
+                <img src="https://images.pexels.com/photos/3845115/pexels-photo-3845115.jpeg?auto=compress&cs=tinysrgb&w=1280" alt="Surgiments Corporate Presentation" id="hero-img-slide" class="scroll-zoom-img">
+            </div>
+        </div>
+    </section>
+
+    <section class="credibility-section scroll-trigger-reveal">
+        <div class="credibility-container">
+            <div class="stat-box floating-glass-card tilt-target">
+                <div class="stat-number-wrapper"><span class="count-target" data-target="60">0</span>+</div>
+                <p>Years of Heritage</p>
+            </div>
+            <div class="stat-box floating-glass-card tilt-target">
+                <div class="stat-number-wrapper"><span class="count-target" data-target="100000">0</span>+</div>
+                <p>Instrument Variants</p>
+            </div>
+            <div class="stat-box floating-glass-card tilt-target">
+                <div class="stat-number-wrapper">ISO Verified</div>
+                <p>9001:2018 Quality Control</p>
+            </div>
+            <div class="stat-box floating-glass-card tilt-target">
+                <div class="stat-number-wrapper">CE & FDA</div>
+                <p>Compliant Production</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="catalog" class="catalog-section scroll-trigger-reveal">
+        <div class="catalog-header-text">
+            <span class="section-tag">COMPLETE PORTFOLIO</span>
+            <h2>Surgical Instrument Catalog</h2>
+            <p>Over 100,000 product models manufactured to precise international clinical specifications.</p>
+        </div>
+        
+        <div class="stacking-cards-container mouse-spotlight-grid">
+            <div class="portfolio-stack-card floating-glass-card tilt-target spotlight-element">
+                <div class="card-num-indicator">01</div>
+                <h3>Browse Categories</h3>
+                <p>Navigate variants grouped by procedural application parameters.</p>
+                <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="portfolio-stack-card floating-glass-card tilt-target spotlight-element">
+                <div class="card-num-indicator">02</div>
+                <h3>Explore Specialties</h3>
+                <p>Tailored instruments for Neurosurgery, Orthopedics, and Cardiology.</p>
+                <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="portfolio-stack-card floating-glass-card tilt-target spotlight-element">
+                <div class="card-num-indicator">03</div>
+                <h3>Procedure Kits</h3>
+                <p>Pre-configured sets for specific specialized operations.</p>
+                <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="portfolio-stack-card floating-glass-card tilt-target spotlight-element">
+                <div class="card-num-indicator">04</div>
+                <h3>Product Lines</h3>
+                <p>Premium alloy grades engineered for maximum instrument lifetime.</p>
+                <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="portfolio-stack-card floating-glass-card tilt-target spotlight-element">
+                <div class="card-num-indicator">05</div>
+                <h3>Mfg Series</h3>
+                <p>Trace manufacturing documentation parameters directly.</p>
+                <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="anatomy-section scroll-trigger-reveal">
+        <div class="white-glow-bg opacity-glow-layer"></div>
+        <div class="anatomy-grid-layout">
+            <div class="anatomy-left-vector">
+                <h3>Interactive Mapping Engine</h3>
+                <p>Select a region on the human anatomy model to view compatible instruments.</p>
+                
+                <div class="real-anatomy-container">
+                    <img src="https://cdn.pixabay.com/photo/2013/07/13/11/42/human-158424_1280.png" alt="Human Anatomy" class="real-anatomy-img">
+                    <div class="anatomy-svg-hotspot" data-anatomy-region="head" style="top: 15%; left: 50%;"></div>
+                    <div class="anatomy-svg-hotspot" data-anatomy-region="torso" style="top: 40%; left: 50%;"></div>
+                    <div class="anatomy-svg-hotspot" data-anatomy-region="extremities" style="top: 65%; left: 35%;"></div>
+                    <div class="anatomy-svg-hotspot" data-anatomy-region="extremities" style="top: 65%; left: 65%;"></div>
+                    <div class="hover-label-overlay" id="anatomy-ui-marker">Select Anatomy Target</div>
+                </div>
+            </div>
+            
+            <div class="anatomy-right-list">
+                <h4>Dynamic Database Results</h4>
+                <div class="instrument-viewport" id="anatomy-fetch-target">
+                    <div class="fallback-prompt"><i class="fas fa-mouse-pointer"></i> Interact with the anatomical model to load products.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section scroll-trigger-reveal">
+        <div class="testimonial-split-layout">
+            <div class="testimonial-left-media">
+                <div class="video-mockup-frame zoom-scroll-container">
+                    <img src="https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Clinical Production" class="scroll-zoom-img">
+                    <div class="play-overlay-icon"><i class="fas fa-play"></i></div>
+                </div>
+            </div>
+            <div class="testimonial-right-feed">
+                <h3>Practitioner Reviews</h3>
+                <div class="text-feed-scroller">
+                    <div class="review-bubble floating-glass-card">
+                        <div class="star-rating">★★★★★</div>
+                        <p>"The balanced hand feel and tolerances of their micro-retractors provide superior reliability."</p>
+                        <span class="reviewer-meta">Dr. E. Sterling, Neurosurgery</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="access-map-section scroll-trigger-reveal">
+        <div class="access-split-grid">
+            <div class="client-auth-card floating-glass-card">
+                <h3>Client Access Portal</h3>
+                <p>Access your configurations and procurement lists.</p>
+                <button class="google-login-trigger"><i class="fab fa-google"></i> Continue with Google</button>
+                <div class="form-separator"><span>Or manual verification</span></div>
+                <form class="portal-form-context" onsubmit="event.preventDefault();">
+                    <input type="email" placeholder="Institutional Email" required>
+                    <input type="password" placeholder="Password" required>
+                    <button class="form-submit-trigger btn-gradient-animated">Authenticate Session</button>
+                </form>
+            </div>
+            <div class="map-embed-wrapper">
+                <div class="map-rendering-layer">
+                    <div class="map-center-pin"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="map-address-card floating-glass-card">
+                        <h5>SURGIMENTS HQ</h5>
+                        <p>128 MedTech Cluster, Phase II</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="corporate-footer scroll-trigger-reveal">
+        <div class="footer-top-grid">
+            <div class="footer-brand-column">
+                <h3>SURGIMENTS</h3>
+                <p>Meeting the critical technical requirements of medical practitioners completely, efficiently, and flawlessly.</p>
+            </div>
+            <div class="footer-nav-column">
+                <h4>Navigation</h4>
+                <a href="#home">Home</a>
+                <a href="#catalog">Catalog</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-contact-column">
+                <h4>Contact</h4>
+                <p><i class="fas fa-envelope"></i> logistics@surgiments.com</p>
+                <p><i class="fas fa-phone-alt"></i> +1 (800) 450-9001</p>
+            </div>
+        </div>
+        <div class="footer-bottom-bar">
+            <p>© 2026 Surgiments Medical Device Logistics. Overhauled with Apple Precision.</p>
+        </div>
+    </footer>
+
+    <div id="chatbot-icon"><i class="fas fa-robot" id="ai-wave"></i></div>
+    <div id="chatbot-window" class="hidden">
+        <div class="chat-header">
+            <div class="ai-title-badge"><span class="live-indicator"></span> SURGIS AI</div>
+            <button id="close-chat"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chat-body" id="chat-stream-output">
+            <p class="bot-msg">Welcome. Specify an equipment classification query or SKU to verify design applications instantly.</p>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input-field" placeholder="Ask Surgis AI...">
+            <button id="send-chat"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+  </html>
