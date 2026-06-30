@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             if (targetElement) {
                 window.scrollTo({
-                    top: targetElement.offsetTop - 80, // Dynamic header offset
+                    top: targetElement.offsetTop - 80, 
                     behavior: 'smooth'
                 });
             }
@@ -22,14 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const mainHeader = document.querySelector(".main-header");
     
     window.addEventListener("scroll", () => {
-        // Calculation for Top Indicator Progress
         const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
         if (totalHeight > 0) {
             const progress = (window.pageYOffset / totalHeight) * 100;
             if(scrollProgressBar) scrollProgressBar.style.width = `${progress}%`;
         }
 
-        // Adaptive Header Blur States
         if(mainHeader) {
             if (window.scrollY > 50) {
                 mainHeader.classList.add("header-scrolled");
@@ -60,7 +58,135 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Section reveal structural layout initialization error:", e);
     }
 
-    // --- 4. HIGH-PERFORMANCE 3D CARD TILT MECHANISM ---
+    // --- 4. FLUID DRAGGABLE HERO CAROUSEL ENGINE (5s AUTO-CYCLE) ---
+    const sliderViewport = document.getElementById("hero-draggable-viewport");
+    const sliderWrapper = document.getElementById("hero-slider-wrapper");
+    const textNodes = document.querySelectorAll(".hero-slide-text-node");
+    const beads = document.querySelectorAll("#slider-pagination-container .bead");
+    
+    let currentSlideIndex = 0;
+    const countTotalSlides = textNodes.length;
+    let autoCycleTimer = null;
+    
+    // Drag Tracking State Matrix Variables
+    let activeDragMode = false;
+    let initialCursorPositionX = 0;
+    let cumulativeTransformX = 0;
+    let primaryOffsetTrack = 0;
+
+    function renderActiveSlide(index) {
+        currentSlideIndex = (index + countTotalSlides) % countTotalSlides;
+        primaryOffsetTrack = -currentSlideIndex * 100;
+        
+        if (sliderWrapper) {
+            sliderWrapper.style.transition = "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)";
+            sliderWrapper.style.transform = `translateX(${primaryOffsetTrack}%)`;
+        }
+        
+        // Refresh Text Track Layouts
+        textNodes.forEach((node, idx) => {
+            if(idx === currentSlideIndex) node.classList.add("active");
+            else node.classList.remove("active");
+        });
+
+        // Update Paginated Indicators
+        beads.forEach((bead, idx) => {
+            if(idx === currentSlideIndex) bead.classList.add("active");
+            else bead.classList.remove("active");
+        });
+    }
+
+    function initAutoCycle() {
+        clearInterval(autoCycleTimer);
+        autoCycleTimer = setInterval(() => {
+            renderActiveSlide(currentSlideIndex + 1);
+        }, 5000); // Strict 5-Second Interval Execution Loop
+    }
+
+    // Setup Interaction Listeners for Desktop and Touch Environments
+    if(sliderViewport && sliderWrapper) {
+        // Desktop Drag Implementations
+        sliderViewport.addEventListener("mousedown", (e) => {
+            activeDragMode = true;
+            clearInterval(autoCycleTimer);
+            sliderWrapper.style.transition = "none";
+            initialCursorPositionX = e.clientX;
+            const computedStyle = window.getComputedStyle(sliderWrapper);
+            const matrix = new WebKitCSSMatrix(computedStyle.transform);
+            cumulativeTransformX = matrix.m41;
+            sliderViewport.style.cursor = "grabbing";
+        });
+
+        window.addEventListener("mousemove", (e) => {
+            if (!activeDragMode) return;
+            const deltaX = e.clientX - initialCursorPositionX;
+            sliderWrapper.style.transform = `translateX(${cumulativeTransformX + deltaX}px)`;
+        });
+
+        window.addEventListener("mouseup", (e) => {
+            if (!activeDragMode) return;
+            activeDragMode = false;
+            sliderViewport.style.cursor = "grab";
+            
+            const displacementX = e.clientX - initialCursorPositionX;
+            const structuralWidth = sliderViewport.offsetWidth;
+            
+            // Check threshold requirements to confirm shift sequence
+            if (Math.abs(displacementX) > structuralWidth * 0.15) {
+                if (displacementX > 0) renderActiveSlide(currentSlideIndex - 1);
+                else renderActiveSlide(currentSlideIndex + 1);
+            } else {
+                renderActiveSlide(currentSlideIndex);
+            }
+            initAutoCycle();
+        });
+
+        // Touch Interaction Pipelines (Tablets/Mobile)
+        sliderViewport.addEventListener("touchstart", (e) => {
+            clearInterval(autoCycleTimer);
+            activeDragMode = true;
+            sliderWrapper.style.transition = "none";
+            initialCursorPositionX = e.touches[0].clientX;
+            const computedStyle = window.getComputedStyle(sliderWrapper);
+            const matrix = new WebKitCSSMatrix(computedStyle.transform);
+            cumulativeTransformX = matrix.m41;
+        }, { passive: true });
+
+        sliderViewport.addEventListener("touchmove", (e) => {
+            if (!activeDragMode) return;
+            const deltaX = e.touches[0].clientX - initialCursorPositionX;
+            sliderWrapper.style.transform = `translateX(${cumulativeTransformX + deltaX}px)`;
+        }, { passive: true });
+
+        sliderViewport.addEventListener("touchend", (e) => {
+            if (!activeDragMode) return;
+            activeDragMode = false;
+            const displacementX = e.changedTouches[0].clientX - initialCursorPositionX;
+            const structuralWidth = sliderViewport.offsetWidth;
+            
+            if (Math.abs(displacementX) > structuralWidth * 0.15) {
+                if (displacementX > 0) renderActiveSlide(currentSlideIndex - 1);
+                else renderActiveSlide(currentSlideIndex + 1);
+            } else {
+                renderActiveSlide(currentSlideIndex);
+            }
+            initAutoCycle();
+        });
+
+        // Click Controls for Pagination Indicators
+        beads.forEach(bead => {
+            bead.addEventListener("click", () => {
+                const requestedIndex = parseInt(bead.getAttribute("data-slide-index"), 10);
+                renderActiveSlide(requestedIndex);
+                initAutoCycle();
+            });
+        });
+
+        // Boot Auto Cycle Process loop
+        initAutoCycle();
+    }
+
+    // --- 5. HIGH-PERFORMANCE 3D CARD TILT MECHANISM ---
     const tiltCards = document.querySelectorAll(".tilt-target");
     tiltCards.forEach(card => {
         card.addEventListener("mousemove", (e) => {
@@ -71,8 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            // Calculate rotational offsets
-            const rotateX = ((centerY - y) / centerY) * 10; // Max 10 degrees tilt
+            const rotateX = ((centerY - y) / centerY) * 10; 
             const rotateY = ((x - centerX) / centerX) * 10;
             
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
@@ -83,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- 5. ENHANCED MOUSE SPOTLIGHT RADIAL GRADIENT MATRIX ---
+    // --- 6. ENHANCED MOUSE SPOTLIGHT RADIAL GRADIENT MATRIX ---
     const spotlightGrid = document.querySelector(".mouse-spotlight-grid");
     if (spotlightGrid) {
         spotlightGrid.addEventListener("mousemove", (e) => {
@@ -98,33 +223,31 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- 6. CINEMATIC HERO PARALLAX & HERO SCROLL IMAGE ZOOM ---
+    // --- 7. CINEMATIC HERO PARALLAX & HERO SCROLL IMAGE ZOOM ---
     const parallaxBg = document.getElementById("hero-parallax-bg");
     const zoomImages = document.querySelectorAll(".scroll-zoom-img");
     
     window.addEventListener("scroll", () => {
         const scrolled = window.pageYOffset;
         
-        // Apply Parallax Translation to Hero Base Vector
         if (parallaxBg) {
             parallaxBg.style.transform = `translateY(${scrolled * 0.4}px)`;
         }
 
-        // Apply Dynamic Transformations to Scroll-zoom Image Assets
         zoomImages.forEach(img => {
             const parentSection = img.closest("section");
             if (parentSection) {
                 const rect = parentSection.getBoundingClientRect();
                 if (rect.top < window.innerHeight && rect.bottom > 0) {
                     const viewScrollFactor = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-                    const scaleVal = 1 + (viewScrollFactor * 0.12); // Dynamic scale range bounded max ~1.12
+                    const scaleVal = 1 + (viewScrollFactor * 0.12); 
                     img.style.transform = `scale(${scaleVal})`;
                 }
             }
         });
     });
 
-    // --- 7. AUTO-RESETTING NUMERICAL COUNTER ENGINE ---
+    // --- 8. AUTO-RESETTING NUMERICAL COUNTER ENGINE ---
     try {
         const countElements = document.querySelectorAll(".count-target");
         const countObserver = new IntersectionObserver((entries) => {
@@ -158,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Metrics structural engine fault logs:", e);
     }
 
-    // --- 8. ANATOMY INTERACTIVE MAPPING PIPELINE ---
+    // --- 9. ANATOMY INTERACTIVE MAPPING PIPELINE ---
     try {
         const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
         const fetchTarget = document.getElementById("anatomy-fetch-target");
@@ -209,7 +332,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Anatomy mapping module pipeline error:", e);
     }
 
-    // --- 9. SURGIS AI CONVERSATIONAL DRIVER ---
+    // --- 10. SURGIS AI CONVERSATIONAL DRIVER ---
     try {
         const chatIcon = document.getElementById("chatbot-icon");
         const chatWindow = document.getElementById("chatbot-window");
