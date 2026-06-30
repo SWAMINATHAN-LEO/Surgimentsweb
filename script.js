@@ -1,0 +1,259 @@
+document.addEventListener("DOMContentLoaded", () => {
+
+    // --- 1. APPLE-STYLE SMOOTH ANCHOR NAV SCROLLING ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if(targetId === '#') return;
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80, // Dynamic header offset
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // --- 2. HEADER INTERACTION & VIEWPORT PROGRESS BAR ---
+    const scrollProgressBar = document.getElementById("scroll-progress-bar");
+    const mainHeader = document.querySelector(".main-header");
+    
+    window.addEventListener("scroll", () => {
+        // Calculation for Top Indicator Progress
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (totalHeight > 0) {
+            const progress = (window.pageYOffset / totalHeight) * 100;
+            if(scrollProgressBar) scrollProgressBar.style.width = `${progress}%`;
+        }
+
+        // Adaptive Header Blur States
+        if(mainHeader) {
+            if (window.scrollY > 50) {
+                mainHeader.classList.add("header-scrolled");
+            } else {
+                mainHeader.classList.remove("header-scrolled");
+            }
+        }
+    });
+
+    // --- 3. RUNTIME OPTIMIZED BI-DIRECTIONAL SECTION REVEALS ---
+    try {
+        const revealElements = document.querySelectorAll(".scroll-trigger-reveal");
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("reveal-active");
+                } else {
+                    entry.target.classList.remove("reveal-active");
+                }
+            });
+        }, {
+            threshold: 0.05,
+            rootMargin: "0px 0px -40px 0px"
+        });
+
+        revealElements.forEach(element => revealObserver.observe(element));
+    } catch (e) {
+        console.error("Section reveal structural layout initialization error:", e);
+    }
+
+    // --- 4. HIGH-PERFORMANCE 3D CARD TILT MECHANISM ---
+    const tiltCards = document.querySelectorAll(".tilt-target");
+    tiltCards.forEach(card => {
+        card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left; 
+            const y = e.clientY - rect.top; 
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Calculate rotational offsets
+            const rotateX = ((centerY - y) / centerY) * 10; // Max 10 degrees tilt
+            const rotateY = ((x - centerX) / centerX) * 10;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+        });
+    });
+
+    // --- 5. ENHANCED MOUSE SPOTLIGHT RADIAL GRADIENT MATRIX ---
+    const spotlightGrid = document.querySelector(".mouse-spotlight-grid");
+    if (spotlightGrid) {
+        spotlightGrid.addEventListener("mousemove", (e) => {
+            const elements = document.querySelectorAll(".spotlight-element");
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                el.style.setProperty("--mouse-x", `${x}px`);
+                el.style.setProperty("--mouse-y", `${y}px`);
+            });
+        });
+    }
+
+    // --- 6. CINEMATIC HERO PARALLAX & HERO SCROLL IMAGE ZOOM ---
+    const parallaxBg = document.getElementById("hero-parallax-bg");
+    const zoomImages = document.querySelectorAll(".scroll-zoom-img");
+    
+    window.addEventListener("scroll", () => {
+        const scrolled = window.pageYOffset;
+        
+        // Apply Parallax Translation to Hero Base Vector
+        if (parallaxBg) {
+            parallaxBg.style.transform = `translateY(${scrolled * 0.4}px)`;
+        }
+
+        // Apply Dynamic Transformations to Scroll-zoom Image Assets
+        zoomImages.forEach(img => {
+            const parentSection = img.closest("section");
+            if (parentSection) {
+                const rect = parentSection.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const viewScrollFactor = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+                    const scaleVal = 1 + (viewScrollFactor * 0.12); // Dynamic scale range bounded max ~1.12
+                    img.style.transform = `scale(${scaleVal})`;
+                }
+            }
+        });
+    });
+
+    // --- 7. AUTO-RESETTING NUMERICAL COUNTER ENGINE ---
+    try {
+        const countElements = document.querySelectorAll(".count-target");
+        const countObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (!entry.target.hasAttribute("data-animated")) {
+                        entry.target.setAttribute("data-animated", "true");
+                        const target = parseInt(entry.target.getAttribute("data-target"), 10);
+                        let current = 0;
+                        const step = target > 1000 ? Math.floor(target / 35) : 1;
+
+                        const timer = setInterval(() => {
+                            current += step;
+                            if (current >= target) {
+                                entry.target.innerText = target.toLocaleString();
+                                clearInterval(timer);
+                            } else {
+                                entry.target.innerText = current.toLocaleString();
+                            }
+                        }, 20);
+                    }
+                } else {
+                    entry.target.innerText = "0";
+                    entry.target.removeAttribute("data-animated");
+                }
+            });
+        });
+
+        countElements.forEach(el => countObserver.observe(el));
+    } catch (e) {
+        console.error("Metrics structural engine fault logs:", e);
+    }
+
+    // --- 8. ANATOMY INTERACTIVE MAPPING PIPELINE ---
+    try {
+        const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
+        const fetchTarget = document.getElementById("anatomy-fetch-target");
+        const label = document.getElementById("anatomy-ui-marker");
+
+        hotspots.forEach(spot => {
+            spot.addEventListener("mouseenter", (e) => {
+                if (label) {
+                    label.innerText = e.target.getAttribute("data-anatomy-region").toUpperCase();
+                }
+            });
+
+            spot.addEventListener("mouseleave", () => {
+                if (label) {
+                    label.innerText = "Select Anatomy Target";
+                }
+            });
+
+            spot.addEventListener("click", async (e) => {
+                hotspots.forEach(h => h.classList.remove("active-node"));
+                e.target.classList.add("active-node");
+                const region = e.target.getAttribute("data-anatomy-region");
+
+                if (fetchTarget) {
+                    fetchTarget.innerHTML = `<div class="fallback-prompt">Loading instruments for ${region}...</div>`;
+
+                    try {
+                        const res = await fetch(`http://127.0.0.1:8000/api/instruments/?anatomy=${region}`);
+                        const data = await res.json();
+                        fetchTarget.innerHTML = "";
+
+                        if (data.length === 0) {
+                            fetchTarget.innerHTML = `<div class="fallback-prompt">No instruments found for ${region}.</div>`;
+                            return;
+                        }
+
+                        data.forEach(item => {
+                            fetchTarget.innerHTML += `<div class="instrument-item"><h5>${item.name} (${item.sku})</h5><p>${item.specialty}</p></div>`;
+                        });
+
+                    } catch (err) {
+                        fetchTarget.innerHTML = `<div class="fallback-prompt" style="color:var(--crimson-accent);">Error connecting to API. Is the server running?</div>`;
+                    }
+                }
+            });
+        });
+    } catch (e) {
+        console.error("Anatomy mapping module pipeline error:", e);
+    }
+
+    // --- 9. SURGIS AI CONVERSATIONAL DRIVER ---
+    try {
+        const chatIcon = document.getElementById("chatbot-icon");
+        const chatWindow = document.getElementById("chatbot-window");
+        const closeBtn = document.getElementById("close-chat");
+        const sendBtn = document.getElementById("send-chat");
+        const inputField = document.getElementById("chat-input-field");
+        const outputStream = document.getElementById("chat-stream-output");
+
+        if (chatIcon && chatWindow && closeBtn) {
+            chatIcon.addEventListener("click", () => chatWindow.classList.remove("hidden"));
+            closeBtn.addEventListener("click", () => chatWindow.classList.add("hidden"));
+        }
+
+        async function sendChat() {
+            if (!inputField || !outputStream) return;
+            const text = inputField.value.trim();
+            if (!text) return;
+
+            outputStream.innerHTML += `<p class="user-msg">${text}</p>`;
+            inputField.value = "";
+            outputStream.scrollTop = outputStream.scrollHeight;
+
+            try {
+                const res = await fetch("http://127.0.0.1:8000/api/chatbot/query", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: text })
+                });
+
+                const data = await res.json();
+                outputStream.innerHTML += `<p class="bot-msg">${data.reply}</p>`;
+            } catch (err) {
+                outputStream.innerHTML += `<p class="bot-msg" style="color:var(--crimson-accent);">Failed to connect to Surgis AI.</p>`;
+            }
+            outputStream.scrollTop = outputStream.scrollHeight;
+        }
+
+        if (sendBtn) sendBtn.addEventListener("click", sendChat);
+        if (inputField) {
+            inputField.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") sendChat();
+            });
+        }
+    } catch (e) {
+        console.error("Chatbot core execution loop error:", e);
+    }
+});
