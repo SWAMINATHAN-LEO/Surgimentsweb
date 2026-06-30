@@ -10,11 +10,9 @@
     --white: #ffffff;
     --bg-light-secondary: #f8fafc;
     
-    /* Translucent Passivated Surfaces */
     --card-surface: rgba(255, 255, 255, 0.95);
     --glass-blur: blur(20px);
     --border-glass: rgba(11, 34, 68, 0.08);
-    --border-active: #b20d15;
     
     --text-dark: #0f172a;
     --text-muted: #64748b;
@@ -30,16 +28,14 @@
    ========================================================================== */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 html { scroll-behavior: smooth; }
-body { background-color: var(--white); color: var(--text-dark); -webkit-font-smoothing: antialiased; }
+body { background-color: var(--white); color: var(--text-dark); -webkit-font-smoothing: antialiased; padding-top: 80px; }
 #scroll-progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--crimson-red), #e01a24); z-index: 100000; }
 
-/* Structural Crystalline Overlays matching 1000492271.jpg */
 .crystalline-shard-overlay { position: absolute; width: 45vw; height: 70vh; pointer-events: none; z-index: 1; background-size: contain; background-repeat: no-repeat; opacity: 0.12; }
 .topo-left { top: 5%; left: -5%; background-image: linear-gradient(140deg, var(--crimson-red) 0%, var(--aegean-blue) 50%, transparent 100%); clip-path: polygon(0% 0%, 100% 0%, 65% 100%, 0% 80%); }
 .topo-right { top: 25%; right: -8%; background-image: linear-gradient(220deg, #0066ff 0%, #020c22 60%, transparent 100%); clip-path: polygon(30% 0%, 100% 20%, 100% 100%, 0% 70%); }
 .ambient-luminous-flare { position: fixed; width: 700px; height: 700px; border-radius: 50%; top: 20%; left: 15%; background: radial-gradient(circle, rgba(0,102,255,0.04) 0%, transparent 70%); pointer-events: none; z-index: 0; filter: blur(100px); }
 
-/* Master Dynamic Themes Call Layers */
 .blue-theme { background: var(--aegean-blue) !important; color: var(--white) !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 0px !important; }
 .blue-theme h5, .blue-theme h3, .blue-theme p, .blue-theme .stat-number-wrapper, .blue-theme .map-address-card h5 { color: var(--white) !important; }
 
@@ -49,11 +45,20 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 .glass-hull { background: var(--card-surface); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); transition: var(--transition-curve); }
 
 /* ==========================================================================
-   3. CLINICAL NAVBAR HEADER (SOLID AEGEAN BLUE)
+   3. CLINICAL NAVBAR HEADER (SOLID AEGEAN BLUE & FIXED OVERLAP PATCH)
    ========================================================================== */
-.main-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 4%; background: var(--aegean-blue); position: fixed; width: 100%; top: 0; z-index: 9999; border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+.main-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 4%; background: var(--aegean-blue); position: fixed; width: 100%; top: 0; left: 0; height: 80px; z-index: 9999; border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+
 .header-left-brand { display: flex; align-items: center; }
-.header-left-brand img { height: 50px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2)); }
+
+/* Strict Sizing Contraints preventing image_800d3d.jpg Scaling Defect */
+.header-left-brand img { 
+    height: 55px !important; 
+    max-height: 55px !important; 
+    width: auto !important; 
+    object-fit: contain !important; 
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2)); 
+}
 
 .nav-links { display: flex; align-items: center; gap: 4px; }
 .nav-item { text-decoration: none; color: rgba(255, 255, 255, 0.75); padding: 8px 18px; font-weight: 600; font-size: 14px; position: relative; transition: var(--transition-snappy); }
@@ -74,7 +79,6 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 .search-wrapper input:focus { width: 240px; border-color: var(--white); background: rgba(255,255,255,0.15); }
 .search-wrapper i { position: absolute; left: 16px; color: rgba(255,255,255,0.5); font-size: 13px; }
 
-/* Fixed Anchored Controls without physics distortions */
 .auth-buttons { display: flex; gap: 12px; align-items: center; }
 .btn-text { background: none; border: none; font-size: 14px; font-weight: 600; cursor: pointer; color: rgba(255,255,255,0.85); white-space: nowrap; transition: var(--transition-snappy); transform: none !important; }
 .btn-text:hover { color: var(--white); }
@@ -82,29 +86,39 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 .btn-pill-sm:hover { background: #d4131d; box-shadow: 0 4px 15px rgba(178, 13, 21, 0.4); }
 
 /* ==========================================================================
-   4. FULL-VIEWPORT HERO HORIZONTAL CAROUSEL ACCENT SYSTEM
+   4. FULL-VIEWPORT HERO HORIZONTAL SLIDER
    ========================================================================== */
-.hero-full-viewport { width: 100vw; height: calc(100vh - 90px); margin-top: 90px; position: relative; overflow: hidden; background: var(--bg-dark-core); }
+.hero-full-viewport { 
+    width: 100vw; 
+    height: calc(100vh - 80px); 
+    position: relative; 
+    overflow: hidden; 
+    background: var(--bg-dark-core); 
+    z-index: 2;
+}
 .slider-draggable-track { width: 100%; height: 100%; position: relative; cursor: grab; }
 .slider-draggable-track:active { cursor: grabbing; }
 .slider-wrapper-inner { display: flex; width: 100%; height: 100%; will-change: transform; }
 .slide-image-node { flex: 0 0 100%; width: 100%; height: 100%; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.slide-image-node img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: transform 0.2s ease-out; }
+.slide-image-node img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 
 .slider-pagination-beads { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; }
 .slider-pagination-beads .bead { width: 10px; height: 10px; background: rgba(255, 255, 255, 0.3); border-radius: 50%; cursor: pointer; transition: var(--transition-snappy); }
 .slider-pagination-beads .bead.active { background: var(--crimson-red); transform: scale(1.2); width: 22px; border-radius: 5px; box-shadow: 0 0 10px var(--crimson-red); }
 
+/* Fixed Typo Correction Rule Layer */
+.glint-text { background: linear-gradient(135deg, #ffffff 30%, var(--white) 50%, #ffffff 70%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
 /* ==========================================================================
-   5. SECTIONS REVEAL RULES
+   5. SECTIONS REVEAL TIMING
    ========================================================================== */
-.scroll-trigger-reveal { opacity: 0; transform: translateY(40px) scale(0.99); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity; position: relative; }
+.scroll-trigger-reveal { opacity: 0; transform: translateY(40px) scale(0.99); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity; position: relative; z-index: 5; }
 .scroll-trigger-reveal.reveal-active { opacity: 1; transform: translateY(0) scale(1); }
 
 /* ==========================================================================
    6. METALLURGY TILES (SHARP BLUE RECTANGLES)
    ========================================================================== */
-.credibility-section { padding: 100px 5%; background: var(--white); border-bottom: 1px solid rgba(11,34,68,0.06); }
+.credibility-section { padding: 100px 5%; background: var(--white); border-bottom: 1px solid rgba(11,34,68,0.06); position: relative; z-index: 10; }
 .credibility-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
 .credibility-container .stat-box { padding: 50px 20px; border-radius: 0px !important; }
 .stat-number-wrapper { font-size: 42px; font-weight: 800; }
@@ -113,7 +127,7 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 /* ==========================================================================
    7. INTERACTIVE STACKING CARD DECK MATRIX
    ========================================================================== */
-.catalog-section { padding: 120px 5%; background: var(--bg-light-secondary); }
+.catalog-section { padding: 120px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; }
 .catalog-header-text { margin-bottom: 60px; }
 .section-tag { font-size: 12px; font-weight: 800; color: var(--crimson-red); letter-spacing: 2px; display: inline-block; margin-bottom: 12px; }
 .catalog-header-text h2 { font-size: 38px; font-weight: 800; color: var(--aegean-blue); letter-spacing: -1px; }
@@ -125,17 +139,13 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 .portfolio-deck-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 15px; color: var(--aegean-blue); }
 .card-description-summary { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
 
-/* Red hover state transformation mechanics requested */
 .portfolio-deck-card:hover { background: var(--crimson-red) !important; border-color: var(--crimson-red) !important; }
 .portfolio-deck-card:hover h3, .portfolio-deck-card:hover .card-num-indicator, .portfolio-deck-card:hover .card-description-summary p { color: var(--white) !important; }
-
-/* Fixed Typo Layer on Line 72 Build Failures */
-.glint-text { background: linear-gradient(135deg, #ffffff 30%, var(--crystal-silver-chrome) 50%, #ffffff 70%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
 /* ==========================================================================
    8. ANATOMICAL LOOKUP MATRIX
    ========================================================================== */
-.anatomy-section { padding: 120px 5%; background: var(--white); border-bottom: 1px solid rgba(11,34,68,0.06); }
+.anatomy-section { padding: 120px 5%; background: var(--white); border-bottom: 1px solid rgba(11,34,68,0.06); position: relative; z-index: 10; }
 .anatomy-grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; background: var(--bg-light-secondary); padding: 50px; border-radius: 0px; border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); }
 .anatomy-left-vector h3 { font-size: 28px; font-weight: 800; color: var(--aegean-blue); }
 .anatomy-left-vector p { color: var(--text-muted); margin-top: 10px; font-size: 14px; }
@@ -158,7 +168,7 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 /* ==========================================================================
    9. REVIEWS SPLIT LAYOUT
    ========================================================================== */
-.testimonials-section { padding: 120px 5%; background: var(--white); }
+.testimonials-section { padding: 120px 5%; background: var(--white); position: relative; z-index: 10; }
 .testimonial-split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 .video-mockup-frame { height: 380px; position: relative; }
 .video-mockup-frame img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); }
@@ -170,9 +180,9 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 .reviewer-meta { display: block; margin-top: 20px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
 
 /* ==========================================================================
-   10. INTEGRATED GRID TERMINAL PLATFORMS (MAP LINK LEFT, CONSOLE RIGHT)
+   10. COMBINED LIVE MAP & TERMINAL ACCESS SPACE
    ========================================================================== */
-.access-split-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; padding: 120px 5%; background: var(--bg-light-secondary); }
+.access-split-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; padding: 120px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; }
 .map-rendering-layer { height: 100%; width: 100%; border-radius: 0px; position: relative; overflow: hidden; min-height: 480px; box-shadow: var(--shadow-premium); }
 .live-google-map-frame { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 1; }
 .map-address-card { position: absolute; bottom: 25px; left: 25px; right: 25px; padding: 24px; border-radius: 0px; z-index: 2; box-shadow: var(--shadow-premium); }
@@ -196,7 +206,7 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 /* ==========================================================================
    11. FOOTER AND STRUCTURAL QR ACCENT MODULES
    ========================================================================== */
-.corporate-footer { background: var(--bg-dark-core); color: var(--white); padding: 100px 5% 40px; border-radius: 0px; }
+.corporate-footer { background: var(--bg-dark-core); color: var(--white); padding: 100px 5% 40px; border-radius: 0px; position: relative; z-index: 10; }
 .footer-top-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 60px; }
 .footer-brand-column h3 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 20px; }
 .footer-brand-column p { color: #94a3b8; font-size: 14px; line-height: 1.8; }
@@ -205,7 +215,6 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 .footer-nav-column a:hover { color: var(--white); transform: translateX(5px); }
 .footer-contact-column p { color: #94a3b8; font-size: 14px; margin-bottom: 16px; }
 
-/* Right aligned structured card box module */
 .footer-qr-code-column { display: flex; justify-content: flex-end; align-items: flex-start; }
 .qr-code-placeholder-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 20px; text-align: center; width: 100%; max-width: 220px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .physical-qr-image-asset { width: 130px; height: 140px; object-fit: contain; background: #ffffff; padding: 6px; }
@@ -216,10 +225,10 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 /* ==========================================================================
    12. SECURED SURGIS DIALOG WINDOW SYSTEM (BOTTOM RIGHT PLACEMENT)
    ========================================================================== */
-#chatbot-icon { position: fixed; bottom: 35px; right: 35px; width: 60px; height: 60px; background: var(--aegean-blue); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 9999; border: 1px solid rgba(255,255,255,0.1); }
+#chatbot-icon { position: fixed; bottom: 35px; right: 35px; width: 60px; height: 60px; background: var(--aegean-blue); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 10000; border: 1px solid rgba(255,255,255,0.1); }
 #chatbot-icon:hover { background: var(--crimson-red); transform: scale(1.05); }
 
-#chatbot-window { position: fixed; bottom: 115px; right: 35px; width: 370px; border-radius: 20px; z-index: 9999; border: 1px solid var(--border-glass); display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s; transform-origin: bottom right; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+#chatbot-window { position: fixed; bottom: 115px; right: 35px; width: 370px; border-radius: 20px; z-index: 10000; border: 1px solid var(--border-glass); display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s; transform-origin: bottom right; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
 #chatbot-window.hidden { opacity: 0; transform: translateY(40px) scale(0.9); pointer-events: none; }
 .chat-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
 .ai-title-badge { font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; }
@@ -229,19 +238,20 @@ body { background-color: var(--white); color: var(--text-dark); -webkit-font-smo
 
 .chat-body { height: 320px; padding: 20px; overflow-y: auto; background: var(--white); display: flex; flex-direction: column; gap: 14px; }
 .bot-msg { background: var(--bg-light-secondary); color: var(--text-dark); padding: 14px 16px; border-radius: 18px 18px 18px 4px; font-size: 13px; max-width: 85%; align-self: flex-start; border: 1px solid var(--border-glass); line-height: 1.5; }
-.user-msg { background: var(--crystal-blue-bright); color: var(--white); padding: 14px 16px; border-radius: 18px 18px 4px 18px; font-size: 13px; max-width: 85%; align-self: flex-end; line-height: 1.5; }
+.user-msg { background: var(--crimson-red); color: var(--white); padding: 14px 16px; border-radius: 18px 18px 4px 18px; font-size: 13px; max-width: 85%; align-self: flex-end; line-height: 1.5; }
 .chat-input { display: flex; padding: 16px; border-top: 1px solid var(--border-glass); gap: 10px; background: var(--bg-light-secondary); }
 .chat-input input { flex: 1; border: none; outline: none; background: var(--white); padding: 12px 20px; border-radius: 50px; font-size: 13px; color: var(--text-dark); border: 1px solid var(--border-glass); }
 .chat-input button { background: var(--aegean-blue); color: var(--white); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 .chat-input button:hover { background: var(--crimson-red); }
 
 /* ==========================================================================
-   13. RESPONSIBILITY BREAKPOINTS
+   14. SCREEN BREAKPOINTS
    ========================================================================== */
 @media (max-width: 1200px) { .hero-full-viewport { height: 500px; } }
 @media (max-width: 992px) { .nav-links { display: none; } .credibility-container { grid-template-columns: repeat(2, 1fr); gap: 20px; } .stacking-deck-container { flex-direction: column; gap: 20px; } .anatomy-grid-layout, .testimonial-split-layout, .access-split-grid { grid-template-columns: 1fr; gap: 40px; padding: 35px; } .footer-top-grid { grid-template-columns: 1fr; gap: 40px; } }
 @media (max-width: 576px) { .credibility-container { grid-template-columns: 1fr; } .auth-buttons, .search-wrapper { display: none; } #chatbot-window { width: calc(100vw - 40px); right: 20px; bottom: 95px; } }
 
+/* Scrollbars */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg-light-secondary); }
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
