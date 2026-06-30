@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surgiments | Master Surgical Instrumentation Logistics</title>
+    <title>Surgiments | Premium Surgical Instrumentation</title>
+    <!-- Medical-Grade Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Solid Core Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- Surgical Monitor Progress Line -->
     <div id="scroll-progress-bar"></div>
-    
-    <div class="crystalline-shard-overlay topo-left"></div>
-    <div class="crystalline-shard-overlay topo-right"></div>
-    <div class="ambient-luminous-flare"></div>
 
+    <!-- Rigid, Stably Anchored Clinical Navigation Header (Deep Aegean Blue) -->
     <header class="main-header">
         <div class="header-left-brand">
             <img src="images/logo.png" alt="Surgiments Header Logo" id="header-brand-logo">
@@ -24,7 +24,20 @@
         <nav class="nav-links">
             <a href="#home" class="nav-item dynamic-underline">Home</a>
             <a href="#heritage" class="nav-item dynamic-underline">About Us</a>
-            <a href="#catalog" class="nav-item dynamic-underline">Products</a>
+            
+            <div class="header-dropdown-container">
+                <a href="#catalog" class="nav-item drop-trigger">Products <i class="fas fa-chevron-down"></i></a>
+                <div class="macro-dropdown">
+                    <div class="dropdown-column">
+                        <h4>Classification Categories</h4>
+                        <a href="#catalog"><i class="fas fa-brain"></i> Neurosurgery Arrays</a>
+                        <a href="#catalog"><i class="fas fa-heart-pulse"></i> Cardio-Thoracic Sets</a>
+                        <a href="#catalog"><i class="fas fa-bone"></i> Orthopedic Trauma</a>
+                        <a href="#catalog"><i class="fas fa-scissors"></i> Micro-Dissection Scissors</a>
+                    </div>
+                </div>
+            </div>
+            
             <a href="#anatomy" class="nav-item dynamic-underline">Anatomical Index</a>
             <a href="#testimonials" class="nav-item dynamic-underline">Testimonials</a>
         </nav>
@@ -41,27 +54,16 @@
         </div>
     </header>
 
-    <section id="home" class="hero-full-viewport scroll-trigger-reveal">
+    <!-- Full-Viewport Hero Promotional Slider Stage -->
+    <section id="home" class="hero-full-viewport">
         <div class="slider-draggable-track" id="hero-draggable-viewport">
             <div class="slider-wrapper-inner" id="hero-slider-wrapper">
-                <div class="slide-image-node">
-                    <img src="images/hero-slide-1.jpg" alt="Surgiments Precision Engineering Masterpiece" class="scroll-zoom-img" draggable="false">
-                </div>
-                <div class="slide-image-node">
-                    <img src="images/hero-slide-2.jpg" alt="Crystalline Passivation Lab Processing" class="scroll-zoom-img" draggable="false">
-                </div>
-                <div class="slide-image-node">
-                    <img src="images/hero-slide-3.jpg" alt="Advanced Micro-Canal Instrumentation Line" class="scroll-zoom-img" draggable="false">
-                </div>
-                <div class="slide-image-node">
-                    <img src="images/hero-slide-4.jpg" alt="Orthopedic Rigidity Structural Testing" class="scroll-zoom-img" draggable="false">
-                </div>
-                <div class="slide-image-node">
-                    <img src="images/hero-slide-5.jpg" alt="Cardio-Thoracic Open Surgical Assembly" class="scroll-zoom-img" draggable="false">
-                </div>
-                <div class="slide-image-node">
-                    <img src="images/hero-slide-6.jpg" alt="60 Years Metallurgy Heritage Celebrating Mastery" class="scroll-zoom-img" draggable="false">
-                </div>
+                <div class="slide-image-node"><img src="images/hero-slide-1.jpg" alt="Surgiments Precision Slide 1" draggable="false"></div>
+                <div class="slide-image-node"><img src="images/hero-slide-2.jpg" alt="Surgiments Precision Slide 2" draggable="false"></div>
+                <div class="slide-image-node"><img src="images/hero-slide-3.jpg" alt="Surgiments Precision Slide 3" draggable="false"></div>
+                <div class="slide-image-node"><img src="images/hero-slide-4.jpg" alt="Surgiments Precision Slide 4" draggable="false"></div>
+                <div class="slide-image-node"><img src="images/hero-slide-5.jpg" alt="Surgiments Precision Slide 5" draggable="false"></div>
+                <div class="slide-image-node"><img src="images/hero-slide-6.jpg" alt="Surgiments Precision Slide 6" draggable="false"></div>
             </div>
             <div class="slider-pagination-beads" id="slider-pagination-container">
                 <span class="bead active" data-slide-index="0"></span>
@@ -74,6 +76,7 @@
         </div>
     </section>
 
+    <!-- Metallurgy Heritage Metrics Grid (Sharp Blue Rectangles) -->
     <section id="heritage" class="credibility-section scroll-trigger-reveal">
         <div class="credibility-container">
             <div class="stat-box blue-theme tilt-target">
@@ -85,16 +88,17 @@
                 <p>Device Blueprints Cataloged</p>
             </div>
             <div class="stat-box blue-theme tilt-target">
-                <div class="stat-number-wrapper">CE Certification</div>
-                <p>1998 Institutional Compliance Mark</p>
+                <div class="stat-number-wrapper">CE Mark</div>
+                <p>1998 Institutional Compliance</p>
             </div>
             <div class="stat-box blue-theme tilt-target">
-                <div class="stat-number-wrapper">CE Directive V</div>
-                <p>2014 Production Quality Control Standards</p>
+                <div class="stat-number-wrapper">CE Annex V</div>
+                <p>2014 Production Quality Directives</p>
             </div>
         </div>
     </section>
 
+    <!-- Specialties Stacking Deck Interactive Illusion Section -->
     <section id="catalog" class="catalog-section scroll-trigger-reveal">
         <div class="catalog-header-text">
             <span class="section-tag">SPECIALIZED PORTFOLIO</span>
@@ -103,29 +107,28 @@
         </div>
         
         <div class="stacking-deck-container">
-            <div class="portfolio-deck-card tilt-target red-hover-node" data-card-idx="0">
+            <div class="portfolio-deck-card tilt-target blue-theme" data-card-idx="0">
                 <div class="card-num-indicator">01</div>
                 <h3>Neuro & Skull Base</h3>
                 <div class="card-description-summary">
                     <p>Premium micro-canal retractors, self-retaining scalp stabilizers, and dural access tools forged for delicate cranial procedures.</p>
                 </div>
             </div>
-            <div class="portfolio-deck-card tilt-target red-hover-node" data-card-idx="1">
+            <div class="portfolio-deck-card tilt-target blue-theme" data-card-idx="1">
                 <div class="card-num-indicator">02</div>
                 <h3>Cardio-Thoracic Line</h3>
-                <p>High-tensile sternal spreaders, pediatric rib retractors, and micro-vascular tissue forceps built for extreme durability.</p>
                 <div class="card-description-summary">
-                    <p>Optimized for precise arterial control and open-chest visibility variables under intensive operating theater lights.</p>
+                    <p>High-tensile sternal spreaders, pediatric rib retractors, and micro-vascular tissue forceps built for extreme durability.</p>
                 </div>
             </div>
-            <div class="portfolio-deck-card tilt-target red-hover-node" data-card-idx="2">
+            <div class="portfolio-deck-card tilt-target blue-theme" data-card-idx="2">
                 <div class="card-num-indicator">03</div>
                 <h3>Orthopedic Trauma</h3>
                 <div class="card-description-summary">
                     <p>Heavy-duty Liston bone cutting pliers, high-torque bone awls, wire tighteners, and custom articulation instrumentation sets.</p>
                 </div>
             </div>
-            <div class="portfolio-deck-card tilt-target red-hover-node" data-card-idx="3">
+            <div class="portfolio-deck-card tilt-target blue-theme" data-card-idx="3">
                 <div class="card-num-indicator">04</div>
                 <h3>Minimally Invasive</h3>
                 <div class="card-description-summary">
@@ -135,15 +138,15 @@
         </div>
     </section>
 
+    <!-- Interactive Human Anatomy Blueprint Engine -->
     <section id="anatomy" class="anatomy-section scroll-trigger-reveal">
-        <div class="white-glow-bg opacity-glow-layer"></div>
         <div class="anatomy-grid-layout">
             <div class="anatomy-left-vector">
                 <h3>Anatomical Alignment Index</h3>
-                <p>Click target coordinates across the human anatomy silhouette to resolve mapped local catalog arrays instantly.</p>
+                <p>Click target coordinates across the anatomy silhouette outline model to resolve mapped localized device databases instantly.</p>
                 
                 <div class="real-anatomy-container blue-theme">
-                    <img src="images/anatomy-outline.png" alt="Clinical Anatomy Coordinate Canvas" class="real-anatomy-img">
+                    <img src="images/anatomy-outline.png" alt="Clinical Anatomy Search Outline" class="real-anatomy-img">
                     <div class="anatomy-svg-hotspot" data-anatomy-region="head" style="top: 12%; left: 50%;"></div>
                     <div class="anatomy-svg-hotspot" data-anatomy-region="torso" style="top: 38%; left: 50%;"></div>
                     <div class="anatomy-svg-hotspot" data-anatomy-region="extremities" style="top: 55%; left: 32%;"></div>
@@ -154,7 +157,7 @@
             </div>
             
             <div class="anatomy-right-list">
-                <h4>Dynamic Technical Specifications Database</h4>
+                <h4>Dynamic Technical Specifications</h4>
                 <div class="instrument-viewport" id="anatomy-fetch-target">
                     <div class="fallback-prompt"><i class="fas fa-mouse-pointer"></i> Interact with blueprint nodes to retrieve technical material lists.</div>
                 </div>
@@ -162,17 +165,18 @@
         </div>
     </section>
 
+    <!-- Testimonials Section with Interactive Cursor Perspective Torsion Mechanics -->
     <section id="testimonials" class="testimonials-section scroll-trigger-reveal">
         <div class="testimonial-split-layout">
             <div class="testimonial-left-media">
-                <div class="video-mockup-frame zoom-scroll-container blue-theme">
-                    <img src="https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Surgiments Production Passivation Tracking" class="scroll-zoom-img">
+                <div class="video-mockup-frame blue-theme">
+                    <img src="https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Surgiments Production Passivation Tracking">
                     <div class="play-overlay-icon"><i class="fas fa-play"></i></div>
                 </div>
             </div>
             <div class="testimonial-right-feed text-track-mouse-tilt">
                 <h3>Practitioner Reviews</h3>
-                <div class="review-bubble mouse-hover-reactive-card red-theme">
+                <div class="review-bubble mouse-hover-reactive-card blue-theme">
                     <div class="star-rating">★★★★★</div>
                     <p>"The balanced hand feel and tolerances of their micro-retractors provide superior reliability."</p>
                     <span class="reviewer-meta">Chief Surgical Logistics Officer, MedTech Europe Group</span>
@@ -181,6 +185,7 @@
         </div>
     </section>
 
+    <!-- Live Map & Dual Terminal Unified Portal Section -->
     <section class="access-split-grid scroll-trigger-reveal">
         <div class="map-embed-wrapper">
             <div class="map-rendering-layer blue-theme">
@@ -224,6 +229,7 @@
         </div>
     </section>
 
+    <!-- Corporate Footer with Dedicated QR Alignment Slot -->
     <footer class="corporate-footer scroll-trigger-reveal">
         <div class="footer-top-grid">
             <div class="footer-brand-column">
@@ -249,10 +255,11 @@
             </div>
         </div>
         <div class="footer-bottom-bar">
-            <p>© 2026 Surgiments. Developed by Swaminathan Leo.</p>
+            <p>&copy; 2026 Surgiments. Developed by Swaminathan Leo.</p>
         </div>
     </footer>
 
+    <!-- Conversational Core Floating AI Modules -->
     <div id="chatbot-icon"><i class="fas fa-robot" id="ai-wave"></i></div>
     <div id="chatbot-window" class="hidden blue-theme">
         <div class="chat-header">
