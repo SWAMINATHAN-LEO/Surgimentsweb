@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // --- 1. DEVICE DATABASE CACHE LAYER ---
+    // --- 1. LOCAL DATA PRE-CACHE FOR ANATOMICAL COORDINATES LOOKUP ---
     const anatomyPreloadedDatabase = {
         "head": [
             { name: "Micro-Neuro Instruments Kit", sku: "SKU-MN-992", specialty: "Neurosurgery Cranial Open Access" },
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
     };
 
-    // --- 2. ERROR-FREE TWO-WAY CHATBOT TOGGLE LOOP ---
+    // --- 2. THE CHATBOT TWO-WAY TOGGLE LOOP MECHANISM ---
     const chatIcon = document.getElementById("chatbot-icon");
     const chatWindow = document.getElementById("chatbot-window");
     const closeBtn = document.getElementById("close-chat");
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const outputStream = document.getElementById("chat-stream-output");
 
     if (chatIcon && chatWindow) {
-        // Toggles the visibility state perfectly back and forth on icon click
+        // Toggles between open and hidden visibility states perfectly on alternate clicks
         chatIcon.addEventListener("click", (e) => {
             e.stopPropagation();
             chatWindow.classList.toggle("hidden");
@@ -40,71 +40,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 chatWindow.classList.add("hidden");
             });
         }
-
-        // Avoid click leakage inside typing panel
-        chatWindow.addEventListener("click", (e) => {
-            e.stopPropagation();
-        });
+        
+        chatWindow.addEventListener("click", (e) => { e.stopPropagation(); });
     }
 
-    // --- 3. INERTIAL SCROLL SMOOTHING VIA ANCHOR NODES ---
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if(targetId === '#') return;
-            const targetElement = document.querySelector(targetId);
+    // --- 3. DUAL GATEWAY AUTHENTICATION FORMS SWITCHER ---
+    const authTabs = document.querySelectorAll(".auth-tab-btn");
+    authTabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+            authTabs.forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".auth-panel-node").forEach(panel => panel.classList.remove("active"));
             
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80, 
-                    behavior: 'smooth'
-                });
-            }
+            tab.classList.add("active");
+            const activePanelId = tab.getAttribute("data-target-form");
+            const targetPanel = document.getElementById(activePanelId);
+            if(targetPanel) targetPanel.classList.add("active");
         });
     });
 
-    // --- 4. SCROLL INTERSECTION PROGRESS AND HEADER OPTIMIZATIONS ---
-    const scrollProgressBar = document.getElementById("scroll-progress-bar");
-    const mainHeader = document.querySelector(".main-header");
-    
-    window.addEventListener("scroll", () => {
-        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (totalHeight > 0 && scrollProgressBar) {
-            scrollProgressBar.style.width = `${(window.pageYOffset / totalHeight) * 100}%`;
-        }
-
-        if(mainHeader) {
-            if (window.scrollY > 50) mainHeader.classList.add("header-scrolled");
-            else mainHeader.classList.remove("header-scrolled");
-        }
-    });
-
-    // --- 5. BI-DIRECTIONAL MOTION REVEAL PIPELINE ---
-    try {
-        const revealElements = document.querySelectorAll(".scroll-trigger-reveal");
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("reveal-active");
-                } else {
-                    entry.target.classList.remove("reveal-active");
-                }
-            });
-        }, { threshold: 0.05, rootMargin: "0px 0px -40px 0px" });
-        revealElements.forEach(element => revealObserver.observe(element));
-    } catch (e) {
-        console.error("Intersection reveal initialization fault:", e);
-    }
-
-    // --- 6. DRAGGABLE HERO CAROUSEL PLATFORM (5s CYCLING TIMEOUT) ---
+    // --- 4. FLUID DRAGGABLE SLIDER CAROUSEL (3s AUTOMATED TIMEOUT CYCLE) ---
     const sliderViewport = document.getElementById("hero-draggable-viewport");
     const sliderWrapper = document.getElementById("hero-slider-wrapper");
-    const textNodes = document.querySelectorAll(".hero-slide-text-node");
     const beads = document.querySelectorAll("#slider-pagination-container .bead");
     
     let currentSlideIndex = 0;
-    const countTotalSlides = textNodes.length;
+    const countTotalSlides = beads.length;
     let autoCycleTimer = null;
     
     let activeDragMode = false;
@@ -119,11 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
             sliderWrapper.style.transition = "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
             sliderWrapper.style.transform = `translateX(${offsetTrack}%)`;
         }
-        
-        textNodes.forEach((node, idx) => {
-            if(idx === currentSlideIndex) node.classList.add("active");
-            else node.classList.remove("active");
-        });
 
         beads.forEach((bead, idx) => {
             if(idx === currentSlideIndex) bead.classList.add("active");
@@ -135,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
         clearInterval(autoCycleTimer);
         autoCycleTimer = setInterval(() => {
             renderActiveSlide(currentSlideIndex + 1);
-        }, 5000);
+        }, 3000); // 3-Second Automatic Sliding Phase Controls
     }
 
     if(sliderViewport && sliderWrapper) {
@@ -171,6 +126,37 @@ document.addEventListener("DOMContentLoaded", () => {
             initAutoCycle();
         });
 
+        // Touch Interactivity mapping for tablet surfaces
+        sliderViewport.addEventListener("touchstart", (e) => {
+            clearInterval(autoCycleTimer);
+            activeDragMode = true;
+            sliderWrapper.style.transition = "none";
+            initialCursorPositionX = e.touches[0].clientX;
+            const matrix = new WebKitCSSMatrix(window.getComputedStyle(sliderWrapper).transform);
+            cumulativeTransformX = matrix.m41;
+        }, { passive: true });
+
+        sliderViewport.addEventListener("touchmove", (e) => {
+            if (!activeDragMode) return;
+            const deltaX = e.touches[0].clientX - initialCursorPositionX;
+            sliderWrapper.style.transform = `translateX(${cumulativeTransformX + deltaX}px)`;
+        }, { passive: true });
+
+        sliderViewport.addEventListener("touchend", (e) => {
+            if (!activeDragMode) return;
+            activeDragMode = false;
+            const displacementX = e.changedTouches[0].clientX - initialCursorPositionX;
+            const structuralWidth = sliderViewport.offsetWidth;
+            
+            if (Math.abs(displacementX) > structuralWidth * 0.15) {
+                if (displacementX > 0) renderActiveSlide(currentSlideIndex - 1);
+                else renderActiveSlide(currentSlideIndex + 1);
+            } else {
+                renderActiveSlide(currentSlideIndex);
+            }
+            initAutoCycle();
+        });
+
         beads.forEach(bead => {
             bead.addEventListener("click", () => {
                 renderActiveSlide(parseInt(bead.getAttribute("data-slide-index"), 10));
@@ -181,19 +167,68 @@ document.addEventListener("DOMContentLoaded", () => {
         initAutoCycle();
     }
 
-    // --- 7. HARDWARE ACCELERATED 3D TILT MATRIX ---
-    const tiltCards = document.querySelectorAll(".tilt-target");
-    tiltCards.forEach(card => {
+    // --- 5. THE CARD HIDING STACK ILLUSION DECK MATRIX ---
+    const deckCards = document.querySelectorAll(".portfolio-deck-card");
+    deckCards.forEach(card => {
+        card.addEventListener("mouseenter", () => {
+            const currentIdx = parseInt(card.getAttribute("data-card-idx"), 10);
+            
+            deckCards.forEach((c, index) => {
+                if (index === currentIdx) {
+                    c.style.transform = "translateX(0px) translateZ(40px) scale(1.05)";
+                    c.style.opacity = "1";
+                    c.style.zIndex = "50";
+                } else if (index < currentIdx) {
+                    const multiplier = currentIdx - index;
+                    c.style.transform = `translateX(${60 + (multiplier * 20)}px) translateZ(-${multiplier * 30}px) scale(0.88)`;
+                    c.style.opacity = "0.25"; // Fades back gracefully into the deck array path
+                    c.style.zIndex = `${30 - multiplier}`;
+                } else {
+                    const multiplier = index - currentIdx;
+                    c.style.transform = `translateX(-${60 + (multiplier * 20)}px) translateZ(-${multiplier * 30}px) scale(0.88)`;
+                    c.style.opacity = "0.25";
+                    c.style.zIndex = `${30 - multiplier}`;
+                }
+            });
+        });
+
+        card.addEventListener("mouseleave", () => {
+            deckCards.forEach(c => {
+                c.style.transform = "translateX(0px) translateZ(0px) scale(1)";
+                c.style.opacity = "1";
+                c.style.zIndex = "10";
+            });
+        });
+    });
+
+    // --- 6. REAL-TIME FAST CURSOR TRACKING MATRIX FOR TESTIMONIAL CARDS ---
+    const trackingBox = document.querySelector(".text-track-mouse-tilt");
+    const reactiveCard = document.querySelector(".mouse-hover-reactive-card");
+    
+    if (trackingBox && reactiveCard) {
+        trackingBox.addEventListener("mousemove", (e) => {
+            const rect = trackingBox.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const rotateX = ((rect.height / 2 - y) / (rect.height / 2)) * 15; 
+            const rotateY = ((x - (rect.width / 2)) / (rect.width / 2)) * 15;
+            
+            reactiveCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+        
+        trackingBox.addEventListener("mouseleave", () => {
+            reactiveCard.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+        });
+    }
+
+    // --- 7. STANDALONE 3D HARDWARE TILT ENGINES ---
+    const standaloneTilts = document.querySelectorAll(".tilt-target");
+    standaloneTilts.forEach(card => {
         card.addEventListener("mousemove", (e) => {
             const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left; 
-            const y = e.clientY - rect.top; 
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = ((centerY - y) / centerY) * 10; 
-            const rotateY = ((x - centerX) / centerX) * 10;
-            
+            const rotateX = ((rect.height / 2 - (e.clientY - rect.top)) / (rect.height / 2)) * 10;
+            const rotateY = (((e.clientX - rect.left) - rect.width / 2) / (rect.width / 2)) * 10;
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
         });
         card.addEventListener("mouseleave", () => {
@@ -201,25 +236,60 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- 8. MOUSE SPOTLIGHT FIELDS ---
-    const spotlightGrid = document.querySelector(".mouse-spotlight-grid");
-    if (spotlightGrid) {
-        spotlightGrid.addEventListener("mousemove", (e) => {
-            document.querySelectorAll(".spotlight-element").forEach(el => {
-                const rect = el.getBoundingClientRect();
-                el.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
-                el.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+    // --- 8. ANATOMICAL INDEX LINKAGE CHANNELS ---
+    const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
+    const fetchTarget = document.getElementById("anatomy-fetch-target");
+    const label = document.getElementById("anatomy-ui-marker");
+
+    if (hotspots && fetchTarget) {
+        hotspots.forEach(spot => {
+            spot.addEventListener("mouseenter", (e) => {
+                if (label) label.innerText = e.target.getAttribute("data-anatomy-region").toUpperCase();
+            });
+            spot.addEventListener("mouseleave", () => {
+                if (label) label.innerText = "Select Structural Node";
+            });
+            spot.addEventListener("click", async (e) => {
+                hotspots.forEach(h => h.classList.remove("active-node"));
+                e.target.classList.add("active-node");
+                const region = e.target.getAttribute("data-anatomy-region");
+
+                fetchTarget.innerHTML = `<div class="fallback-prompt">Querying master specification indexes for ${region}...</div>`;
+                try {
+                    const res = await fetch(`http://127.0.0.1:8000/api/instruments/?anatomy=${region}`);
+                    if (!res.ok) throw new Error();
+                    const data = await res.json();
+                    fetchTarget.innerHTML = "";
+                    data.forEach(item => {
+                        fetchTarget.innerHTML += `<div class="instrument-item"><h5>${item.name} (${item.sku})</h5><p>${item.specialty}</p></div>`;
+                    });
+                } catch (err) {
+                    fetchTarget.innerHTML = "";
+                    const staticListing = anatomyPreloadedDatabase[region];
+                    if (staticListing) {
+                        staticListing.forEach(item => {
+                            fetchTarget.innerHTML += `
+                                <div class="instrument-item">
+                                    <h5>${item.name} (${item.sku})</h5>
+                                    <p>${item.specialty}</p>
+                                    <span class="cached-badge"><i class="fas fa-shield-alt"></i> Verified Spec</span>
+                                </div>`;
+                        });
+                    }
+                }
             });
         });
     }
 
-    // --- 9. HERO IMAGE PARALLAX AND DYNAMIC SCROLL ZOOMS ---
-    const parallaxBg = document.getElementById("hero-parallax-bg");
+    // --- 9. INTERSECTION PROGRESS METRICS ZOOMS ---
     const zoomImages = document.querySelectorAll(".scroll-zoom-img");
-    
     window.addEventListener("scroll", () => {
         const scrolled = window.pageYOffset;
-        if (parallaxBg) parallaxBg.style.transform = `translateY(${scrolled * 0.4}px)`;
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        
+        if (totalHeight > 0 && scrollProgressBar) {
+            scrollProgressBar.style.width = `${(scrolled / totalHeight) * 100}%`;
+        }
 
         zoomImages.forEach(img => {
             const parentSection = img.closest("section");
@@ -233,93 +303,32 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- 10. METRICS COUNT SCHEDULERS ---
-    try {
+    // --- 10. METRICS INTERSECTION COUNT SCHEDULERS ---
+    const countElements = document.querySelectorAll(".count-target");
+    if (countElements) {
         const countObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    if (!entry.target.hasAttribute("data-animated")) {
-                        entry.target.setAttribute("data-animated", "true");
-                        const target = parseInt(entry.target.getAttribute("data-target"), 10);
-                        let current = 0;
-                        const step = target > 1000 ? Math.floor(target / 35) : 1;
-
-                        const timer = setInterval(() => {
-                            current += step;
-                            if (current >= target) {
-                                entry.target.innerText = target.toLocaleString();
-                                clearInterval(timer);
-                            } else {
-                                entry.target.innerText = current.toLocaleString();
-                            }
-                        }, 20);
-                    }
-                } else {
-                    entry.target.innerText = "0";
-                    entry.target.removeAttribute("data-animated");
+                if (entry.isIntersecting && !entry.target.hasAttribute("data-animated")) {
+                    entry.target.setAttribute("data-animated", "true");
+                    const target = parseInt(entry.target.getAttribute("data-target"), 10);
+                    let current = 0;
+                    const step = target > 1000 ? Math.floor(target / 35) : 1;
+                    const timer = setInterval(() => {
+                        current += step;
+                        if (current >= target) {
+                            entry.target.innerText = target.toLocaleString();
+                            clearInterval(timer);
+                        } else {
+                            entry.target.innerText = current.toLocaleString();
+                        }
+                    }, 20);
                 }
             });
         });
-        document.querySelectorAll(".count-target").forEach(el => countObserver.observe(el));
-    } catch (e) {
-        console.error("Counter fail logs:", e);
+        countElements.forEach(el => countObserver.observe(el));
     }
 
-    // --- 11. ANATOMICAL LOOKUP BLUEPRINT ENGINES ---
-    try {
-        const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
-        const fetchTarget = document.getElementById("anatomy-fetch-target");
-        const label = document.getElementById("anatomy-ui-marker");
-
-        function appendFailsafeData(regionCode) {
-            fetchTarget.innerHTML = "";
-            const staticListing = anatomyPreloadedDatabase[regionCode];
-            if (staticListing) {
-                staticListing.forEach(item => {
-                    fetchTarget.innerHTML += `
-                        <div class="instrument-item">
-                            <h5>${item.name} (${item.sku})</h5>
-                            <p>${item.specialty}</p>
-                            <span class="cached-badge"><i class="fas fa-microchip"></i> ISO Traceable Spec</span>
-                        </div>`;
-                });
-            }
-        }
-
-        hotspots.forEach(spot => {
-            spot.addEventListener("mouseenter", (e) => {
-                if (label) label.innerText = e.target.getAttribute("data-anatomy-region").toUpperCase();
-            });
-            spot.addEventListener("mouseleave", () => {
-                if (label) label.innerText = "Select Structural Node";
-            });
-            spot.addEventListener("click", async (e) => {
-                hotspots.forEach(h => h.classList.remove("active-node"));
-                e.target.classList.add("active-node");
-                const region = e.target.getAttribute("data-anatomy-region");
-
-                if (fetchTarget) {
-                    fetchTarget.innerHTML = `<div class="fallback-prompt">Querying master specification indexes for ${region}...</div>`;
-                    try {
-                        const res = await fetch(`http://127.0.0.1:8000/api/instruments/?anatomy=${region}`);
-                        if (!res.ok) throw new Error();
-                        const data = await res.json();
-                        fetchTarget.innerHTML = "";
-                        if (data.length === 0) { appendFailsafeData(region); return; }
-                        data.forEach(item => {
-                            fetchTarget.innerHTML += `<div class="instrument-item"><h5>${item.name} (${item.sku})</h5><p>${item.specialty}</p></div>`;
-                        });
-                    } catch (err) {
-                        appendFailsafeData(region);
-                    }
-                }
-            });
-        });
-    } catch (e) {
-        console.error("Anatomy alignment runtime fault:", e);
-    }
-
-    // --- 12. DISPATCH CHAT SUBMISSION LOOPS ---
+    // --- 11. CENTRAL AI DISPATCH CHAT SUBMISSION PIPELINE ---
     async function sendChat() {
         if (!inputField || !outputStream) return;
         const text = inputField.value.trim();
@@ -338,7 +347,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await res.json();
             outputStream.innerHTML += `<p class="bot-msg">${data.reply}</p>`;
         } catch (err) {
-            outputStream.innerHTML += `<p class="bot-msg" style="color:var(--crimson-accent);">Failed to connect to Surgis AI.</p>`;
+            outputStream.innerHTML += `<p class="bot-msg" style="color:var(--crimson-red);">Failed to connect to Surgis AI.</p>`;
         }
         outputStream.scrollTop = outputStream.scrollHeight;
     }
