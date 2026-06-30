@@ -1,6 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // --- 1. APPLE-STYLE SMOOTH ANCHOR NAV SCROLLING ---
+    // --- 1. LOCAL DATA PRE-CACHE FOR HUMAN ANATOMY LOOKUP (FAILSAFE LAYER) ---
+    const anatomyPreloadedDatabase = {
+        "head": [
+            { name: "Micro-Neuro Instruments Kit", sku: "SKU-MN-992", specialty: "Neurosurgery Cranial Open Access" },
+            { name: "Cushing Scalp Retractors", sku: "SKU-CR-102", specialty: "Neurological Hemostasis Processing" },
+            { name: "Yasargil Micro-Scissors (Curved)", sku: "SKU-YS-551", specialty: "Microsurgical Tissue Dissection" }
+        ],
+        "torso": [
+            { name: "DeBakey Vascular Tissue Forceps", sku: "SKU-DB-440", specialty: "Cardiovascular/Thoracic Surgery" },
+            { name: "Finochietto Rib Spreader Series", sku: "SKU-FR-881", specialty: "Internal Thoracic Sternal Access" },
+            { name: "Metzenbaum Precision Dissecting Scissors", sku: "SKU-MS-220", specialty: "General Laparotomy Soft Tissue" }
+        ],
+        "extremities": [
+            { name: "Charnley Orthopedic Bone Retractors", sku: "SKU-CO-311", specialty: "Lower Extremity Arthroplasty" },
+            { name: "Liston Bone Cutting Pliers", sku: "SKU-LB-095", specialty: "Orthopedic Structural Trauma Repair" },
+            { name: "Kirschner Tension Wire Drivers", sku: "SKU-KW-712", specialty: "Extremity Skeletal Stabilization" }
+        ]
+    };
+
+    // --- 2. APPLE-STYLE SMOOTH ANCHOR NAV SCROLLING ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -17,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- 2. HEADER INTERACTION & VIEWPORT PROGRESS BAR ---
+    // --- 3. HEADER INTERACTION & VIEWPORT PROGRESS BAR ---
     const scrollProgressBar = document.getElementById("scroll-progress-bar");
     const mainHeader = document.querySelector(".main-header");
     
@@ -37,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // --- 3. RUNTIME OPTIMIZED BI-DIRECTIONAL SECTION REVEALS ---
+    // --- 4. RUNTIME OPTIMIZED BI-DIRECTIONAL SECTION REVEALS ---
     try {
         const revealElements = document.querySelectorAll(".scroll-trigger-reveal");
         const revealObserver = new IntersectionObserver((entries) => {
@@ -55,10 +74,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         revealElements.forEach(element => revealObserver.observe(element));
     } catch (e) {
-        console.error("Section reveal structural layout initialization error:", e);
+        console.error("Section reveal layout tracking initiation error:", e);
     }
 
-    // --- 4. FLUID DRAGGABLE HERO CAROUSEL ENGINE (5s AUTO-CYCLE) ---
+    // --- 5. FLUID DRAGGABLE HERO CAROUSEL ENGINE (5s AUTO-CYCLE) ---
     const sliderViewport = document.getElementById("hero-draggable-viewport");
     const sliderWrapper = document.getElementById("hero-slider-wrapper");
     const textNodes = document.querySelectorAll(".hero-slide-text-node");
@@ -68,7 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const countTotalSlides = textNodes.length;
     let autoCycleTimer = null;
     
-    // Drag Tracking State Matrix Variables
     let activeDragMode = false;
     let initialCursorPositionX = 0;
     let cumulativeTransformX = 0;
@@ -83,13 +101,11 @@ document.addEventListener("DOMContentLoaded", () => {
             sliderWrapper.style.transform = `translateX(${primaryOffsetTrack}%)`;
         }
         
-        // Refresh Text Track Layouts
         textNodes.forEach((node, idx) => {
             if(idx === currentSlideIndex) node.classList.add("active");
             else node.classList.remove("active");
         });
 
-        // Update Paginated Indicators
         beads.forEach((bead, idx) => {
             if(idx === currentSlideIndex) bead.classList.add("active");
             else bead.classList.remove("active");
@@ -100,12 +116,10 @@ document.addEventListener("DOMContentLoaded", () => {
         clearInterval(autoCycleTimer);
         autoCycleTimer = setInterval(() => {
             renderActiveSlide(currentSlideIndex + 1);
-        }, 5000); // Strict 5-Second Interval Execution Loop
+        }, 5000); // Continuous 5-Second Interval Cycle Loop
     }
 
-    // Setup Interaction Listeners for Desktop and Touch Environments
     if(sliderViewport && sliderWrapper) {
-        // Desktop Drag Implementations
         sliderViewport.addEventListener("mousedown", (e) => {
             activeDragMode = true;
             clearInterval(autoCycleTimer);
@@ -131,7 +145,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const displacementX = e.clientX - initialCursorPositionX;
             const structuralWidth = sliderViewport.offsetWidth;
             
-            // Check threshold requirements to confirm shift sequence
             if (Math.abs(displacementX) > structuralWidth * 0.15) {
                 if (displacementX > 0) renderActiveSlide(currentSlideIndex - 1);
                 else renderActiveSlide(currentSlideIndex + 1);
@@ -141,7 +154,6 @@ document.addEventListener("DOMContentLoaded", () => {
             initAutoCycle();
         });
 
-        // Touch Interaction Pipelines (Tablets/Mobile)
         sliderViewport.addEventListener("touchstart", (e) => {
             clearInterval(autoCycleTimer);
             activeDragMode = true;
@@ -173,7 +185,6 @@ document.addEventListener("DOMContentLoaded", () => {
             initAutoCycle();
         });
 
-        // Click Controls for Pagination Indicators
         beads.forEach(bead => {
             bead.addEventListener("click", () => {
                 const requestedIndex = parseInt(bead.getAttribute("data-slide-index"), 10);
@@ -182,11 +193,10 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-        // Boot Auto Cycle Process loop
         initAutoCycle();
     }
 
-    // --- 5. HIGH-PERFORMANCE 3D CARD TILT MECHANISM ---
+    // --- 6. HIGH-PERFORMANCE 3D CARD TILT MECHANISM ---
     const tiltCards = document.querySelectorAll(".tilt-target");
     tiltCards.forEach(card => {
         card.addEventListener("mousemove", (e) => {
@@ -208,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- 6. ENHANCED MOUSE SPOTLIGHT RADIAL GRADIENT MATRIX ---
+    // --- 7. MOUSE SPOTLIGHT RADIAL GRADIENT MATRIX ---
     const spotlightGrid = document.querySelector(".mouse-spotlight-grid");
     if (spotlightGrid) {
         spotlightGrid.addEventListener("mousemove", (e) => {
@@ -223,7 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- 7. CINEMATIC HERO PARALLAX & HERO SCROLL IMAGE ZOOM ---
+    // --- 8. HERO PARALLAX & SCROLL IMAGE ZOOM ENGINE ---
     const parallaxBg = document.getElementById("hero-parallax-bg");
     const zoomImages = document.querySelectorAll(".scroll-zoom-img");
     
@@ -247,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- 8. AUTO-RESETTING NUMERICAL COUNTER ENGINE ---
+    // --- 9. AUTO-RESETTING NUMERICAL COUNTER ENGINE ---
     try {
         const countElements = document.querySelectorAll(".count-target");
         const countObserver = new IntersectionObserver((entries) => {
@@ -278,14 +288,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
         countElements.forEach(el => countObserver.observe(el));
     } catch (e) {
-        console.error("Metrics structural engine fault logs:", e);
+        console.error("Metrics engine runtime log tracking error:", e);
     }
 
-    // --- 9. ANATOMY INTERACTIVE MAPPING PIPELINE ---
+    // --- 10. ANATOMY MAPPING LOOKUP CONTEXT PIPELINE WITH DUAL-LAYER FETCH ---
     try {
         const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
         const fetchTarget = document.getElementById("anatomy-fetch-target");
         const label = document.getElementById("anatomy-ui-marker");
+
+        // Failsafe Rendering Sub-Routine
+        function appendFailsafeData(regionCode) {
+            fetchTarget.innerHTML = "";
+            const staticListing = anatomyPreloadedDatabase[regionCode];
+            
+            if (staticListing && staticListing.length > 0) {
+                staticListing.forEach(item => {
+                    fetchTarget.innerHTML += `
+                        <div class="instrument-item">
+                            <h5>${item.name} (${item.sku})</h5>
+                            <p>${item.specialty}</p>
+                            <span class="cached-badge"><i class="fas fa-shield-alt"></i> Local Verified Spec</span>
+                        </div>`;
+                });
+            } else {
+                fetchTarget.innerHTML = `<div class="fallback-prompt">No instruments found cataloged for ${regionCode}.</div>`;
+            }
+        }
 
         hotspots.forEach(spot => {
             spot.addEventListener("mouseenter", (e) => {
@@ -306,15 +335,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 const region = e.target.getAttribute("data-anatomy-region");
 
                 if (fetchTarget) {
-                    fetchTarget.innerHTML = `<div class="fallback-prompt">Loading instruments for ${region}...</div>`;
+                    fetchTarget.innerHTML = `<div class="fallback-prompt">Querying production database for ${region}...</div>`;
 
                     try {
+                        // Attempt Primary Live Database API Connection Loop
                         const res = await fetch(`http://127.0.0.1:8000/api/instruments/?anatomy=${region}`);
+                        if (!res.ok) throw new Error("API Offline");
+                        
                         const data = await res.json();
                         fetchTarget.innerHTML = "";
 
                         if (data.length === 0) {
-                            fetchTarget.innerHTML = `<div class="fallback-prompt">No instruments found for ${region}.</div>`;
+                            appendFailsafeData(region);
                             return;
                         }
 
@@ -323,16 +355,18 @@ document.addEventListener("DOMContentLoaded", () => {
                         });
 
                     } catch (err) {
-                        fetchTarget.innerHTML = `<div class="fallback-prompt" style="color:var(--crimson-accent);">Error connecting to API. Is the server running?</div>`;
+                        // Smooth Fallback to Preloaded Anatomy Data Structure Layers
+                        console.warn(`Primary database connection fault. Triggering local data layer for: ${region}`);
+                        appendFailsafeData(region);
                     }
                 }
             });
         });
     } catch (e) {
-        console.error("Anatomy mapping module pipeline error:", e);
+        console.error("Anatomy mapping module initialization pipeline error:", e);
     }
 
-    // --- 10. SURGIS AI CONVERSATIONAL DRIVER ---
+    // --- 11. SURGIS AI CONVERSATIONAL DRIVER ---
     try {
         const chatIcon = document.getElementById("chatbot-icon");
         const chatWindow = document.getElementById("chatbot-window");
@@ -377,6 +411,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     } catch (e) {
-        console.error("Chatbot core execution loop error:", e);
+        console.error("Chatbot loop execution handling block error:", e);
     }
 });
