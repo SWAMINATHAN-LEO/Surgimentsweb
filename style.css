@@ -1,296 +1,357 @@
-@charset "UTF-8";
+document.addEventListener("DOMContentLoaded", () => {
 
-/* ==========================================================================
-   1. CLINICAL CRYSTALLINE SCHEMATIC SPEC VARIABLES (REFERENCE: 1000492271.jpg)
-   ========================================================================== */
-:root {
-    --bg-dark-core: #020612;        /* Clinical Operating Theater Canvas base */
-    --aegean-gradient: linear-gradient(135deg, #020d24 0%, #030614 60%, #010207 100%);
+    // --- 1. LOCAL DATA PRE-CACHE FOR ANATOMICAL COORDINATES LOOKUP ---
+    const anatomyPreloadedDatabase = {
+        "head": [
+            { name: "Micro-Neuro Instruments Kit", sku: "SKU-MN-992", specialty: "Neurosurgery Cranial Open Access" },
+            { name: "Cushing Scalp Retractors", sku: "SKU-CR-102", specialty: "Neurological Hemostasis Processing" },
+            { name: "Yasargil Micro-Scissors (Curved)", sku: "SKU-YS-551", specialty: "Microsurgical Tissue Dissection" }
+        ],
+        "torso": [
+            { name: "DeBakey Vascular Tissue Forceps", sku: "SKU-DB-440", specialty: "Cardiovascular/Thoracic Surgery" },
+            { name: "Finochietto Rib Spreader Series", sku: "SKU-FR-881", specialty: "Internal Thoracic Sternal Access" },
+            { name: "Metzenbaum Precision Dissecting Scissors", sku: "SKU-MS-220", specialty: "General Laparotomy Soft Tissue" }
+        ],
+        "extremities": [
+            { name: "Charnley Orthopedic Bone Retractors", sku: "SKU-CO-311", specialty: "Lower Extremity Arthroplasty" },
+            { name: "Liston Bone Cutting Pliers", sku: "SKU-LB-095", specialty: "Orthopedic Structural Trauma Repair" },
+            { name: "Kirschner Tension Wire Drivers", sku: "SKU-KW-712", specialty: "Extremity Skeletal Stabilization" }
+        ]
+    };
+
+    // --- 2. THE CHATBOT TWO-WAY TOGGLE LOOP MECHANISM ---
+    const chatIcon = document.getElementById("chatbot-icon");
+    const chatWindow = document.getElementById("chatbot-window");
+    const closeBtn = document.getElementById("close-chat");
+    const sendBtn = document.getElementById("send-chat");
+    const inputField = document.getElementById("chat-input-field");
+    const outputStream = document.getElementById("chat-stream-output");
+
+    if (chatIcon && chatWindow) {
+        // Toggles between open and hidden visibility states perfectly on alternate clicks
+        chatIcon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            chatWindow.classList.toggle("hidden");
+        });
+
+        if (closeBtn) {
+            closeBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                chatWindow.classList.add("hidden");
+            });
+        }
+        
+        chatWindow.addEventListener("click", (e) => { e.stopPropagation(); });
+    }
+
+    // --- 3. DUAL GATEWAY AUTHENTICATION FORMS SWITCHER ---
+    const authTabs = document.querySelectorAll(".auth-tab-btn");
+    authTabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+            authTabs.forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".auth-panel-node").forEach(panel => panel.classList.remove("active"));
+            
+            tab.classList.add("active");
+            const activePanelId = tab.getAttribute("data-target-form");
+            const targetPanel = document.getElementById(activePanelId);
+            if(targetPanel) targetPanel.classList.add("active");
+        });
+    });
+
+    // --- 4. FLUID DRAGGABLE SLIDER CAROUSEL (3s AUTOMATED TIMEOUT CYCLE) ---
+    const sliderViewport = document.getElementById("hero-draggable-viewport");
+    const sliderWrapper = document.getElementById("hero-slider-wrapper");
+    const beads = document.querySelectorAll("#slider-pagination-container .bead");
     
-    /* Strict Metallurgic Asset Colors from 1000492271.jpg */
-    --crystal-blue-bright: #0066ff;
-    --crystal-blue-deep: #0a2f64;
-    --crystal-red-metallic: #99000a;
-    --crystal-silver-chrome: #cbd5e1;
+    let currentSlideIndex = 0;
+    const countTotalSlides = beads.length;
+    let autoCycleTimer = null;
     
-    /* Pure Translucent Passivated Surfaces */
-    --card-surface: rgba(11, 34, 68, 0.18);
-    --glass-blur: blur(24px);
-    --border-glass: rgba(255, 255, 255, 0.06);
-    --border-active: rgba(0, 102, 255, 0.5);
+    let activeDragMode = false;
+    let initialCursorPositionX = 0;
+    let cumulativeTransformX = 0;
+
+    function renderActiveSlide(index) {
+        currentSlideIndex = (index + countTotalSlides) % countTotalSlides;
+        const offsetTrack = -currentSlideIndex * 100;
+        
+        if (sliderWrapper) {
+            sliderWrapper.style.transition = "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
+            sliderWrapper.style.transform = `translateX(${offsetTrack}%)`;
+        }
+
+        beads.forEach((bead, idx) => {
+            if(idx === currentSlideIndex) bead.classList.add("active");
+            else bead.classList.remove("active");
+        });
+    }
+
+    function initAutoCycle() {
+        clearInterval(autoCycleTimer);
+        autoCycleTimer = setInterval(() => {
+            renderActiveSlide(currentSlideIndex + 1);
+        }, 3000); // 3-Second Automatic Sliding Phase Controls
+    }
+
+    if(sliderViewport && sliderWrapper) {
+        sliderViewport.addEventListener("mousedown", (e) => {
+            activeDragMode = true;
+            clearInterval(autoCycleTimer);
+            sliderWrapper.style.transition = "none";
+            initialCursorPositionX = e.clientX;
+            const matrix = new WebKitCSSMatrix(window.getComputedStyle(sliderWrapper).transform);
+            cumulativeTransformX = matrix.m41;
+            sliderViewport.style.cursor = "grabbing";
+        });
+
+        window.addEventListener("mousemove", (e) => {
+            if (!activeDragMode) return;
+            const deltaX = e.clientX - initialCursorPositionX;
+            sliderWrapper.style.transform = `translateX(${cumulativeTransformX + deltaX}px)`;
+        });
+
+        window.addEventListener("mouseup", (e) => {
+            if (!activeDragMode) return;
+            activeDragMode = false;
+            sliderViewport.style.cursor = "grab";
+            const displacementX = e.clientX - initialCursorPositionX;
+            const structuralWidth = sliderViewport.offsetWidth;
+            
+            if (Math.abs(displacementX) > structuralWidth * 0.15) {
+                if (displacementX > 0) renderActiveSlide(currentSlideIndex - 1);
+                else renderActiveSlide(currentSlideIndex + 1);
+            } else {
+                renderActiveSlide(currentSlideIndex);
+            }
+            initAutoCycle();
+        });
+
+        // Touch Interactivity mapping for tablet surfaces
+        sliderViewport.addEventListener("touchstart", (e) => {
+            clearInterval(autoCycleTimer);
+            activeDragMode = true;
+            sliderWrapper.style.transition = "none";
+            initialCursorPositionX = e.touches[0].clientX;
+            const matrix = new WebKitCSSMatrix(window.getComputedStyle(sliderWrapper).transform);
+            cumulativeTransformX = matrix.m41;
+        }, { passive: true });
+
+        sliderViewport.addEventListener("touchmove", (e) => {
+            if (!activeDragMode) return;
+            const deltaX = e.touches[0].clientX - initialCursorPositionX;
+            sliderWrapper.style.transform = `translateX(${cumulativeTransformX + deltaX}px)`;
+        }, { passive: true });
+
+        sliderViewport.addEventListener("touchend", (e) => {
+            if (!activeDragMode) return;
+            activeDragMode = false;
+            const displacementX = e.changedTouches[0].clientX - initialCursorPositionX;
+            const structuralWidth = sliderViewport.offsetWidth;
+            
+            if (Math.abs(displacementX) > structuralWidth * 0.15) {
+                if (displacementX > 0) renderActiveSlide(currentSlideIndex - 1);
+                else renderActiveSlide(currentSlideIndex + 1);
+            } else {
+                renderActiveSlide(currentSlideIndex);
+            }
+            initAutoCycle();
+        });
+
+        beads.forEach(bead => {
+            bead.addEventListener("click", () => {
+                renderActiveSlide(parseInt(bead.getAttribute("data-slide-index"), 10));
+                initAutoCycle();
+            });
+        });
+
+        initAutoCycle();
+    }
+
+    // --- 5. THE CARD HIDING STACK ILLUSION DECK MATRIX ---
+    const deckCards = document.querySelectorAll(".portfolio-deck-card");
+    deckCards.forEach(card => {
+        card.addEventListener("mouseenter", () => {
+            const currentIdx = parseInt(card.getAttribute("data-card-idx"), 10);
+            
+            deckCards.forEach((c, index) => {
+                if (index === currentIdx) {
+                    c.style.transform = "translateX(0px) translateZ(40px) scale(1.05)";
+                    c.style.opacity = "1";
+                    c.style.zIndex = "50";
+                } else if (index < currentIdx) {
+                    const multiplier = currentIdx - index;
+                    c.style.transform = `translateX(${60 + (multiplier * 20)}px) translateZ(-${multiplier * 30}px) scale(0.88)`;
+                    c.style.opacity = "0.25"; // Fades back gracefully into the deck array path
+                    c.style.zIndex = `${30 - multiplier}`;
+                } else {
+                    const multiplier = index - currentIdx;
+                    c.style.transform = `translateX(-${60 + (multiplier * 20)}px) translateZ(-${multiplier * 30}px) scale(0.88)`;
+                    c.style.opacity = "0.25";
+                    c.style.zIndex = `${30 - multiplier}`;
+                }
+            });
+        });
+
+        card.addEventListener("mouseleave", () => {
+            deckCards.forEach(c => {
+                c.style.transform = "translateX(0px) translateZ(0px) scale(1)";
+                c.style.opacity = "1";
+                c.style.zIndex = "10";
+            });
+        });
+    });
+
+    // --- 6. REAL-TIME FAST CURSOR TRACKING MATRIX FOR TESTIMONIAL CARDS ---
+    const trackingBox = document.querySelector(".text-track-mouse-tilt");
+    const reactiveCard = document.querySelector(".mouse-hover-reactive-card");
     
-    --white: #ffffff;
-    --text-muted: #5a6e8b;         
-    --text-light: #f8fafc;
-    --crimson-accent: #b20d15;     
-    --shadow-premium: 0 40px 90px -20px rgba(0, 0, 0, 0.9);
-    
-    --transition-curve: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    --transition-snappy: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
-}
+    if (trackingBox && reactiveCard) {
+        trackingBox.addEventListener("mousemove", (e) => {
+            const rect = trackingBox.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const rotateX = ((rect.height / 2 - y) / (rect.height / 2)) * 15; 
+            const rotateY = ((x - (rect.width / 2)) / (rect.width / 2)) * 15;
+            
+            reactiveCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+        
+        trackingBox.addEventListener("mouseleave", () => {
+            reactiveCard.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+        });
+    }
 
-/* ==========================================================================
-   2. POLISHED BACKGROUND GEOMETRY MASKS
-   ========================================================================== */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-html { scroll-behavior: smooth; }
-body { background-color: var(--bg-dark-core); color: var(--text-light); overflow-x: hidden; -webkit-font-smoothing: antialiased; position: relative; }
+    // --- 7. STANDALONE 3D HARDWARE TILT ENGINES ---
+    const standaloneTilts = document.querySelectorAll(".tilt-target");
+    standaloneTilts.forEach(card => {
+        card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const rotateX = ((rect.height / 2 - (e.clientY - rect.top)) / (rect.height / 2)) * 10;
+            const rotateY = (((e.clientX - rect.left) - rect.width / 2) / (rect.width / 2)) * 10;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+        });
+    });
 
-/* Structural Background Masks derived from 1000492271.jpg */
-.crystalline-shard-overlay {
-    position: absolute; width: 45vw; height: 70vh; pointer-events: none; z-index: 1;
-    background-size: contain; background-repeat: no-repeat; opacity: 0.22;
-}
-.topo-left {
-    top: 5%; left: -5%;
-    background-image: linear-gradient(140deg, var(--crystal-red-metallic) 0%, var(--crystal-blue-deep) 50%, transparent 100%);
-    clip-path: polygon(0% 0%, 100% 0%, 65% 100%, 0% 80%);
-}
-.topo-right {
-    top: 25%; right: -8%;
-    background-image: linear-gradient(220deg, var(--crystal-blue-bright) 0%, #020c22 60%, transparent 100%);
-    clip-path: polygon(30% 0%, 100% 20%, 100% 100%, 0% 70%);
-}
-.ambient-luminous-flare {
-    position: fixed; width: 700px; height: 700px; border-radius: 50%; top: 20%; left: 15%;
-    background: radial-gradient(circle, rgba(0,102,255,0.06) 0%, transparent 70%);
-    pointer-events: none; z-index: 0; filter: blur(100px);
-}
+    // --- 8. ANATOMICAL INDEX LINKAGE CHANNELS ---
+    const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
+    const fetchTarget = document.getElementById("anatomy-fetch-target");
+    const label = document.getElementById("anatomy-ui-marker");
 
-#scroll-progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--crystal-blue-bright), #38bdf8); z-index: 100000; }
-.glass-hull { background: var(--card-surface); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); transition: var(--transition-curve); will-change: transform, box-shadow; }
+    if (hotspots && fetchTarget) {
+        hotspots.forEach(spot => {
+            spot.addEventListener("mouseenter", (e) => {
+                if (label) label.innerText = e.target.getAttribute("data-anatomy-region").toUpperCase();
+            });
+            spot.addEventListener("mouseleave", () => {
+                if (label) label.innerText = "Select Structural Node";
+            });
+            spot.addEventListener("click", async (e) => {
+                hotspots.forEach(h => h.classList.remove("active-node"));
+                e.target.classList.add("active-node");
+                const region = e.target.getAttribute("data-anatomy-region");
 
-/* ==========================================================================
-   3. ANCHORED STABLE HEADERS (ZERO FLOATING DEVIATIONS FOR RE-OPTIMIZATION)
-   ========================================================================== */
-.main-header { display: flex; justify-content: space-between; align-items: center; padding: 26px 4%; background: rgba(2, 6, 18, 0.4); position: fixed; width: 100%; top: 0; z-index: 9999; border-bottom: 1px solid transparent; transition: var(--transition-snappy); }
-.main-header.header-scrolled { padding: 15px 4%; background: rgba(2, 6, 18, 0.95); border-bottom: 1px solid var(--border-glass); box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
-.header-spacer { width: 10px; }
-.nav-links { display: flex; align-items: center; gap: 6px; }
+                fetchTarget.innerHTML = `<div class="fallback-prompt">Querying master specification indexes for ${region}...</div>`;
+                try {
+                    const res = await fetch(`http://127.0.0.1:8000/api/instruments/?anatomy=${region}`);
+                    if (!res.ok) throw new Error();
+                    const data = await res.json();
+                    fetchTarget.innerHTML = "";
+                    data.forEach(item => {
+                        fetchTarget.innerHTML += `<div class="instrument-item"><h5>${item.name} (${item.sku})</h5><p>${item.specialty}</p></div>`;
+                    });
+                } catch (err) {
+                    fetchTarget.innerHTML = "";
+                    const staticListing = anatomyPreloadedDatabase[region];
+                    if (staticListing) {
+                        staticListing.forEach(item => {
+                            fetchTarget.innerHTML += `
+                                <div class="instrument-item">
+                                    <h5>${item.name} (${item.sku})</h5>
+                                    <p>${item.specialty}</p>
+                                    <span class="cached-badge"><i class="fas fa-shield-alt"></i> Verified Spec</span>
+                                </div>`;
+                        });
+                    }
+                }
+            });
+        });
+    }
 
-.nav-item { text-decoration: none; color: var(--text-muted); padding: 8px 18px; font-weight: 600; font-size: 14px; transition: var(--transition-snappy); background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px; position: relative; }
-.nav-item:hover { color: var(--white); }
-.dynamic-underline::after { content: ''; position: absolute; bottom: 0; left: 18px; right: 18px; height: 2px; background: var(--crystal-blue-bright); transform: scaleX(0); transition: transform 0.3s ease; transform-origin: right; }
-.nav-item:hover::after { transform: scaleX(1); transform-origin: left; }
+    // --- 9. INTERSECTION PROGRESS METRICS ZOOMS ---
+    const zoomImages = document.querySelectorAll(".scroll-zoom-img");
+    window.addEventListener("scroll", () => {
+        const scrolled = window.pageYOffset;
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        
+        if (totalHeight > 0 && scrollProgressBar) {
+            scrollProgressBar.style.width = `${(scrolled / totalHeight) * 100}%`;
+        }
 
-.header-dropdown-container { position: relative; }
-.macro-dropdown { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(20px); border-radius: 20px; padding: 25px; opacity: 0; visibility: hidden; min-width: 300px; z-index: 1000; }
-.header-dropdown-container:hover .macro-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(12px); }
-.dropdown-column h4 { font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
-.dropdown-column a { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-light); padding: 12px 14px; border-radius: 12px; font-size: 14px; font-weight: 500; transition: var(--transition-snappy); }
-.dropdown-column a:hover { background: rgba(255, 255, 255, 0.04); color: var(--white); transform: translateX(4px); }
+        zoomImages.forEach(img => {
+            const parentSection = img.closest("section");
+            if (parentSection) {
+                const rect = parentSection.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const viewScrollFactor = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+                    img.style.transform = `scale(${1 + (viewScrollFactor * 0.15)})`;
+                }
+            }
+        });
+    });
 
-.header-right-block { display: flex; align-items: center; gap: 20px; z-index: 10; }
-.search-wrapper { position: relative; display: flex; align-items: center; }
-.search-wrapper input { background: rgba(11, 34, 72, 0.4); border: 1px solid var(--border-glass); padding: 10px 18px 10px 40px; border-radius: 50px; font-size: 13px; width: 190px; transition: var(--transition-curve); color: var(--white); outline: none; }
-.search-wrapper input:focus { width: 250px; border-color: rgba(0, 102, 255, 0.3); background: #061129; }
-.search-wrapper i { position: absolute; left: 16px; color: var(--text-muted); font-size: 13px; }
+    // --- 10. METRICS INTERSECTION COUNT SCHEDULERS ---
+    const countElements = document.querySelectorAll(".count-target");
+    if (countElements) {
+        const countObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.hasAttribute("data-animated")) {
+                    entry.target.setAttribute("data-animated", "true");
+                    const target = parseInt(entry.target.getAttribute("data-target"), 10);
+                    let current = 0;
+                    const step = target > 1000 ? Math.floor(target / 35) : 1;
+                    const timer = setInterval(() => {
+                        current += step;
+                        if (current >= target) {
+                            entry.target.innerText = target.toLocaleString();
+                            clearInterval(timer);
+                        } else {
+                            entry.target.innerText = current.toLocaleString();
+                        }
+                    }, 20);
+                }
+            });
+        });
+        countElements.forEach(el => countObserver.observe(el));
+    }
 
-/* Fixed Anchored Controls without physics distortions */
-.auth-buttons { display: flex; gap: 12px; align-items: center; }
-.btn-text.normal-auth-trigger { background: none; border: none; font-size: 14px; font-weight: 600; cursor: pointer; color: var(--text-light); white-space: nowrap; transition: var(--transition-snappy); transform: none !important; }
-.btn-text.normal-auth-trigger:hover { color: var(--white); }
+    // --- 11. CENTRAL AI DISPATCH CHAT SUBMISSION PIPELINE ---
+    async function sendChat() {
+        if (!inputField || !outputStream) return;
+        const text = inputField.value.trim();
+        if (!text) return;
 
-.btn-pill-sm.normal-auth-trigger { background: var(--white); color: var(--bg-dark-core); border: none; padding: 10px 22px; border-radius: 50px; font-size: 13px; font-weight: 600; cursor: pointer; transition: var(--transition-snappy); transform: none !important; display: inline-flex; align-items: center; gap: 6px; }
-.btn-pill-sm.normal-auth-trigger:hover { background: var(--crystal-blue-bright); color: var(--white); box-shadow: 0 0 20px rgba(0, 102, 255, 0.4); }
+        outputStream.innerHTML += `<p class="user-msg">${text}</p>`;
+        inputField.value = "";
+        outputStream.scrollTop = outputStream.scrollHeight;
 
-/* ==========================================================================
-   4. CORE BRAND MODULES
-   ========================================================================== */
-.centered-brand-logo { text-align: center; padding: 160px 0 35px; background: transparent; z-index: 2; position: relative; }
-.centered-brand-logo img { height: 140px; width: auto; object-fit: contain; filter: drop-shadow(0 15px 35px rgba(0,102,255,0.25)); transition: var(--transition-curve); }
+        try {
+            const res = await fetch("http://127.0.0.1:8000/api/chatbot/query", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: text })
+            });
+            const data = await res.json();
+            outputStream.innerHTML += `<p class="bot-msg">${data.reply}</p>`;
+        } catch (err) {
+            outputStream.innerHTML += `<p class="bot-msg" style="color:var(--crimson-red);">Failed to connect to Surgis AI.</p>`;
+        }
+        outputStream.scrollTop = outputStream.scrollHeight;
+    }
 
-/* ==========================================================================
-   5. SECTIONS REVEAL RULES
-   ========================================================================== */
-.scroll-trigger-reveal { opacity: 0; transform: translateY(40px) scale(0.99); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity; z-index: 2; position: relative; }
-.scroll-trigger-reveal.reveal-active { opacity: 1; transform: translateY(0) scale(1); }
-
-/* ==========================================================================
-   6. HERO PARALLAX TRACKS & AUTO-CAROUSELS
-   ========================================================================== */
-.hero-section { display: flex; align-items: center; padding: 60px 7% 120px; gap: 60px; min-height: 85vh; position: relative; overflow: hidden; border-bottom: 1px solid var(--border-glass); }
-.hero-parallax-background { position: absolute; top: -10%; left: -10%; width: 120%; height: 120%; background: var(--aegean-gradient); z-index: 1; pointer-events: none; will-change: transform; }
-.hero-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(35deg, rgba(0, 102, 255, 0.08) 0%, transparent 60%); pointer-events: none; z-index: 2; }
-.hero-left-text { flex: 1.1; z-index: 3; position: relative; }
-
-.trust-indicator { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: var(--text-light); text-transform: uppercase; margin-bottom: 35px; background: rgba(255, 255, 255, 0.03); padding: 8px 20px; border-radius: 50px; border: 1px solid var(--border-glass); letter-spacing: 0.5px; }
-.dynamic-border-glow::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(0,102,255,0.15), transparent); animation: sheen 4s infinite linear; }
-@keyframes sheen { 100% { left: 200%; } }
-.pulse-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 10px #22c55e; }
-
-.slider-text-window { min-height: 220px; position: relative; overflow: hidden; }
-.hero-slide-text-node { position: absolute; top: 0; left: 0; width: 100%; opacity: 0; transform: translateX(30px); transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none; }
-.hero-slide-text-node.active { position: relative; opacity: 1; transform: translateX(0); pointer-events: auto; }
-
-.slider-text-window h1 { font-size: 60px; font-weight: 800; line-height: 1.1; letter-spacing: -2.5px; color: var(--white); }
-.glint-text { background: linear-gradient(135deg, #ffffff 30%, var(--crystal-silver-chrome) 50%, #ffffff 70%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: glintRun 6s linear infinite; }
-@keyframes glintRun { to { background-position: 200% center; } }
-
-.slider-text-window p { font-size: 20px; color: var(--text-muted); margin-top: 24px; line-height: 1.6; }
-.hero-cta-group { display: flex; gap: 18px; margin-top: 45px; }
-
-.btn-gradient-animated { background: linear-gradient(270deg, var(--crystal-blue-bright), #004ecc, var(--crystal-red-metallic), var(--crystal-blue-bright)); background-size: 600% 600%; color: var(--white); text-decoration: none; border: none; padding: 18px 38px; border-radius: 50px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 12px; animation: gradientShiftAnim 6s ease infinite; transition: var(--transition-curve); box-shadow: 0 8px 25px rgba(0, 102, 255, 0.2); }
-@keyframes gradientShiftAnim { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
-
-.btn-pill-secondary { background: rgba(255, 255, 255, 0.03); color: var(--white); border: 1px solid rgba(255, 255, 255, 0.12); padding: 18px 38px; border-radius: 50px; font-weight: 700; cursor: pointer; transition: var(--transition-curve); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); }
-.btn-pill-secondary:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255,255,255,0.2); }
-
-.hero-right-visual { flex: 0.9; z-index: 3; position: relative; }
-.slider-draggable-track { cursor: grab; user-select: none; position: relative; overflow: hidden; }
-.slider-draggable-track:active { cursor: grabbing; }
-.slider-wrapper-inner { display: flex; width: 100%; height: 100%; will-change: transform; }
-.slide-image-node { flex: 0 0 100%; width: 100%; height: 100%; position: relative; }
-.hero-right-visual .zoom-scroll-container { height: 500px; }
-.zoom-scroll-container { border-radius: 36px; overflow: hidden; box-shadow: var(--shadow-premium); border: 1px solid rgba(255, 255, 255, 0.08); background: #030812; position: relative; }
-.scroll-zoom-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.2s ease-out; will-change: transform; }
-
-.slider-pagination-beads { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; }
-.slider-pagination-beads .bead { width: 10px; height: 10px; background: rgba(255, 255, 255, 0.25); border-radius: 50%; cursor: pointer; transition: var(--transition-snappy); }
-.slider-pagination-beads .bead.active { background: var(--crystal-blue-bright); transform: scale(1.3); width: 22px; border-radius: 6px; box-shadow: 0 0 12px var(--crystal-blue-bright); }
-
-/* ==========================================================================
-   7. REGULATORY COMPLIANCE DATA MODULES
-   ========================================================================== */
-.credibility-section { padding: 90px 5%; background: #020612; border-bottom: 1px solid var(--border-glass); }
-.credibility-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
-.credibility-container .stat-box { padding: 45px 25px; border-radius: 28px; border: 1px solid var(--border-glass); background: rgba(11, 34, 68, 0.1); }
-.stat-number-wrapper { font-size: 42px; font-weight: 800; color: var(--white); }
-.stat-box p { color: var(--text-light); font-size: 13px; font-weight: 700; margin-top: 10px; text-transform: uppercase; letter-spacing: 1px; }
-
-/* ==========================================================================
-   8. SCANNABLE DEVICE SPECIALTY INDEX TILES
-   ========================================================================== */
-.catalog-section { padding: 130px 5%; background: var(--bg-dark-core); }
-.catalog-header-text { margin-bottom: 70px; }
-.section-tag { font-size: 12px; font-weight: 800; color: var(--crystal-blue-bright); letter-spacing: 2px; display: inline-block; margin-bottom: 14px; }
-.catalog-header-text h2 { font-size: 44px; font-weight: 800; letter-spacing: -1.5px; color: var(--white); }
-.catalog-header-text p { color: var(--text-muted); margin-top: 14px; font-size: 17px; max-width: 600px; }
-
-.stacking-cards-container { display: flex; gap: 24px; padding: 20px 0; isolation: isolate; }
-.portfolio-stack-card { padding: 55px 35px; border-radius: 28px; flex: 1; position: relative; overflow: hidden; }
-.portfolio-stack-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(800px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(0, 102, 255, 0.08), transparent 45%); z-index: 1; pointer-events: none; }
-.card-num-indicator { font-size: 13px; font-weight: 700; color: var(--crystal-blue-bright); margin-bottom: 26px; letter-spacing: 0.5px; position: relative; z-index: 2; }
-.portfolio-stack-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 16px; color: var(--white); position: relative; z-index: 2; }
-.portfolio-stack-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; position: relative; z-index: 2; }
-.card-arrow { position: absolute; bottom: 25px; right: 25px; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.03); display: flex; align-items: center; justify-content: center; opacity: 0; transition: var(--transition-curve); color: var(--white); z-index: 2; }
-
-.stacking-cards-container:hover .portfolio-stack-card { opacity: 0.5; transform: scale(0.96); filter: blur(1px); }
-.stacking-cards-container .portfolio-stack-card:hover { opacity: 1; border-color: var(--border-active); box-shadow: 0 30px 60px rgba(0, 102, 255, 0.15); z-index: 5; transform: scale(1.04) translateY(-8px); filter: blur(0); }
-.stacking-cards-container .portfolio-stack-card:hover .card-arrow { opacity: 1; background: var(--crystal-blue-bright); transform: scale(1.05); box-shadow: 0 0 15px var(--crystal-blue-bright); }
-
-/* ==========================================================================
-   9. ANATOMICAL INDEX ENGINE OVERLAYS
-   ========================================================================== */
-.anatomy-section { padding: 130px 5%; background: #020612; border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass); position: relative; overflow: hidden; }
-.white-glow-bg { position: absolute; top: 25%; left: 20%; width: 600px; height: 600px; background: var(--white-glow-effect); z-index: 1; pointer-events: none; mix-blend-mode: screen; }
-.anatomy-grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; background: rgba(2, 6, 18, 0.7); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); padding: 60px; border-radius: 40px; border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); position: relative; z-index: 2; }
-.anatomy-left-vector h3 { font-size: 32px; font-weight: 800; color: var(--white); }
-.anatomy-left-vector p { color: var(--text-muted); margin-top: 12px; font-size: 15px; }
-.real-anatomy-container { position: relative; height: 500px; border-radius: 28px; overflow: hidden; background: #01040a; display: flex; align-items: center; justify-content: center; margin-top: 35px; border: 1px solid var(--border-glass); }
-
-.real-anatomy-img { height: 92%; width: auto; object-fit: contain; filter: invert(1) brightness(2.2) opacity(0.85) drop-shadow(0 0 20px rgba(0, 102, 255, 0.25)); }
-
-.anatomy-svg-hotspot { position: absolute; width: 24px; height: 24px; background: var(--crystal-blue-bright); border-radius: 50%; border: 4px solid var(--white); box-shadow: 0 0 20px var(--crystal-blue-bright); cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translate(-50%, -50%); z-index: 10; }
-.anatomy-svg-hotspot:hover, .anatomy-svg-hotspot.active-node { transform: translate(-50%, -50%) scale(1.6); box-shadow: 0 0 0 12px rgba(0, 102, 255, 0.3), 0 0 30px var(--crystal-blue-bright); }
-.hover-label-overlay { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); font-size: 12px; font-weight: 700; background: var(--crystal-blue-deep); color: var(--white); padding: 10px 24px; border-radius: 50px; box-shadow: var(--shadow-premium); border: 1px solid var(--border-glass); pointer-events: none; text-transform: uppercase; letter-spacing: 1px; }
-
-.anatomy-right-list h4 { font-size: 17px; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border-glass); padding-bottom: 20px; }
-.instrument-viewport { height: 390px; overflow-y: auto; padding-right: 12px; margin-top: 25px; }
-.instrument-item { background: rgba(11, 34, 68, 0.25); padding: 24px; border-radius: 18px; margin-bottom: 14px; border: 1px solid rgba(255,255,255,0.02); transition: var(--transition-snappy); position: relative; }
-.instrument-item h5 { font-size: 16px; color: var(--white); font-weight: 600; }
-.instrument-item p { color: var(--text-muted); font-size: 13px; margin-top: 6px; }
-.instrument-item:hover { border-color: var(--border-active); transform: translateX(8px); background: rgba(11, 34, 68, 0.5); }
-.fallback-prompt { color: var(--text-muted); font-size: 14px; text-align: center; margin-top: 130px; }
-.cached-badge { position: absolute; top: 14px; right: 18px; font-size: 10px; font-weight: 700; color: #38bdf8; background: rgba(56, 189, 248, 0.1); padding: 3px 10px; border-radius: 50px; text-transform: uppercase; border: 1px solid rgba(56, 189, 248, 0.15); }
-
-/* ==========================================================================
-   10. ASYMMETRICAL MULTI-MEDIA STAGE SHOWCASE (OPTIMIZED RE-DESIGN LOWER HALF)
-   ========================================================================== */
-.innovation-performance-stage { padding: 140px 5%; background: linear-gradient(180deg, #020612 0%, #01030a 100%); position: relative; border-top: 1px solid var(--border-glass); }
-.stage-geometric-header { text-align: center; margin-bottom: 80px; }
-.stage-geometric-header h2 { font-size: 46px; font-weight: 800; letter-spacing: -2px; color: var(--white); }
-.stage-geometric-header p { color: var(--text-muted); margin-top: 14px; font-size: 18px; max-width: 680px; margin-left: auto; margin-right: auto; }
-
-.asymmetric-stage-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 35px; max-width: 1300px; margin: 0 auto; }
-.stage-card { border-radius: 32px; overflow: hidden; padding: 40px; min-height: 400px; display: flex; flex-direction: column; justify-content: flex-end; position: relative; border: 1px solid var(--border-glass); background: rgba(11, 34, 68, 0.15); }
-.stage-card-image-mask { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden; }
-.stage-card-image-mask img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.45) contrast(1.1); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-.stage-card:hover .stage-card-image-mask img { transform: scale(1.06); }
-
-.stage-card-content { position: relative; z-index: 2; }
-.card-badge-accent { display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; border-radius: 50px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px; }
-.card-badge-accent.red { background: rgba(153, 0, 10, 0.15); color: #ff4d5a; border: 1px solid rgba(153, 0, 10, 0.3); }
-.card-badge-accent.blue { background: rgba(0, 102, 255, 0.15); color: #38bdf8; border: 1px solid rgba(0, 102, 255, 0.3); }
-
-.stage-card-content h4 { font-size: 24px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
-.stage-card-content p { color: #94a3b8; font-size: 14px; line-height: 1.6; }
-
-.testimonial-embedded-bubble { justify-content: center; background: radial-gradient(circle at top left, var(--crystal-blue-deep), #01030a); }
-.star-banner { color: #f59e0b; font-size: 14px; margin-bottom: 20px; display: flex; gap: 4px; }
-.testimonial-embedded-bubble blockquote { font-size: 17px; line-height: 1.7; font-style: italic; color: #cbd5e1; }
-.practitioner-meta-signature { margin-top: 25px; }
-.practitioner-meta-signature h5 { font-size: 13px; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 0.5px; }
-.practitioner-meta-signature p { color: var(--text-muted); font-size: 12px; margin-top: 2px; }
-
-/* Secure Gateway Form Styles (Professionally Fixed and Stabilized) */
-.portal-integrated-form { background: linear-gradient(135deg, #020c22 0%, #01030a 100%); padding: 50px; justify-content: center; }
-.form-branding-badge { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--crystal-blue-bright); margin-bottom: 15px; display: flex; align-items: center; gap: 6px; }
-.portal-integrated-form p { color: var(--text-muted); font-size: 14px; margin-bottom: 25px; text-align: left; }
-
-.google-login-trigger { width: 100%; padding: 16px; border-radius: 14px; background: #05162e; border: 1px solid rgba(255,255,255,0.05); color: var(--white); cursor: pointer; font-weight: 700; margin-bottom: 25px; transition: var(--transition-snappy); display: flex; align-items: center; justify-content: center; gap: 12px; transform: none !important; }
-.google-login-trigger:hover { background: #0a2754; border-color: rgba(255,255,255,0.15); }
-.form-separator { text-align: center; margin-bottom: 25px; position: relative; }
-.form-separator::before { content:''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--border-glass); z-index: 1; }
-.form-separator span { background: #030812; padding: 0 16px; position: relative; z-index: 2; font-size: 12px; color: var(--text-muted); text-transform: uppercase; }
-
-.portal-form-context input { width: 100%; padding: 16px; border-radius: 14px; background: #01030a; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 16px; outline: none; transition: var(--transition-snappy); color: var(--white); font-size: 14px; }
-.portal-form-context input:focus { border-color: rgba(0, 102, 255, 0.3); background: #030d24; }
-.form-submit-trigger { width: 100%; padding: 16px; border-radius: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transform: none !important; }
-
-/* ==========================================================================
-   11. CORPORATE LOWER TIERS
-   ========================================================================== */
-.corporate-footer { background: #010206; color: var(--white); padding: 110px 5% 45px; border-radius: 60px 60px 0 0; border-top: 1px solid var(--border-glass); }
-.footer-top-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
-.footer-brand-column h3 { font-size: 30px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 20px; }
-.footer-brand-column p { color: var(--text-muted); font-size: 14px; line-height: 1.8; }
-.footer-nav-column h4, .footer-contact-column h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; margin-bottom: 26px; letter-spacing: 1.5px; color: #475569; }
-.footer-nav-column a { display: block; color: var(--text-muted); text-decoration: none; margin-bottom: 16px; transition: var(--transition-snappy); font-size: 14px; }
-.footer-nav-column a:hover { color: var(--white); transform: translateX(6px); }
-.footer-contact-column p { color: var(--text-muted); font-size: 14px; margin-bottom: 16px; }
-.footer-bottom-bar { border-top: 1px solid rgba(255, 255, 255, 0.03); padding-top: 45px; text-align: center; color: #475569; font-size: 13px; font-weight: 500; }
-
-/* ==========================================================================
-   12. SECURED SURGIS DIALOG WINDOW SYSTEM
-   ========================================================================== */
-#chatbot-icon { position: fixed; bottom: 35px; right: 35px; width: 65px; height: 65px; background: var(--white); color: #010510; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer; box-shadow: var(--shadow-premium); z-index: 9999; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-#chatbot-icon:hover { background: var(--crystal-blue-bright); color: var(--white); transform: scale(1.08) rotate(5deg); }
-
-#chatbot-window { position: fixed; bottom: 120px; right: 35px; width: 380px; border-radius: 28px; z-index: 9999; border: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s; transform-origin: bottom right; overflow: hidden; }
-#chatbot-window.hidden { opacity: 0; transform: translateY(40px) scale(0.9); pointer-events: none; }
-.chat-header { background: rgba(11, 34, 68, 0.5); color: var(--white); padding: 22px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.04); }
-.ai-title-badge { font-weight: 700; font-size: 14px; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; }
-.live-indicator { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; box-shadow: 0 0 10px #22c55e; }
-#close-chat { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px; transition: color 0.3s; }
-#close-chat:hover { color: var(--white); }
-
-.chat-body { height: 330px; padding: 22px; overflow-y: auto; background: #010510; display: flex; flex-direction: column; gap: 14px; }
-.bot-msg { background: #0b2244; color: var(--text-light); padding: 14px 16px; border-radius: 18px 18px 18px 4px; font-size: 13px; max-width: 85%; align-self: flex-start; border: 1px solid rgba(255,255,255,0.03); line-height: 1.5; }
-.user-msg { background: var(--crystal-blue-bright); color: var(--white); padding: 14px 16px; border-radius: 18px 18px 4px 18px; font-size: 13px; max-width: 85%; align-self: flex-end; line-height: 1.5; }
-.chat-input { display: flex; padding: 16px; border-top: 1px solid rgba(255,255,255,0.04); gap: 10px; background: rgba(1, 5, 16, 0.6); }
-.chat-input input { flex: 1; border: none; outline: none; background: #010510; padding: 12px 20px; border-radius: 50px; font-size: 13px; color: var(--white); border: 1px solid rgba(255,255,255,0.04); }
-.chat-input button { background: var(--white); color: #010510; border: none; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; transition: var(--transition-snappy); display: flex; align-items: center; justify-content: center; }
-.chat-input button:hover { background: var(--crystal-blue-bright); color: var(--white); }
-
-/* ==========================================================================
-   13. RESPONSIBILITY BREAKPOINTS
-   ========================================================================== */
-@media (max-width: 1200px) { .slider-text-window h1 { font-size: 48px; } .hero-section { gap: 40px; padding: 60px 5% 100px; } .hero-right-visual .zoom-scroll-container { height: 420px; } }
-@media (max-width: 992px) { .nav-links { display: none; } .hero-section { flex-direction: column; text-align: center; padding-top: 140px; } .hero-cta-group { justify-content: center; } .slider-text-window { min-height: auto; margin-bottom: 20px; } .credibility-container { grid-template-columns: repeat(2, 1fr); gap: 20px; } .stacking-cards-container { flex-direction: column; gap: 20px; } .anatomy-grid-layout, .asymmetric-stage-grid { grid-template-columns: 1fr; gap: 40px; padding: 35px; } .footer-top-grid { grid-template-columns: 1fr; gap: 40px; } }
-@media (max-width: 576px) { .slider-text-window h1 { font-size: 36px; } .credibility-container { grid-template-columns: 1fr; } .auth-buttons, .search-wrapper { display: none; } #chatbot-window { width: calc(100vw - 40px); right: 20px; bottom: 95px; } .centered-brand-logo img { height: 110px; } }
-
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #010510; }
-::-webkit-scrollbar-thumb { background: #0b2244; border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: #14376c; }
+    if (sendBtn) sendBtn.addEventListener("click", sendChat);
+    if (inputField) inputField.addEventListener("keypress", (e) => { if (e.key === "Enter") sendChat(); });
+});
