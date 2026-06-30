@@ -3,51 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surgiments | Medical Device Logistics & Precision Instrumentation</title>
-    <!-- Medical Typography Hierarchy -->
+    <title>Surgiments | Master Surgical Instrumentation Logistics</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome Solid Core Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Surgical Monitor Progress Line -->
     <div id="scroll-progress-bar"></div>
     
-    <!-- Crystalline Shard Overlays (Inspired by 1000492271.jpg) -->
     <div class="crystalline-shard-overlay topo-left"></div>
     <div class="crystalline-shard-overlay topo-right"></div>
     <div class="ambient-luminous-flare"></div>
 
-    <!-- Rigid, Stably Anchored Clinical Navigation Header -->
-    <header class="main-header glass-hull">
-        <div class="header-spacer"></div> 
+    <header class="main-header">
+        <div class="header-left-brand">
+            <img src="images/logo.png" alt="Surgiments Header Logo" id="header-brand-logo">
+        </div>
         
         <nav class="nav-links">
             <a href="#home" class="nav-item dynamic-underline">Home</a>
-            <a href="#heritage" class="nav-item dynamic-underline">Quality Control</a>
-            
-            <div class="header-dropdown-container">
-                <a href="#catalog" class="nav-item drop-trigger">Device Portfolio <i class="fas fa-chevron-down"></i></a>
-                <div class="macro-dropdown glass-hull">
-                    <div class="dropdown-column">
-                        <h4>Classification Categories</h4>
-                        <a href="#catalog"><i class="fas fa-brain"></i> Neurosurgery Arrays</a>
-                        <a href="#catalog"><i class="fas fa-heart-pulse"></i> Cardio-Thoracic Sets</a>
-                        <a href="#catalog"><i class="fas fa-bone"></i> Orthopedic Trauma</a>
-                        <a href="#catalog"><i class="fas fa-scissors"></i> Micro-Dissection Scissors</a>
-                    </div>
-                </div>
-            </div>
-            
+            <a href="#heritage" class="nav-item dynamic-underline">About Us</a>
+            <a href="#catalog" class="nav-item dynamic-underline">Products</a>
             <a href="#anatomy" class="nav-item dynamic-underline">Anatomical Index</a>
-            <a href="#showcase" class="nav-item dynamic-underline">Production Stage</a>
+            <a href="#testimonials" class="nav-item dynamic-underline">Testimonials</a>
         </nav>
 
         <div class="header-right-block">
             <div class="search-wrapper">
-                <input type="text" placeholder="Search direct SKU / Catalog Number..." id="global-search">
+                <input type="text" placeholder="Search instruments..." id="global-search">
                 <i class="fas fa-search"></i>
             </div>
             <div class="auth-buttons">
@@ -57,131 +41,109 @@
         </div>
     </header>
 
-    <!-- Centered Brand Logo Presentation Area -->
-    <div class="centered-brand-logo scroll-trigger-reveal">
-        <img src="images/logo.png" alt="Surgiments Medical Logistics Logo" id="main-brand-logo">
-    </div>
-
-    <!-- Immersive Cinematic Hero Showcase Section -->
-    <section id="home" class="hero-section scroll-trigger-reveal">
-        <div class="hero-parallax-background" id="hero-parallax-bg"></div>
-        
-        <div class="hero-left-text">
-            <div class="trust-indicator dynamic-border-glow">
-                <span class="pulse-dot"></span> 
-                <span class="trust-text">ISO 13485:2016 Certified Manufacturing</span>
-            </div>
-            <div class="slider-text-window" id="hero-slider-text-track">
-                <div class="hero-slide-text-node active">
-                    <h1 class="glint-text">Instruments finely made for a surgeon's hands.</h1>
-                    <p>Blending the handcrafted artistry of master metalsmiths with premium CNC crystalline tolerances for mission-critical theater environments.</p>
+    <section id="home" class="hero-full-viewport scroll-trigger-reveal">
+        <div class="slider-draggable-track" id="hero-draggable-viewport">
+            <div class="slider-wrapper-inner" id="hero-slider-wrapper">
+                <div class="slide-image-node">
+                    <img src="images/hero-slide-1.jpg" alt="Surgiments Precision Engineering Masterpiece" class="scroll-zoom-img" draggable="false">
                 </div>
-                <div class="hero-slide-text-node">
-                    <h1 class="glint-text">Pioneers of Operating Room Infrastructure.</h1>
-                    <p>Setting the benchmark with specialized hydraulic operating tables and electronic clinical scrub stations across premium treatment clusters.</p>
+                <div class="slide-image-node">
+                    <img src="images/hero-slide-2.jpg" alt="Crystalline Passivation Lab Processing" class="scroll-zoom-img" draggable="false">
                 </div>
-                <div class="hero-slide-text-node">
-                    <h1 class="glint-text">The Historic Mahadeviah Lineage.</h1>
-                    <p>Forging micro-canal retractors, customized flap access blades, and micro-scissors with exceptional balance and zero light-glare parameters.</p>
+                <div class="slide-image-node">
+                    <img src="images/hero-slide-3.jpg" alt="Advanced Micro-Canal Instrumentation Line" class="scroll-zoom-img" draggable="false">
+                </div>
+                <div class="slide-image-node">
+                    <img src="images/hero-slide-4.jpg" alt="Orthopedic Rigidity Structural Testing" class="scroll-zoom-img" draggable="false">
+                </div>
+                <div class="slide-image-node">
+                    <img src="images/hero-slide-5.jpg" alt="Cardio-Thoracic Open Surgical Assembly" class="scroll-zoom-img" draggable="false">
+                </div>
+                <div class="slide-image-node">
+                    <img src="images/hero-slide-6.jpg" alt="60 Years Metallurgy Heritage Celebrating Mastery" class="scroll-zoom-img" draggable="false">
                 </div>
             </div>
-            <div class="hero-cta-group">
-                <a href="#catalog" class="btn-gradient-animated">Procurement Catalog <i class="fas fa-arrow-right"></i></a>
-                <button class="btn-pill-secondary">Technical Data Sheets</button>
-            </div>
-        </div>
-        
-        <!-- Draggable Hero Showcase Module (Auto-cycles every 5 seconds) -->
-        <div class="hero-right-visual">
-            <div class="slider-image-container zoom-scroll-container slider-draggable-track" id="hero-draggable-viewport">
-                <div class="slider-wrapper-inner" id="hero-slider-wrapper">
-                    <div class="slide-image-node">
-                        <img src="images/hero-slide-1.jpg" alt="Precision Surgical Metallurgy" class="scroll-zoom-img" draggable="false">
-                    </div>
-                    <div class="slide-image-node">
-                        <img src="https://images.pexels.com/photos/4225880/pexels-photo-4225880.jpeg?auto=compress&cs=tinysrgb&w=1280" alt="Advanced Surgical Infrastructure Validation" class="scroll-zoom-img" draggable="false">
-                    </div>
-                    <div class="slide-image-node">
-                        <img src="https://images.pexels.com/photos/3279203/pexels-photo-3279203.jpeg?auto=compress&cs=tinysrgb&w=1280" alt="Micro-Instrument Quality Control Processing" class="scroll-zoom-img" draggable="false">
-                    </div>
-                </div>
-                <div class="slider-pagination-beads" id="slider-pagination-container">
-                    <span class="bead active" data-slide-index="0"></span>
-                    <span class="bead" data-slide-index="1"></span>
-                    <span class="bead" data-slide-index="2"></span>
-                </div>
+            <div class="slider-pagination-beads" id="slider-pagination-container">
+                <span class="bead active" data-slide-index="0"></span>
+                <span class="bead" data-slide-index="1"></span>
+                <span class="bead" data-slide-index="2"></span>
+                <span class="bead" data-slide-index="3"></span>
+                <span class="bead" data-slide-index="4"></span>
+                <span class="bead" data-slide-index="5"></span>
             </div>
         </div>
     </section>
 
-    <!-- Quality Compliance Metrics Panel -->
     <section id="heritage" class="credibility-section scroll-trigger-reveal">
         <div class="credibility-container">
-            <div class="stat-box glass-hull tilt-target">
+            <div class="stat-box blue-theme tilt-target">
                 <div class="stat-number-wrapper"><span class="count-target" data-target="60">0</span>+</div>
                 <p>Years of Metallurgy Heritage</p>
             </div>
-            <div class="stat-box glass-hull tilt-target">
+            <div class="stat-box blue-theme tilt-target">
                 <div class="stat-number-wrapper"><span class="count-target" data-target="100000">0</span>+</div>
                 <p>Device Blueprints Cataloged</p>
             </div>
-            <div class="stat-box glass-hull tilt-target">
-                <div class="stat-number-wrapper">CE / FDA</div>
-                <p>Compliant Production Streams</p>
+            <div class="stat-box blue-theme tilt-target">
+                <div class="stat-number-wrapper">CE Annex IV</div>
+                <p>1998 Institutional Compliance Mark</p>
             </div>
-            <div class="stat-box glass-hull tilt-target">
-                <div class="stat-number-wrapper">ISO 13485</div>
-                <p>Medical Quality Control System</p>
+            <div class="stat-box blue-theme tilt-target">
+                <div class="stat-number-wrapper">CE Directive V</div>
+                <p>2014 Production Quality Control Standards</p>
             </div>
         </div>
     </section>
 
-    <!-- Master Classification Catalog Grid -->
     <section id="catalog" class="catalog-section scroll-trigger-reveal">
         <div class="catalog-header-text">
-            <span class="section-tag">CLASSIFICATION INDEX</span>
+            <span class="section-tag">SPECIALIZED PORTFOLIO</span>
             <h2>Specialized Instrumentation Series</h2>
-            <p>Forged from elite Martensitic Surgical Steels and high-strength Titanium Alloys with option for Tungsten Carbide hard-inserts.</p>
+            <p>Hover over individual classifications to expand item descriptions while forcing alternative cards to smoothly step back and hide inside the stack.</p>
         </div>
         
-        <div class="stacking-cards-container mouse-spotlight-grid">
-            <div class="portfolio-stack-card glass-hull tilt-target spotlight-element">
+        <div class="stacking-deck-container">
+            <div class="portfolio-deck-card tilt-target red-hover-node" data-card-idx="0">
                 <div class="card-num-indicator">01</div>
                 <h3>Neuro & Skull Base</h3>
-                <p>Self-retaining brain retractors, smooth skull clamps, micro-needle holders, and malleable dural blades.</p>
-                <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="card-description-summary">
+                    <p>Premium micro-canal retractors, self-retaining scalp stabilizers, and dural access tools forged for delicate cranial procedures.</p>
+                </div>
             </div>
-            <div class="portfolio-stack-card glass-hull tilt-target spotlight-element">
+            <div class="portfolio-deck-card tilt-target red-hover-node" data-card-idx="1">
                 <div class="card-num-indicator">02</div>
                 <h3>Cardio-Thoracic Line</h3>
-                <p>Precision internal mammary artery retractors, vascular clamps, and high-flex sternal spreaders.</p>
-                <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+                <p>High-tensile sternal spreaders, pediatric rib retractors, and micro-vascular tissue forceps built for extreme durability.</p>
+                <div class="card-description-summary">
+                    <p>Optimized for precise arterial control and open-chest visibility variables under intensive operating theater lights.</p>
+                </div>
             </div>
-            <div class="portfolio-stack-card glass-hull tilt-target spotlight-element">
+            <div class="portfolio-deck-card tilt-target red-hover-node" data-card-idx="2">
                 <div class="card-num-indicator">03</div>
                 <h3>Orthopedic Trauma</h3>
-                <p>Heavy-duty Liston bone cutters, high-torque bone awls, wire-tighteners, and Charnley retractor sets.</p>
-                <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="card-description-summary">
+                    <p>Heavy-duty Liston bone cutting pliers, high-torque bone awls, wire tighteners, and custom articulation instrumentation sets.</p>
+                </div>
             </div>
-            <div class="portfolio-stack-card glass-hull tilt-target spotlight-element">
+            <div class="portfolio-deck-card tilt-target red-hover-node" data-card-idx="3">
                 <div class="card-num-indicator">04</div>
                 <h3>Minimally Invasive</h3>
-                <p>Ultra-slender insulation-verified shafts for complex Laparoscopy, Arthroscopy, and Sinoscopy.</p>
-                <div class="card-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="card-description-summary">
+                    <p>Ultra-slender insulation-verified shafts optimized for laparoscopic tissue dissection, arthroscopy, and fine sinoscopy.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Interactive Human Anatomy Indexing Engine -->
     <section id="anatomy" class="anatomy-section scroll-trigger-reveal">
         <div class="white-glow-bg opacity-glow-layer"></div>
         <div class="anatomy-grid-layout">
             <div class="anatomy-left-vector">
                 <h3>Anatomical Alignment Index</h3>
-                <p>Select target coordinates on the luminous structural blueprint model to resolve mapped local catalog arrays instantly.</p>
+                <p>Click target coordinates across your custom blueprint sketch asset to resolve mapped localized device databases instantly.</p>
                 
-                <div class="real-anatomy-container">
-                    <img src="https://cdn.pixabay.com/photo/2013/07/13/11/42/human-158424_1280.png" alt="Clinical Anatomy Search Outline" class="real-anatomy-img">
+                <div class="real-anatomy-container blue-theme">
+                    <img src="images/human-anatomy.jpg" alt="Clinical Anatomy Coordinate Canvas" class="real-anatomy-img">
                     <div class="anatomy-svg-hotspot" data-anatomy-region="head" style="top: 12%; left: 50%;"></div>
                     <div class="anatomy-svg-hotspot" data-anatomy-region="torso" style="top: 38%; left: 50%;"></div>
                     <div class="anatomy-svg-hotspot" data-anatomy-region="extremities" style="top: 55%; left: 32%;"></div>
@@ -200,92 +162,99 @@
         </div>
     </section>
 
-    <!-- Re-imagined Asymmetrical Media Showcase Stage & Gateway -->
-    <section id="showcase" class="innovation-performance-stage scroll-trigger-reveal">
-        <div class="stage-geometric-header">
-            <span class="section-tag">FACILITY TRACEABILITY GALLERY</span>
-            <h2>Where Metallurgy Meets Medical Science</h2>
-            <p>A transparent look inside our production loops, structural verification labs, and secure client procurement operations.</p>
+    <section id="testimonials" class="testimonials-section scroll-trigger-reveal">
+        <div class="testimonial-split-layout">
+            <div class="testimonial-left-media">
+                <div class="video-mockup-frame zoom-scroll-container blue-theme">
+                    <img src="https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Surgiments Production Passivation Tracking" class="scroll-zoom-img">
+                    <div class="play-overlay-icon"><i class="fas fa-play"></i></div>
+                </div>
+            </div>
+            <div class="testimonial-right-feed text-track-mouse-tilt">
+                <h3>Practitioner Reviews</h3>
+                <div class="review-bubble mouse-hover-reactive-card red-theme">
+                    <div class="star-rating">★★★★★</div>
+                    <p>"The balanced hand feel and tolerances of their micro-retractors provide superior reliability."</p>
+                    <span class="reviewer-meta">Chief Surgical Logistics Officer, MedTech Europe Group</span>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="asymmetric-stage-grid">
-            <!-- Asset Production Card 1 -->
-            <div class="stage-card glass-hull tilt-target scroll-zoom-container">
-                <div class="stage-card-image-mask">
-                    <img src="https://images.pexels.com/photos/3845115/pexels-photo-3845115.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Precision Metallurgical Polishing">
-                </div>
-                <div class="stage-card-content">
-                    <span class="card-badge-accent red"><i class="fas fa-flask"></i> Stress Lab</span>
-                    <h4>Micro-Canal Tensile Verification</h4>
-                    <p>Testing micro-access instrumentation line deflection variables to establish perfect geometric memory during complex retracting actions.</p>
+    <section class="access-split-grid scroll-trigger-reveal">
+        <div class="map-embed-wrapper">
+            <div class="map-rendering-layer blue-theme">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.821376840733!2d77.78937021118671!3d12.764132819853922!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae7109da6b99a7%3A0x8f61a2e615728d35!2sSURGIMENTS!5e0!3m2!1sen!2s!4v1719240000000!5m2!1sen!2s" 
+                    class="live-google-map-frame" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                <div class="map-address-card blue-theme">
+                    <h5>SURGIMENTS FACILITY</h5>
+                    <p>No. N/30, SIDCO Industrial Estate, III Phase, Hosur, TN 635126</p>
                 </div>
             </div>
-
-            <!-- Asset Production Card 2 -->
-            <div class="stage-card glass-hull tilt-target scroll-zoom-container">
-                <div class="stage-card-image-mask">
-                    <img src="https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Vacuum Heat Passivation Processing">
-                </div>
-                <div class="stage-card-content">
-                    <span class="card-badge-accent blue"><i class="fas fa-shield-virus"></i> Passivation</span>
-                    <h4>Satin Anti-Glare Heat Treating</h4>
-                    <p>Vacuum chamber tempering eliminates reflection fields under heavy operating room theater lights while securing lifelong corrosion resistance.</p>
-                </div>
+        </div>
+        
+        <div class="client-auth-card blue-theme">
+            <div class="auth-tabs-header">
+                <button class="auth-tab-btn active" data-target-form="client-form">Client Procurement</button>
+                <button class="auth-tab-btn" data-target-form="admin-form">Administrative Console</button>
             </div>
-
-            <!-- Authentic Institutional Review Node -->
-            <div class="stage-card testimonial-embedded-bubble glass-hull tilt-target">
-                <div class="star-banner"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <blockquote>"The non-reflective satin finish and weight calibration profiles of Surgiments' thoracic instruments exceed our strict performance metrics. Their tools endure constant high-temp autoclave processing with absolute zero structural decay."</blockquote>
-                <div class="practitioner-meta-signature">
-                    <h5>Global Device Evaluation Lead</h5>
-                    <p>MedTech Institutional Purchasing Alliance</p>
-                </div>
-                <div class="geometric-decoration-shard"></div>
-            </div>
-
-            <!-- Stably Anchored Institutional Single Sign-On Gateway Form -->
-            <div class="stage-card portal-integrated-form glass-hull dynamic-border-glow">
-                <div class="form-branding-badge"><i class="fas fa-lock"></i> Secured Institutional Link</div>
-                <p>Log in to evaluate material batches, check batch serialization data, or request shipping updates.</p>
-                <button class="google-login-trigger"><i class="fab fa-google"></i> Institutional Account Single Sign-On</button>
-                <div class="form-separator"><span>Or manual verification</span></div>
+            
+            <div id="client-form" class="auth-panel-node active">
+                <p>Access your configurations and procurement lists.</p>
                 <form class="portal-form-context" onsubmit="event.preventDefault();">
                     <input type="email" placeholder="Institutional Email Address" required autocomplete="email">
-                    <input type="password" placeholder="Secure Network Password" required autocomplete="current-password">
-                    <button class="form-submit-trigger btn-gradient-animated">Authenticate Session</button>
+                    <input type="password" placeholder="Secure Password" required autocomplete="current-password">
+                    <button class="form-submit-trigger red-theme">Authenticate Client Gateway</button>
+                </form>
+            </div>
+            
+            <div id="admin-form" class="auth-panel-node">
+                <p>Access root registers, design data sheets, and logs tracking updates.</p>
+                <form class="portal-form-context" onsubmit="event.preventDefault();">
+                    <input type="email" placeholder="Administrative Identifier" required>
+                    <input type="password" placeholder="Root Network Password" required>
+                    <button class="form-submit-trigger red-theme">Authenticate Admin Session</button>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- Professional Signature Corporate Footer -->
     <footer class="corporate-footer scroll-trigger-reveal">
         <div class="footer-top-grid">
             <div class="footer-brand-column">
                 <h3>SURGIMENTS</h3>
-                <p>Delivering quality-assured, handcrafted surgical instrumentation completely, efficiently, and flawlessly across global healthcare systems since 1964.</p>
+                <p>Meeting the critical technical requirements of medical practitioners completely, efficiently, and flawlessly across global logistics networks since 1964.</p>
             </div>
             <div class="footer-nav-column">
                 <h4>Navigation Index</h4>
                 <a href="#home">Home Base</a>
-                <a href="#heritage">Quality Control</a>
-                <a href="#catalog">Instrumentation Index</a>
+                <a href="#heritage">About Us</a>
+                <a href="#catalog">Products Portfolio</a>
             </div>
             <div class="footer-contact-column">
                 <h4>Industrial Facility Routing</h4>
                 <p><i class="fas fa-envelope"></i> logistics@surgiments.com</p>
-                <p><i class="fas fa-map-marker-alt"></i> No. N-30, SIDCO Industrial Estate, Sipcot Ph. I, Hosur 635126</p>
+                <p><i class="fas fa-phone-alt"></i> +1 (800) 450-9001</p>
+            </div>
+            <div class="footer-qr-code-column">
+                <div class="qr-code-placeholder-card">
+                    <img src="images/contact-qr.png" alt="Surgiments Address phonebook sync QR" class="physical-qr-image-asset">
+                    <span>Scan to Sync Contact, Map & Facility Phonebook Automatically</span>
+                </div>
             </div>
         </div>
         <div class="footer-bottom-bar">
-            <p>&copy; 2026 Surgiments Medical Device Logistics. Developed by Swaminathan Leo.</p>
+            <p>© 2026 Surgiments. Developed by Swaminathan Leo.</p>
         </div>
     </footer>
 
-    <!-- Conversational Core Floating AI Modules -->
     <div id="chatbot-icon"><i class="fas fa-robot" id="ai-wave"></i></div>
-    <div id="chatbot-window" class="hidden glass-hull">
+    <div id="chatbot-window" class="hidden blue-theme">
         <div class="chat-header">
             <div class="ai-title-badge"><span class="live-indicator"></span> SURGIS AI</div>
             <button id="close-chat"><i class="fas fa-times"></i></button>
