@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surgiments | Precision Surgical Instruments</title>
+    <!-- Premium Google Fonts Framework -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Vectors -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- Top Viewport Scroll Progress Bar -->
     <div id="scroll-progress-bar"></div>
 
     <header class="main-header">
@@ -57,26 +60,55 @@
         </div>
     </header>
 
+    <!-- Logo Branding Module with Amplified Visibility Size -->
     <div class="centered-brand-logo scroll-trigger-reveal">
         <img src="images/logo.png" alt="Surgiments Logo" id="main-brand-logo">
     </div>
 
+    <!-- Parallax Hero Section with Active Slider Track -->
     <section id="home" class="hero-section scroll-trigger-reveal">
         <div class="hero-parallax-background" id="hero-parallax-bg"></div>
         <div class="hero-left-text">
             <div class="trust-indicator"><span class="pulse-dot"></span> Dynamic Manufacturing Innovation</div>
-            <div class="slider-text-window">
-                <h1 id="hero-title" class="slide-text-active">Precision surgical instruments.</h1>
-                <p id="hero-subtitle" class="slide-text-active">Engineered to flawless tolerances for mission-critical operating environments worldwide.</p>
+            <div class="slider-text-window" id="hero-slider-text-track">
+                <div class="hero-slide-text-node active">
+                    <h1>Precision surgical instruments.</h1>
+                    <p>Engineered to flawless tolerances for mission-critical operating environments worldwide.</p>
+                </div>
+                <div class="hero-slide-text-node">
+                    <h1>Uncompromising Metallurgy.</h1>
+                    <p>Forged from elite medical-grade alloys engineered for optimal balance, rigidity, and lifespan.</p>
+                </div>
+                <div class="hero-slide-text-node">
+                    <h1>ISO Certified Accuracy.</h1>
+                    <p>Exceeding global surgical manufacturing directives to secure operating room reliability.</p>
+                </div>
             </div>
             <div class="hero-cta-group">
                 <a href="#catalog" class="btn-gradient-animated">Explore Portfolio <i class="fas fa-arrow-right"></i></a>
                 <button class="btn-pill-secondary">Technical Specs</button>
             </div>
         </div>
+        
+        <!-- Interactive Draggable Slider Track featuring header-slide-1.jpeg -->
         <div class="hero-right-visual">
-            <div class="slider-image-container zoom-scroll-container">
-                <img src="https://images.pexels.com/photos/3845115/pexels-photo-3845115.jpeg?auto=compress&cs=tinysrgb&w=1280" alt="Surgiments Corporate Presentation" id="hero-img-slide" class="scroll-zoom-img">
+            <div class="slider-image-container zoom-scroll-container slider-draggable-track" id="hero-draggable-viewport">
+                <div class="slider-wrapper-inner" id="hero-slider-wrapper">
+                    <div class="slide-image-node">
+                        <img src="images/hero-slide-1.jpg" alt="Surgiments Corporate Presentation" class="scroll-zoom-img" draggable="false">
+                    </div>
+                    <div class="slide-image-node">
+                        <img src="https://images.pexels.com/photos/4225880/pexels-photo-4225880.jpeg?auto=compress&cs=tinysrgb&w=1280" alt="Advanced Surgical Infrastructure" class="scroll-zoom-img" draggable="false">
+                    </div>
+                    <div class="slide-image-node">
+                        <img src="https://images.pexels.com/photos/3279203/pexels-photo-3279203.jpeg?auto=compress&cs=tinysrgb&w=1280" alt="Precision Instrumentation Quality Control" class="scroll-zoom-img" draggable="false">
+                    </div>
+                </div>
+                <div class="slider-pagination-beads" id="slider-pagination-container">
+                    <span class="bead active" data-slide-index="0"></span>
+                    <span class="bead" data-slide-index="1"></span>
+                    <span class="bead" data-slide-index="2"></span>
+                </div>
             </div>
         </div>
     </section>
@@ -143,19 +175,24 @@
         </div>
     </section>
 
+    <!-- Interactive Human Anatomy Engine Section -->
     <section class="anatomy-section scroll-trigger-reveal">
         <div class="white-glow-bg opacity-glow-layer"></div>
         <div class="anatomy-grid-layout">
             <div class="anatomy-left-vector">
                 <h3>Interactive Mapping Engine</h3>
-                <p>Select a region on the human anatomy model to view compatible instruments.</p>
+                <p>Select a highlighted hotspot region on the anatomical model to look up compliant clinical instrumentation lines instantly.</p>
                 
                 <div class="real-anatomy-container">
-                    <img src="https://cdn.pixabay.com/photo/2013/07/13/11/42/human-158424_1280.png" alt="Human Anatomy" class="real-anatomy-img">
-                    <div class="anatomy-svg-hotspot" data-anatomy-region="head" style="top: 15%; left: 50%;"></div>
-                    <div class="anatomy-svg-hotspot" data-anatomy-region="torso" style="top: 40%; left: 50%;"></div>
-                    <div class="anatomy-svg-hotspot" data-anatomy-region="extremities" style="top: 65%; left: 35%;"></div>
-                    <div class="anatomy-svg-hotspot" data-anatomy-region="extremities" style="top: 65%; left: 65%;"></div>
+                    <!-- Clean High-Fidelity Silhouette Render System vector asset link -->
+                    <img src="https://cdn.pixabay.com/photo/2013/07/13/11/42/human-158424_1280.png" alt="Human Anatomical Vector Canvas" class="real-anatomy-img">
+                    
+                    <!-- Dynamic Coordinate Node Placement Markers Map -->
+                    <div class="anatomy-svg-hotspot" data-anatomy-region="head" style="top: 12%; left: 50%;"></div>
+                    <div class="anatomy-svg-hotspot" data-anatomy-region="torso" style="top: 38%; left: 50%;"></div>
+                    <div class="anatomy-svg-hotspot" data-anatomy-region="extremities" style="top: 55%; left: 32%;"></div>
+                    <div class="anatomy-svg-hotspot" data-anatomy-region="extremities" style="top: 55%; left: 68%;"></div>
+                    
                     <div class="hover-label-overlay" id="anatomy-ui-marker">Select Anatomy Target</div>
                 </div>
             </div>
@@ -163,7 +200,8 @@
             <div class="anatomy-right-list">
                 <h4>Dynamic Database Results</h4>
                 <div class="instrument-viewport" id="anatomy-fetch-target">
-                    <div class="fallback-prompt"><i class="fas fa-mouse-pointer"></i> Interact with the anatomical model to load products.</div>
+                    <!-- Pre-loaded Initial Prompt Placement View -->
+                    <div class="fallback-prompt"><i class="fas fa-mouse-pointer"></i> Interact with the anatomical model targets to query database listings.</div>
                 </div>
             </div>
         </div>
@@ -205,10 +243,17 @@
             </div>
             <div class="map-embed-wrapper">
                 <div class="map-rendering-layer">
-                    <div class="map-center-pin"><i class="fas fa-map-marker-alt"></i></div>
+                    <!-- Fully Visible Operational Live Google Map Connection Embed targeting Hosur industrial cluster -->
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.821376840733!2d77.78937021118671!3d12.764132819853922!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae7109da6b99a7%3A0x8f61a2e615728d35!2sSURGIMENTS!5e0!3m2!1sen!2s!4v1719240000000!5m2!1sen!2s" 
+                        class="live-google-map-frame" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                     <div class="map-address-card floating-glass-card">
                         <h5>SURGIMENTS HQ</h5>
-                        <p>128 MedTech Cluster, Phase II</p>
+                        <p>No. N/30, SIDCO Industrial Estate, Sipcot Ph. I, Hosur, TN 635126</p>
                     </div>
                 </div>
             </div>
@@ -238,6 +283,7 @@
         </div>
     </footer>
 
+    <!-- Conversational Core Floating AI Modules -->
     <div id="chatbot-icon"><i class="fas fa-robot" id="ai-wave"></i></div>
     <div id="chatbot-window" class="hidden">
         <div class="chat-header">
