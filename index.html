@@ -57,12 +57,17 @@
     <section id="home" class="hero-full-viewport">
         <div class="slider-draggable-track" id="hero-draggable-viewport">
             <div class="slider-wrapper-inner" id="hero-slider-wrapper">
-                <div class="slide-image-node"><img src="images/hero-slide-1.jpg" alt="Surgiments Precision Slide 1" draggable="false"></div>
-                <div class="slide-image-node"><img src="images/hero-slide-2.jpg" alt="Surgiments Precision Slide 2" draggable="false"></div>
-                <div class="slide-image-node"><img src="images/hero-slide-3.jpg" alt="Surgiments Precision Slide 3" draggable="false"></div>
-                <div class="slide-image-node"><img src="images/hero-slide-4.jpg" alt="Surgiments Precision Slide 4" draggable="false"></div>
-                <div class="slide-image-node"><img src="images/hero-slide-5.jpg" alt="Surgiments Precision Slide 5" draggable="false"></div>
-                <div class="slide-image-node"><img src="images/hero-slide-6.jpg" alt="Surgiments Precision Slide 6" draggable="false"></div>
+                <div class="slide-image-node video-node-wrapper">
+                    <video id="hero-promo-video" autoplay loop muted playsinline preload="auto">
+                        <source src="images/hero-slide-1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="slide-image-node"><img src="images/hero-slide-2.png" alt="Surgiments Slide 2" draggable="false"></div>
+                <div class="slide-image-node"><img src="images/hero-slide-3.png" alt="Surgiments Slide 3" draggable="false"></div>
+                <div class="slide-image-node"><img src="images/hero-slide-4.png" alt="Surgiments Slide 4" draggable="false"></div>
+                <div class="slide-image-node"><img src="images/hero-slide-5.png" alt="Surgiments Slide 5" draggable="false"></div>
+                <div class="slide-image-node"><img src="images/hero-slide-6.png" alt="Surgiments Slide 6" draggable="false"></div>
             </div>
             <div class="slider-pagination-beads" id="slider-pagination-container">
                 <span class="bead active" data-slide-index="0"></span>
@@ -136,6 +141,7 @@
     </section>
 
     <section id="anatomy" class="anatomy-section scroll-trigger-reveal">
+        <div class="white-glow-bg opacity-glow-layer"></div>
         <div class="anatomy-grid-layout">
             <div class="anatomy-left-vector">
                 <h3>Anatomical Alignment Index</h3>
