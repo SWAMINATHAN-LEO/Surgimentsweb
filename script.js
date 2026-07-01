@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
     };
 
-    // --- 2. RESILIENT BI-DIRECTIONAL SCROLL REVEAL (SAFETY FIRST FALLBACK) ---
+    // --- 2. RESILIENT BI-DIRECTIONAL SCROLL REVEAL SAFETY RUNTIME ---
     try {
         const revealElements = document.querySelectorAll(".scroll-trigger-reveal");
         if (revealElements.length > 0 && 'IntersectionObserver' in window) {
@@ -35,15 +35,14 @@ document.addEventListener("DOMContentLoaded", () => {
             
             revealElements.forEach(element => revealObserver.observe(element));
         } else {
-            // Fallback if observer fails: make everything instantly visible
             document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active"));
         }
     } catch (e) {
-        console.warn("Reveal engine safe mode engaged:", e);
+        console.warn("Reveal engine safely bypassed onto default visibility profiles:", e);
         document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active"));
     }
 
-    // --- 3. ERROR-FREE TWO-WAY CHATBOT TOGGLE LOOP ---
+    // --- 3. THE CHATBOT TWO-WAY TOGGLE LOOP MECHANISM ---
     try {
         const chatIcon = document.getElementById("chatbot-icon");
         const chatWindow = document.getElementById("chatbot-window");
@@ -62,9 +61,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
         }
-    } catch (e) { console.error("Chatbot setup safely bypassed:", e); }
+    } catch (e) { console.error("Chatbot loop error trace isolated safely:", e); }
 
-    // --- 4. FLUID DRAGGABLE SLIDER CAROUSEL (3s AUTOMATED CYCLE) ---
+    // --- 4. DUAL GATEWAY AUTHENTICATION TAB SWITCHER ---
+    try {
+        const authTabs = document.querySelectorAll(".auth-tab-btn");
+        authTabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                authTabs.forEach(t => t.classList.remove("active"));
+                document.querySelectorAll(".auth-panel-node").forEach(panel => panel.classList.remove("active"));
+                tab.classList.add("active");
+                const activePanelId = tab.getAttribute("data-target-form");
+                const targetPanel = document.getElementById(activePanelId);
+                if(targetPanel) targetPanel.classList.add("active");
+            });
+        });
+    } catch (e) { console.error("Authentication console tabs failure isolated:", e); }
+
+    // --- 5. FLUID DRAGGABLE SLIDER CAROUSEL (STRICT 8-SECOND AUTOPLAY INTERVALS) ---
     try {
         const sliderViewport = document.getElementById("hero-draggable-viewport");
         const sliderWrapper = document.getElementById("hero-slider-wrapper");
@@ -95,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
             clearInterval(autoCycleTimer);
             autoCycleTimer = setInterval(() => {
                 renderActiveSlide(currentSlideIndex + 1);
-            }, 3000); 
+            }, 8000); // Consolidated and Fixed to stable 8000ms duration runs
         }
 
         if(sliderViewport && sliderWrapper) {
@@ -131,6 +145,37 @@ document.addEventListener("DOMContentLoaded", () => {
                 initAutoCycle();
             });
 
+            // Touch mapping hooks for smooth mobile swiping processing
+            sliderViewport.addEventListener("touchstart", (e) => {
+                clearInterval(autoCycleTimer);
+                activeDragMode = true;
+                sliderWrapper.style.transition = "none";
+                initialCursorPositionX = e.touches[0].clientX;
+                const matrix = new WebKitCSSMatrix(window.getComputedStyle(sliderWrapper).transform);
+                cumulativeTransformX = matrix.m41;
+            }, { passive: true });
+
+            sliderViewport.addEventListener("touchmove", (e) => {
+                if (!activeDragMode) return;
+                const deltaX = e.touches[0].clientX - initialCursorPositionX;
+                sliderWrapper.style.transform = `translateX(${cumulativeTransformX + deltaX}px)`;
+            }, { passive: true });
+
+            sliderViewport.addEventListener("touchend", (e) => {
+                if (!activeDragMode) return;
+                activeDragMode = false;
+                const displacementX = e.changedTouches[0].clientX - initialCursorPositionX;
+                const structuralWidth = sliderViewport.offsetWidth;
+                
+                if (Math.abs(displacementX) > structuralWidth * 0.15) {
+                    if (displacementX > 0) renderActiveSlide(currentSlideIndex - 1);
+                    else renderActiveSlide(currentSlideIndex + 1);
+                } else {
+                    renderActiveSlide(currentSlideIndex);
+                }
+                initAutoCycle();
+            });
+
             beads.forEach(bead => {
                 bead.addEventListener("click", () => {
                     renderActiveSlide(parseInt(bead.getAttribute("data-slide-index"), 10));
@@ -140,9 +185,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             initAutoCycle();
         }
-    } catch (e) { console.error("Slider runtime cleanly isolated:", e); }
+    } catch (e) { console.error("Draggable system cycle run isolated cleanly:", e); }
 
-    // --- 5. THE CARD HIDING STACK ILLUSION DECK MATRIX ---
+    // --- 6. THE CARD HIDING STACK ILLUSION DECK MATRIX ---
     try {
         const deckCards = document.querySelectorAll(".portfolio-deck-card");
         deckCards.forEach(card => {
@@ -175,9 +220,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             });
         });
-    } catch (e) { console.error("Card stack system isolated:", e); }
+    } catch (e) { console.error("Card stack physics bounds isolated:", e); }
 
-    // --- 6. REAL-TIME FAST CURSOR TRACKING MATRIX FOR TESTIMONIALS ---
+    // --- 7. FAST CURSOR TRACKING MATRIX FOR TESTIMONIAL CARDS ---
     try {
         const trackingBox = document.querySelector(".text-track-mouse-tilt");
         const reactiveCard = document.querySelector(".mouse-hover-reactive-card");
@@ -193,42 +238,45 @@ document.addEventListener("DOMContentLoaded", () => {
                 reactiveCard.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
             });
         }
-    } catch (e) { console.error("Testimonial tracking isolated:", e); }
+    } catch (e) { console.error("Perspective cursor trackers isolated:", e); }
 
-    // --- 7. DUAL GATEWAY AUTHENTICATION TAB SWITCHER ---
+    // --- 8. STANDALONE HARDWARE TILT ENGINES ---
     try {
-        const authTabs = document.querySelectorAll(".auth-tab-btn");
-        authTabs.forEach(tab => {
-            tab.addEventListener("click", () => {
-                authTabs.forEach(t => t.classList.remove("active"));
-                document.querySelectorAll(".auth-panel-node").forEach(panel => panel.classList.remove("active"));
-                tab.classList.add("active");
-                const activePanelId = tab.getAttribute("data-target-form");
-                const targetPanel = document.getElementById(activePanelId);
-                if(targetPanel) targetPanel.classList.add("active");
+        const standaloneTilts = document.querySelectorAll(".tilt-target");
+        standaloneTilts.forEach(card => {
+            card.addEventListener("mousemove", (e) => {
+                const rect = card.getBoundingClientRect();
+                const rotateX = ((rect.height / 2 - (e.clientY - rect.top)) / (rect.height / 2)) * 10;
+                const rotateY = (((e.clientX - rect.left) - rect.width / 2) / (rect.width / 2)) * 10;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+            standaloneTilts.forEach(c => {
+                c.addEventListener("mouseleave", () => {
+                    c.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+                });
             });
         });
-    } catch (e) { console.error("Auth tabs switcher isolated:", e); }
+    } catch (e) { console.error("Hardware tilt system bypassed:", e); }
 
-    // --- 8. ANATOMICAL INDEX BLUEPRINT LINKAGE CHANNELS ---
+    // --- 9. ANATOMICAL LOOKUP ENGINE PLATFORMS ---
     try {
         const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
         const fetchTarget = document.getElementById("anatomy-fetch-target");
         const label = document.getElementById("anatomy-ui-marker");
 
-        if (hotspots && fetchTarget) {
-            hotspots.forEach(spot => {
-                spot.addEventListener("mouseenter", (e) => {
-                    if (label) label.innerText = e.target.getAttribute("data-anatomy-region").toUpperCase();
-                });
-                spot.addEventListener("mouseleave", () => {
-                    if (label) label.innerText = "Select Structural Node";
-                });
-                spot.addEventListener("click", async (e) => {
-                    hotspots.forEach(h => h.classList.remove("active-node"));
-                    e.target.classList.add("active-node");
-                    const region = e.target.getAttribute("data-anatomy-region");
+        hotspots.forEach(spot => {
+            spot.addEventListener("mouseenter", (e) => {
+                if (label) label.innerText = e.target.getAttribute("data-anatomy-region").toUpperCase();
+            });
+            spot.addEventListener("mouseleave", () => {
+                if (label) label.innerText = "Select Structural Node";
+            });
+            spot.addEventListener("click", async (e) => {
+                hotspots.forEach(h => h.classList.remove("active-node"));
+                e.target.classList.add("active-node");
+                const region = e.target.getAttribute("data-anatomy-region");
 
+                if (fetchTarget) {
                     fetchTarget.innerHTML = `<div class="fallback-prompt">Querying master specification indexes for ${region}...</div>`;
                     try {
                         const res = await fetch(`http://127.0.0.1:8000/api/instruments/?anatomy=${region}`);
@@ -252,15 +300,16 @@ document.addEventListener("DOMContentLoaded", () => {
                             });
                         }
                     }
-                });
+                }
             });
-        }
-    } catch (e) { console.error("Anatomy alignment isolated:", e); }
+        });
+    } catch (e) { console.error("Anatomical layout engine isolated:", e); }
 
-    // --- 9. SCROLL PROGRESS IMAGE TRANSFORM SCRUBBERS ---
+    // --- 10. SCROLL PROGRESS IMAGE TRANSFORM SCRUBBERS ---
     try {
         const scrollProgressBar = document.getElementById("scroll-progress-bar");
         const zoomImages = document.querySelectorAll(".scroll-zoom-img");
+        const mainHeader = document.querySelector(".main-header");
         
         window.addEventListener("scroll", () => {
             const scrolled = window.pageYOffset;
@@ -268,6 +317,11 @@ document.addEventListener("DOMContentLoaded", () => {
             
             if (totalHeight > 0 && scrollProgressBar) {
                 scrollProgressBar.style.width = `${(scrolled / totalHeight) * 100}%`;
+            }
+
+            if(mainHeader) {
+                if (window.scrollY > 50) mainHeader.classList.add("header-scrolled");
+                else mainHeader.classList.remove("header-scrolled");
             }
 
             zoomImages.forEach(img => {
@@ -281,32 +335,5 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         });
-    } catch (e) { console.error("Scroll indicators isolated:", e); }
-
-    // --- 10. METRICS COUNT SCHEDULERS ---
-    try {
-        const countElements = document.querySelectorAll(".count-target");
-        if (countElements.length > 0 && 'IntersectionObserver' in window) {
-            const countObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !entry.target.hasAttribute("data-animated")) {
-                        entry.target.setAttribute("data-animated", "true");
-                        const target = parseInt(entry.target.getAttribute("data-target"), 10);
-                        let current = 0;
-                        const step = target > 1000 ? Math.floor(target / 35) : 1;
-                        const timer = setInterval(() => {
-                            current += step;
-                            if (current >= target) {
-                                entry.target.innerText = target.toLocaleString();
-                                clearInterval(timer);
-                            } else {
-                                entry.target.innerText = current.toLocaleString();
-                            }
-                        }, 20);
-                    }
-                });
-            });
-            countElements.forEach(el => countObserver.observe(el));
-        }
-    } catch (e) { console.error("Counter counters metrics isolated:", e); }
+    } catch (e) { console.error("Scroll scrub calculations isolated safely:", e); }
 });
