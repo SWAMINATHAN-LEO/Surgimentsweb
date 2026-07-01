@@ -63,7 +63,14 @@ body {
    ========================================================================== */
 .main-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 4%; background: var(--aegean-blue); position: fixed; width: 100%; top: 0; left: 0; height: 80px; z-index: 9999; border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
 .header-left-brand { display: flex; align-items: center; }
-.header-left-brand img { height: 52px !important; max-height: 52px !important; width: auto !important; object-fit: contain !important; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2)); }
+/* Update this specific block in your style.css */
+.header-left-brand img { 
+    height: 65px !important;       /* Increased from 52px */
+    max-height: 65px !important;    /* Increased from 52px */
+    width: auto !important; 
+    object-fit: contain !important; 
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2)); 
+}
 
 .nav-links { display: flex; align-items: center; gap: 4px; }
 .nav-item { text-decoration: none; color: rgba(255, 255, 255, 0.75); padding: 8px 18px; font-weight: 600; font-size: 14px; position: relative; transition: var(--transition-snappy); }
