@@ -19,7 +19,132 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
     };
 
-    // --- 2. RESILIENT BI-DIRECTIONAL SCROLL REVEAL SAFETY RUNTIME ---
+    // --- 2. INTEGRATED INTEL ENGINE FOR LOCAL CHATBOT RESPONSE SIMULATION ---
+    const localAIBrainFallback = {
+        "hello": "Welcome to Surgis Technical Support Terminal. Specify a device specialty classification, quality Directive or specific catalog SKU code to verify material metadata specs instantly.",
+        "hi": "Welcome to Surgis Technical Support Terminal. Specify a device specialty classification, quality Directive or specific catalog SKU code to verify material metadata specs instantly.",
+        "neuro": "Surgiments Neuro-Arrays feature a zero-glare matte satin surface treatment. Vetted lines include Mahadeviah sub-canal retractors, self-retaining scalp stabilizers, and curved dural scissor sets conforming to ISO 7153-1 specs.",
+        "cardio": "Our Cardio-Thoracic sets are forged from premium medical-grade alloys. Core items: Finochietto rib spreaders, DeBakey high-tensile blood vessel trauma clamps, and micro-needle holders.",
+        "ortho": "Orthopedic device lines include heavy duty Liston bone cutter pliers, high-torque bone awls, and Kirschner skeletal fixation stabilization wire drivers engineered for extensive autoclave cycles.",
+        "ce": "Surgiments instruments comply fully with international CE Mark systems, including our 1998 Institutional Compliance Mark and the updated 2014 Production Quality Directives.",
+        "iso": "Our facility logistics operations conform directly to ISO 9001 and ISO 13485 Medical Device Quality Management System standards.",
+        "sku": "Please enter the exact alphanumeric design string to retrieve metallurgy records. Standard series map to neuro (SKU-MN-992), torso (SKU-DB-440), and lower extremities (SKU-CO-311)."
+    };
+
+    // --- 3. DUAL-LAYER SURGIS AI CONVERSATIONAL DRIVER ENGINE ---
+    try {
+        const chatIcon = document.getElementById("chatbot-icon");
+        const chatWindow = document.getElementById("chatbot-window");
+        const closeBtn = document.getElementById("close-chat");
+        const sendBtn = document.getElementById("send-chat");
+        const inputField = document.getElementById("chat-input-field");
+        const outputStream = document.getElementById("chat-stream-output");
+
+        if (chatIcon && chatWindow) {
+            chatIcon.addEventListener("click", (e) => {
+                e.stopPropagation();
+                chatWindow.classList.toggle("hidden");
+            });
+
+            if (closeBtn) {
+                closeBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    chatWindow.classList.add("hidden");
+                });
+            }
+            chatWindow.addEventListener("click", (e) => { e.stopPropagation(); });
+        }
+
+        async function processChatWorkflow() {
+            if (!inputField || !outputStream) return;
+            const text = inputField.value.trim();
+            if (!text) return;
+
+            // Render User Input bubble
+            outputStream.innerHTML += `<p class="user-msg">${text}</p>`;
+            inputField.value = "";
+            outputStream.scrollTop = outputStream.scrollHeight;
+
+            // Trigger loading state prompt placeholder
+            const typingIndicatorIdx = Date.now();
+            outputStream.innerHTML += `<p class="bot-msg" id="msg-${typingIndicatorIdx}"><i class="fas fa-spinner fa-spin"></i> Processing master SKU index...</p>`;
+            outputStream.scrollTop = outputStream.scrollHeight;
+            
+            const loadingBubble = document.getElementById(`msg-${typingIndicatorIdx}`);
+
+            try {
+                // Primary Layer: Attempt real-time local REST endpoints query connection
+                const res = await fetch("http://127.0.0.1:8000/api/chatbot/query", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: text })
+                });
+                
+                if (!res.ok) throw new Error("Backend offline");
+                const data = await res.json();
+                if(loadingBubble) loadingBubble.innerHTML = data.reply;
+
+            } catch (err) {
+                // Secondary Layer: Fast local simulation fallback matching keywords
+                setTimeout(() => {
+                    const normalizedQuery = text.toLowerCase();
+                    let responseMatch = "Query catalog string logged. Your inquiry has been dispatched to Surgiments logistics support hub at Hosur. For immediate SKU pricing specifications, generate a Request RFQ form directly via the header menu panel.";
+                    
+                    for (const keyString in localAIBrainFallback) {
+                        if (normalizedQuery.includes(keyString)) {
+                            responseMatch = localAIBrainFallback[keyString];
+                            break;
+                        }
+                    }
+                    if(loadingBubble) loadingBubble.innerHTML = responseMatch;
+                    outputStream.scrollTop = outputStream.scrollHeight;
+                }, 400); // Fluid delayed typing transition
+            }
+        }
+
+        if (sendBtn) sendBtn.addEventListener("click", processChatWorkflow);
+        if (inputField) {
+            inputField.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") processChatWorkflow();
+            });
+        }
+    } catch (e) { console.error("Chatbot module safely isolated into standard loops:", e); }
+
+    // --- 4. AUTOMATED MULTI-REVIEW INTERACTIVE SLIDER ENGINE ---
+    try {
+        const reviewsTrack = document.getElementById("reviews-dynamic-track");
+        const reviewDots = document.querySelectorAll("#reviews-dots-container .review-dot");
+        let activeReviewIdx = 0;
+        const countTotalReviews = reviewDots.length;
+
+        function renderActiveReview(index) {
+            activeReviewIdx = (index + countTotalReviews) % countTotalReviews;
+            const offsetWidthTrack = -activeReviewIdx * 100;
+            
+            if (reviewsTrack) {
+                reviewsTrack.style.transform = `translateX(${offsetWidthTrack}%)`;
+            }
+
+            reviewDots.forEach((dot, idx) => {
+                if(idx === activeReviewIdx) dot.classList.add("active");
+                else dot.classList.remove("active");
+            });
+        }
+
+        reviewDots.forEach(dot => {
+            dot.addEventListener("click", () => {
+                const targetIdx = parseInt(dot.getAttribute("data-review-idx"), 10);
+                renderActiveReview(targetIdx);
+            });
+        });
+
+        setInterval(() => {
+            renderActiveReview(activeReviewIdx + 1);
+        }, 4000); // Cycles review slides automatically every 4 seconds
+
+    } catch (e) { console.error("Reviews slide module isolated safely:", e); }
+
+    // --- 5. RESILIENT BI-DIRECTIONAL SCROLL REVEAL SAFETY RUNTIME ---
     try {
         const revealElements = document.querySelectorAll(".scroll-trigger-reveal");
         if (revealElements.length > 0 && 'IntersectionObserver' in window) {
@@ -42,28 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active"));
     }
 
-    // --- 3. THE CHATBOT TWO-WAY TOGGLE LOOP MECHANISM ---
-    try {
-        const chatIcon = document.getElementById("chatbot-icon");
-        const chatWindow = document.getElementById("chatbot-window");
-        const closeBtn = document.getElementById("close-chat");
-
-        if (chatIcon && chatWindow) {
-            chatIcon.addEventListener("click", (e) => {
-                e.stopPropagation();
-                chatWindow.classList.toggle("hidden");
-            });
-
-            if (closeBtn) {
-                closeBtn.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    chatWindow.classList.add("hidden");
-                });
-            }
-        }
-    } catch (e) { console.error("Chatbot loop error trace isolated safely:", e); }
-
-    // --- 4. DUAL GATEWAY AUTHENTICATION TAB SWITCHER ---
+    // --- 6. DUAL GATEWAY AUTHENTICATION TAB SWITCHER ---
     try {
         const authTabs = document.querySelectorAll(".auth-tab-btn");
         authTabs.forEach(tab => {
@@ -78,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     } catch (e) { console.error("Authentication console tabs failure isolated:", e); }
 
-    // --- 5. FLUID DRAGGABLE SLIDER CAROUSEL (STRICT 8-SECOND AUTOPLAY INTERVALS) ---
+    // --- 7. FLUID DRAGGABLE SLIDER CAROUSEL (8s HERO OVERLAY RUNTIMES) ---
     try {
         const sliderViewport = document.getElementById("hero-draggable-viewport");
         const sliderWrapper = document.getElementById("hero-slider-wrapper");
@@ -109,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
             clearInterval(autoCycleTimer);
             autoCycleTimer = setInterval(() => {
                 renderActiveSlide(currentSlideIndex + 1);
-            }, 8000); // Consolidated and Fixed to stable 8000ms duration runs
+            }, 8000); // Fixed 8-Second Uniform Autoplay loop intervals
         }
 
         if(sliderViewport && sliderWrapper) {
@@ -145,37 +249,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 initAutoCycle();
             });
 
-            // Touch mapping hooks for smooth mobile swiping processing
-            sliderViewport.addEventListener("touchstart", (e) => {
-                clearInterval(autoCycleTimer);
-                activeDragMode = true;
-                sliderWrapper.style.transition = "none";
-                initialCursorPositionX = e.touches[0].clientX;
-                const matrix = new WebKitCSSMatrix(window.getComputedStyle(sliderWrapper).transform);
-                cumulativeTransformX = matrix.m41;
-            }, { passive: true });
-
-            sliderViewport.addEventListener("touchmove", (e) => {
-                if (!activeDragMode) return;
-                const deltaX = e.touches[0].clientX - initialCursorPositionX;
-                sliderWrapper.style.transform = `translateX(${cumulativeTransformX + deltaX}px)`;
-            }, { passive: true });
-
-            sliderViewport.addEventListener("touchend", (e) => {
-                if (!activeDragMode) return;
-                activeDragMode = false;
-                const displacementX = e.changedTouches[0].clientX - initialCursorPositionX;
-                const structuralWidth = sliderViewport.offsetWidth;
-                
-                if (Math.abs(displacementX) > structuralWidth * 0.15) {
-                    if (displacementX > 0) renderActiveSlide(currentSlideIndex - 1);
-                    else renderActiveSlide(currentSlideIndex + 1);
-                } else {
-                    renderActiveSlide(currentSlideIndex);
-                }
-                initAutoCycle();
-            });
-
             beads.forEach(bead => {
                 bead.addEventListener("click", () => {
                     renderActiveSlide(parseInt(bead.getAttribute("data-slide-index"), 10));
@@ -187,7 +260,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     } catch (e) { console.error("Draggable system cycle run isolated cleanly:", e); }
 
-    // --- 6. THE CARD HIDING STACK ILLUSION DECK MATRIX ---
+    // --- 8. THE CARD HIDING STACK ILLUSION DECK MATRIX ---
     try {
         const deckCards = document.querySelectorAll(".portfolio-deck-card");
         deckCards.forEach(card => {
@@ -222,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     } catch (e) { console.error("Card stack physics bounds isolated:", e); }
 
-    // --- 7. FAST CURSOR TRACKING MATRIX FOR TESTIMONIAL CARDS ---
+    // --- 9. REAL-TIME FAST CURSOR TRACKING MATRIX FOR TESTIMONIAL CARDS ---
     try {
         const trackingBox = document.querySelector(".text-track-mouse-tilt");
         const reactiveCard = document.querySelector(".mouse-hover-reactive-card");
@@ -240,7 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     } catch (e) { console.error("Perspective cursor trackers isolated:", e); }
 
-    // --- 8. STANDALONE HARDWARE TILT ENGINES ---
+    // --- 10. STANDALONE HARDWARE TILT ENGINES ---
     try {
         const standaloneTilts = document.querySelectorAll(".tilt-target");
         standaloneTilts.forEach(card => {
@@ -250,15 +323,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 const rotateY = (((e.clientX - rect.left) - rect.width / 2) / (rect.width / 2)) * 10;
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
             });
-            standaloneTilts.forEach(c => {
-                c.addEventListener("mouseleave", () => {
-                    c.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
-                });
+            card.addEventListener("mouseleave", () => {
+                card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
             });
         });
     } catch (e) { console.error("Hardware tilt system bypassed:", e); }
 
-    // --- 9. ANATOMICAL LOOKUP ENGINE PLATFORMS ---
+    // --- 11. ANATOMICAL LOOKUP ENGINE PLATFORMS ---
     try {
         const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
         const fetchTarget = document.getElementById("anatomy-fetch-target");
@@ -305,7 +376,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     } catch (e) { console.error("Anatomical layout engine isolated:", e); }
 
-    // --- 10. SCROLL PROGRESS IMAGE TRANSFORM SCRUBBERS ---
+    // --- 12. SCROLL PROGRESS IMAGE TRANSFORM SCRUBBERS ---
     try {
         const scrollProgressBar = document.getElementById("scroll-progress-bar");
         const zoomImages = document.querySelectorAll(".scroll-zoom-img");
