@@ -19,18 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
     };
 
-    const localAIBrainFallback = {
-        "hello": "Welcome to Surgis Technical Support Terminal. Specify a device specialty classification, quality Directive or specific catalog SKU code to verify material metadata specs instantly.",
-        "hi": "Welcome to Surgis Technical Support Terminal. Specify a device specialty classification, quality Directive or specific catalog SKU code to verify material metadata specs instantly.",
-        "neuro": "Surgiments Neuro-Arrays feature a zero-glare matte satin surface treatment. Vetted lines include Mahadeviah sub-canal retractors, self-retaining scalp stabilizers, and curved dural scissor sets conforming to ISO 7153-1 specs.",
-        "cardio": "Our Cardio-Thoracic sets are forged from premium medical-grade alloys. Core items: Finochietto rib spreaders, DeBakey high-tensile blood vessel trauma clamps, and micro-needle holders.",
-        "ortho": "Orthopedic device lines include heavy duty Liston bone cutter pliers, high-torque bone awls, and Kirschner skeletal fixation stabilization wire drivers engineered for extensive autoclave cycles.",
-        "ce": "Surgiments instruments comply fully with international CE Mark systems, including our 1998 Institutional Compliance Mark and the updated 2014 Production Quality Directives.",
-        "iso": "Our facility logistics operations conform directly to ISO 9001 and ISO 13485 Medical Device Quality Management System standards.",
-        "sku": "Please enter the exact alphanumeric design string to retrieve metallurgy records. Standard series map to neuro (SKU-MN-992), torso (SKU-DB-440), and lower extremities (SKU-CO-311)."
-    };
-
-    // --- 2. DUAL-LAYER SURGIS AI CONVERSATIONAL DRIVER ENGINE ---
+    // --- 2. SURGIS AI CONVERSATIONAL DRIVER ENGINE ---
     try {
         const chatIcon = document.getElementById("chatbot-icon");
         const chatWindow = document.getElementById("chatbot-window");
@@ -62,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
             outputStream.scrollTop = outputStream.scrollHeight;
 
             const typingIndicatorIdx = Date.now();
-            outputStream.innerHTML += `<p class="bot-msg" id="msg-${typingIndicatorIdx}"><i class="fas fa-spinner fa-spin"></i> Processing master index...</p>`;
+            outputStream.innerHTML += `<p class="bot-msg" id="msg-${typingIndicatorIdx}"><i class="fas fa-spinner fa-spin"></i> Processing index...</p>`;
             outputStream.scrollTop = outputStream.scrollHeight;
             
             const loadingBubble = document.getElementById(`msg-${typingIndicatorIdx}`);
@@ -79,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } catch (err) {
                 setTimeout(() => {
                     const normalizedQuery = text.toLowerCase();
-                    let responseMatch = "Query catalog string logged. Support dispatched to Hosur Industrial facility routing grid hub.";
+                    let responseMatch = "Inquiry logged. Dispatched to Hosur Facility regulatory database.";
                     for (const keyString in localAIBrainFallback) {
                         if (normalizedQuery.includes(keyString)) {
                             responseMatch = localAIBrainFallback[keyString];
@@ -93,9 +82,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         if (sendBtn) sendBtn.addEventListener("click", processChatWorkflow);
         if (inputField) inputField.addEventListener("keypress", (e) => { if (e.key === "Enter") processChatWorkflow(); });
-    } catch (e) { console.error("Chat engine safe-catch:", e); }
+    } catch (e) { console.error("Chat safely caught:", e); }
 
-    // --- 3. HARDENED REVIEWS SLIDER ENGINE (TOUCH GESTURE SWIPING INTERACTION) ---
+    // --- 3. HARDENED REVIEWS TESTIMONIAL SWIPER ENGINE ---
     try {
         const reviewsTrack = document.getElementById("reviews-dynamic-track");
         const reviewDots = document.querySelectorAll("#reviews-dots-container .review-dot");
@@ -122,7 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-        // Touch Gesture Hooks for Mobile Swipe Processing
         let touchStartReviewX = 0;
         let touchEndReviewX = 0;
 
@@ -148,9 +136,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         function resetReviewTimer() { clearInterval(reviewsInterval); startReviewTimer(); }
         startReviewTimer();
-    } catch (e) { console.error("Reviews touch runtime caught:", e); }
+    } catch (e) { console.error("Review swipe isolated:", e); }
 
-    // --- 4. FLUID HERO SLIDER CAROUSEL (TOUCH SEAMLESS 8-SECOND LOOPS) ---
+    // --- 4. FLUID DRAGGABLE HERO SLIDER CAROUSEL (8s LOOPS) ---
     try {
         const sliderViewport = document.getElementById("hero-draggable-viewport");
         const sliderWrapper = document.getElementById("hero-slider-wrapper");
@@ -183,7 +171,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if(sliderViewport && sliderWrapper) {
-            // Mouse Drag Handlers
             sliderViewport.addEventListener("mousedown", (e) => {
                 activeDragMode = true;
                 clearInterval(autoCycleTimer);
@@ -215,7 +202,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 initAutoCycle();
             });
 
-            // Touch Drag Handlers (Fixes Mobile Hero cutoff scaling vulnerabilities)
             sliderViewport.addEventListener("touchstart", (e) => {
                 clearInterval(autoCycleTimer);
                 activeDragMode = true;
@@ -253,16 +239,14 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             initAutoCycle();
         }
-    } catch (e) { console.error("Hero slider touch catch:", e); }
+    } catch (e) { console.error("Hero loop touch isolated:", e); }
 
-    // --- 5. THE CARD DECK INTERACTIVE CHANNELS (MOBILE HOVER EMBED REMAP) ---
+    // --- 5. THE CARD DECK INTERACTIVE CHANNELS ---
     try {
         const deckCards = document.querySelectorAll(".portfolio-deck-card");
-        
-        // Desktop Hover Core Pipeline
         deckCards.forEach(card => {
             card.addEventListener("mouseenter", () => {
-                if (window.innerWidth < 993) return; // Skip logic engine operations on tablets/smartphones
+                if (window.innerWidth < 993) return;
                 const currentIdx = parseInt(card.getAttribute("data-card-idx"), 10);
                 deckCards.forEach((c, index) => {
                     if (index === currentIdx) {
@@ -292,7 +276,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             });
 
-            // Mobile Tap Handler Override (Fixes lack of mouse cursor hover on phones)
             card.addEventListener("click", () => {
                 if (window.innerWidth > 992) return;
                 const wasActive = card.classList.contains("active-mobile-tap");
@@ -334,7 +317,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (label) label.innerText = region.toUpperCase();
 
                 if (fetchTarget) {
-                    fetchTarget.innerHTML = `<div class="fallback-prompt">Querying master specification indexes for ${region}...</div>`;
+                    fetchTarget.innerHTML = `<div class="fallback-prompt">Querying master specifications index for ${region}...</div>`;
                     try {
                         const res = await fetch(`http://127.0.0.1:8000/api/instruments/?anatomy=${region}`);
                         if (!res.ok) throw new Error();
@@ -353,7 +336,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         });
-    } catch (e) { console.error("Anatomy engine safety bypass:", e); }
+    } catch (e) { console.error("Anatomy safety bypass:", e); }
 
     // --- 8. DUAL GATEWAY AUTHENTICATION TAB SWITCHER ---
     try {
@@ -368,7 +351,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if(targetPanel) targetPanel.classList.add("active");
             });
         });
-    } catch (e) { console.error("Auth routing layer clear:", e); }
+    } catch (e) { console.error("Auth tab logs clear:", e); }
 
     // --- 9. REAL-TIME CURSOR DESKTOP TRACKING TILT PERSPECTIVE ---
     try {
