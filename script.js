@@ -60,12 +60,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const text = inputField.value.trim();
             if (!text) return;
 
-            // Render User Input bubble
             outputStream.innerHTML += `<p class="user-msg">${text}</p>`;
             inputField.value = "";
             outputStream.scrollTop = outputStream.scrollHeight;
 
-            // Trigger loading state prompt placeholder
             const typingIndicatorIdx = Date.now();
             outputStream.innerHTML += `<p class="bot-msg" id="msg-${typingIndicatorIdx}"><i class="fas fa-spinner fa-spin"></i> Processing master SKU index...</p>`;
             outputStream.scrollTop = outputStream.scrollHeight;
@@ -73,7 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const loadingBubble = document.getElementById(`msg-${typingIndicatorIdx}`);
 
             try {
-                // Primary Layer: Attempt real-time local REST endpoints query connection
                 const res = await fetch("http://127.0.0.1:8000/api/chatbot/query", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -85,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 if(loadingBubble) loadingBubble.innerHTML = data.reply;
 
             } catch (err) {
-                // Secondary Layer: Fast local simulation fallback matching keywords
                 setTimeout(() => {
                     const normalizedQuery = text.toLowerCase();
                     let responseMatch = "Query catalog string logged. Your inquiry has been dispatched to Surgiments logistics support hub at Hosur. For immediate SKU pricing specifications, generate a Request RFQ form directly via the header menu panel.";
@@ -98,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                     if(loadingBubble) loadingBubble.innerHTML = responseMatch;
                     outputStream.scrollTop = outputStream.scrollHeight;
-                }, 400); // Fluid delayed typing transition
+                }, 400); 
             }
         }
 
@@ -140,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         setInterval(() => {
             renderActiveReview(activeReviewIdx + 1);
-        }, 4000); // Cycles review slides automatically every 4 seconds
+        }, 4000); 
 
     } catch (e) { console.error("Reviews slide module isolated safely:", e); }
 
@@ -213,7 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
             clearInterval(autoCycleTimer);
             autoCycleTimer = setInterval(() => {
                 renderActiveSlide(currentSlideIndex + 1);
-            }, 8000); // Fixed 8-Second Uniform Autoplay loop intervals
+            }, 8000); 
         }
 
         if(sliderViewport && sliderWrapper) {
@@ -238,6 +234,37 @@ document.addEventListener("DOMContentLoaded", () => {
                 activeDragMode = false;
                 sliderViewport.style.cursor = "grab";
                 const displacementX = e.clientX - initialCursorPositionX;
+                const structuralWidth = sliderViewport.offsetWidth;
+                
+                if (Math.abs(displacementX) > structuralWidth * 0.15) {
+                    if (displacementX > 0) renderActiveSlide(currentSlideIndex - 1);
+                    else renderActiveSlide(currentSlideIndex + 1);
+                } else {
+                    renderActiveSlide(currentSlideIndex);
+                }
+                initAutoCycle();
+            });
+
+            // Touch mapping hooks for smooth mobile swiping processing
+            sliderViewport.addEventListener("touchstart", (e) => {
+                clearInterval(autoCycleTimer);
+                activeDragMode = true;
+                sliderWrapper.style.transition = "none";
+                initialCursorPositionX = e.touches[0].clientX;
+                const matrix = new WebKitCSSMatrix(window.getComputedStyle(sliderWrapper).transform);
+                cumulativeTransformX = matrix.m41;
+            }, { passive: true });
+
+            sliderViewport.addEventListener("touchmove", (e) => {
+                if (!activeDragMode) return;
+                const deltaX = e.touches[0].clientX - initialCursorPositionX;
+                sliderWrapper.style.transform = `translateX(${cumulativeTransformX + deltaX}px)`;
+            }, { passive: true });
+
+            sliderViewport.addEventListener("touchend", (e) => {
+                if (!activeDragMode) return;
+                activeDragMode = false;
+                const displacementX = e.changedTouches[0].clientX - initialCursorPositionX;
                 const structuralWidth = sliderViewport.offsetWidth;
                 
                 if (Math.abs(displacementX) > structuralWidth * 0.15) {
