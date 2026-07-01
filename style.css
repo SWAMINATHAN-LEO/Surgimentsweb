@@ -24,13 +24,14 @@
 }
 
 /* ==========================================================================
-   2. GLOBAL CANVASES & VIEWPORT ELEMENTS (STRICT BOUNDARY LOCK)
+   2. GLOBAL VIEWS & ANTI-SCROLL RE-LOCK (ELIMINATES RIGHT WHITE SPACE)
    ========================================================================== */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 html { 
     scroll-behavior: smooth; 
     overflow-x: hidden !important; 
     width: 100vw;
+    max-width: 100vw;
 }
 body { 
     background-color: var(--white); 
@@ -90,7 +91,7 @@ body {
 .btn-pill-sm:hover { background: #d4131d; box-shadow: 0 4px 15px rgba(178, 13, 21, 0.4); }
 
 /* ==========================================================================
-   4. HARDENED HERO CONTAINER FRAMEWORK
+   4. HARDENED HERO VIEWPORT CONTAINER FRAMEWORK
    ========================================================================== */
 .hero-full-viewport { 
     width: 100vw !important; 
@@ -102,7 +103,7 @@ body {
     background: #030a16 !important; 
     z-index: 2;
 }
-.slider-draggable-track { width: 100%; height: 100%; position: relative; cursor: grab; }
+.slider-draggable-track { width: 100%; height: 100%; position: relative; cursor: grab; touch-action: pan-y; }
 .slider-draggable-track:active { cursor: grabbing; }
 .slider-wrapper-inner { display: flex; width: 100%; height: 100%; will-change: transform; }
 
@@ -147,7 +148,7 @@ body {
 /* ==========================================================================
    6. INSTITUTIONAL ACCREDITATIONS MODULE
    ========================================================================== */
-.credibility-section { padding: 100px 5%; background: var(--white); border-bottom: 1px solid rgba(11,34,68,0.06); position: relative; z-index: 10; }
+.credibility-section { padding: 100px 5%; background: var(--white); border-bottom: 1px solid rgba(11,34,68,0.06); position: relative; z-index: 10; overflow: hidden; }
 .centering-override { text-align: center; margin-bottom: 65px; padding: 0 15px; }
 .acereditation-grid-layout { display: grid; grid-template-columns: repeat(4, 1fr) !important; gap: 30px !important; }
 .certificate-display-node { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 35px 25px !important; }
@@ -159,40 +160,40 @@ body {
 .Certificate-Vector-Icon { font-size: 48px; color: #f59e0b; filter: drop-shadow(0 0 10px rgba(245,158,11,0.3)); }
 .license-badge-tag { font-size: 13px; font-weight: 800; color: var(--white); letter-spacing: 1px; }
 .ce-text-emblem { font-size: 64px; font-weight: 800; color: var(--aegean-blue); letter-spacing: 4px; font-family: serif; }
-
-.certificate-display-node h5 { font-size: 18px; font-weight: 700; margin-bottom: 8px; text-align: center; }
+.certificate-display-node h5 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
 
 /* ==========================================================================
-   7. STACKING CARD DECK MATRIX
+   7. INTERACTIVE STACKING CARD DECK MATRIX
    ========================================================================== */
-.catalog-section { padding: 120px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; }
+.catalog-section { padding: 120px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; overflow: hidden; }
 .catalog-header-text { margin-bottom: 60px; padding: 0 15px; }
 .section-tag { font-size: 12px; font-weight: 800; color: var(--crimson-red); letter-spacing: 2px; display: inline-block; margin-bottom: 12px; }
 .catalog-header-text h2 { font-size: 38px; font-weight: 800; color: var(--aegean-blue); letter-spacing: -1px; }
 .catalog-header-text p { color: var(--text-muted); margin-top: 10px; font-size: 16px; }
 
-.stacking-deck-container { display: flex; justify-content: center; align-items: center; gap: 24px; padding: 40px 0; perspective: 1200px; transform-style: preserve-3d; }
+.stacking-deck-container { display: flex; justify-content: center; align-items: center; gap: 24px; padding: 40px 0; perspective: 1200px; transform-style: preserve-3d; width: 100%; }
 .portfolio-deck-card { background: var(--white); border: 1px solid var(--border-glass); padding: 50px 30px; border-radius: 20px !important; flex: 1; min-height: 350px; position: relative; box-shadow: var(--shadow-premium); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; will-change: transform, opacity; z-index: 10; cursor: pointer; }
 .card-num-indicator { font-size: 14px; font-weight: 800; color: #0066ff; margin-bottom: 20px; }
 .portfolio-deck-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 15px; color: var(--aegean-blue); }
 .card-description-summary { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
 
-.portfolio-deck-card:hover { background: var(--crimson-red) !important; border-color: var(--crimson-red) !important; box-shadow: 0 30px 60px rgba(178, 13, 21, 0.25) !important; }
-.portfolio-deck-card:hover h3, .portfolio-deck-card:hover .card-num-indicator, .portfolio-deck-card:hover .card-description-summary p { color: var(--white) !important; }
+.portfolio-deck-card:hover, .portfolio-deck-card.active-mobile-tap { background: var(--crimson-red) !important; border-color: var(--crimson-red) !important; box-shadow: 0 30px 60px rgba(178, 13, 21, 0.25) !important; }
+.portfolio-deck-card:hover h3, .portfolio-deck-card:hover .card-num-indicator, .portfolio-deck-card:hover .card-description-summary p,
+.portfolio-deck-card.active-mobile-tap h3, .portfolio-deck-card.active-mobile-tap .card-num-indicator, .portfolio-deck-card.active-mobile-tap .card-description-summary p { color: var(--white) !important; }
 
 /* ==========================================================================
-   8. ANATOMICAL INDEX BLUEPRINT LABS
+   8. ANATOMICAL LOOKUP MATRIX
    ========================================================================== */
-.anatomy-section { padding: 120px 5%; background: var(--white); border-bottom: 1px solid rgba(11,34,68,0.06); position: relative; z-index: 10; }
+.anatomy-section { padding: 120px 5%; background: var(--white); border-bottom: 1px solid rgba(11,34,68,0.06); position: relative; z-index: 10; overflow: hidden; }
 .anatomy-grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; background: var(--bg-light-secondary); padding: 50px; border-radius: 20px; border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); }
 .anatomy-left-vector h3 { font-size: 28px; font-weight: 800; color: var(--aegean-blue); }
 .anatomy-left-vector p { color: var(--text-muted); margin-top: 10px; font-size: 14px; }
-.real-anatomy-container { position: relative; height: 480px; display: flex; align-items: center; justify-content: center; margin-top: 30px; }
-.real-anatomy-img { height: 90%; width: auto; object-fit: contain; filter: opacity(0.85) drop-shadow(0 0 15px rgba(11, 34, 68, 0.05)); }
+.real-anatomy-container { position: relative; height: 480px; display: flex; align-items: center; justify-content: center; margin-top: 30px; width: 100%; max-width: 100%; }
+.real-anatomy-img { height: 90%; width: auto; max-width: 100%; object-fit: contain; filter: opacity(0.85) drop-shadow(0 0 15px rgba(11, 34, 68, 0.05)); }
 
 .anatomy-svg-hotspot { position: absolute; width: 24px; height: 24px; background: var(--crimson-red); border-radius: 50%; border: 4px solid var(--white); box-shadow: 0 0 15px rgba(178, 13, 21, 0.5); cursor: pointer; transition: 0.3s ease; transform: translate(-50%, -50%); z-index: 10; }
 .anatomy-svg-hotspot:hover, .anatomy-svg-hotspot.active-node { transform: translate(-50%, -50%) scale(1.4); box-shadow: 0 0 0 10px rgba(178, 13, 21, 0.2), 0 0 20px var(--crimson-red); }
-.hover-label-overlay { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); font-size: 12px; font-weight: 700; background: var(--aegean-blue); color: var(--white); padding: 10px 24px; border-radius: 50px; pointer-events: none; text-transform: uppercase; letter-spacing: 1px; }
+.hover-label-overlay { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); font-size: 12px; font-weight: 700; background: var(--aegean-blue); color: var(--white); padding: 10px 24px; border-radius: 50px; pointer-events: none; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
 
 .anatomy-right-list h4 { font-size: 16px; font-weight: 700; color: var(--aegean-blue); text-transform: uppercase; letter-spacing: 0.8px; border-bottom: 1px solid var(--border-glass); padding-bottom: 18px; }
 .instrument-viewport { height: 380px; overflow-y: auto; padding-right: 12px; margin-top: 24px; }
@@ -204,9 +205,9 @@ body {
 .cached-badge { position: absolute; top: 14px; right: 18px; font-size: 10px; font-weight: 700; color: var(--crimson-red); background: rgba(178, 13, 21, 0.06); padding: 3px 10px; border-radius: 50px; text-transform: uppercase; border: 1px solid rgba(178, 13, 21, 0.15); }
 
 /* ==========================================================================
-   9. TESTIMONIALS SLIDER SYSTEMS
+   9. TESTIMONIALS & DYNAMIC SWIPING TRACK
    ========================================================================== */
-.testimonials-section { padding: 120px 5%; background: var(--white); position: relative; z-index: 10; }
+.testimonials-section { padding: 120px 5%; background: var(--white); position: relative; z-index: 10; overflow: hidden; }
 .testimonial-split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 .video-mockup-frame { height: 380px; position: relative; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-premium); }
 .video-mockup-frame img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85); transition: var(--transition-curve); }
@@ -215,11 +216,12 @@ body {
 .video-mockup-frame:hover .play-overlay-icon { background: var(--crimson-red) !important; transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 10px 30px rgba(178,13,21,0.5); }
 .video-mockup-frame:hover img { filter: brightness(0.6) contrast(1.05); }
 
+.testimonial-right-feed { width: 100%; overflow: hidden; }
 .testimonial-right-feed h3 { font-size: 36px; font-weight: 800; color: var(--aegean-blue); margin-bottom: 30px; letter-spacing: -0.5px; }
 
-.reviews-slider-container { width: 100%; overflow: hidden; position: relative; min-height: 240px; }
+.reviews-slider-container { width: 100%; overflow: hidden; position: relative; min-height: 240px; touch-action: pan-y; }
 .reviews-slider-track { display: flex; width: 100%; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
-.reviews-slider-track .review-bubble { flex: 0 0 100%; width: 100%; }
+.reviews-slider-track .review-bubble { flex: 0 0 100%; width: 100%; max-width: 100%; }
 
 .mouse-hover-reactive-card { padding: 40px; border-radius: 20px !important; box-shadow: 0 30px 60px rgba(11,34,68,0.06); transition: transform 0.1s ease-out; will-change: transform; }
 .review-bubble p { font-size: 16px; line-height: 1.7; font-style: italic; }
@@ -232,7 +234,7 @@ body {
 /* ==========================================================================
    10. COMBINED LIVE MAP & ACCESS PORTALS
    ========================================================================== */
-.access-split-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; padding: 120px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; }
+.access-split-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; padding: 120px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; overflow: hidden; }
 .map-rendering-layer { height: 100%; width: 100%; border-radius: 20px; position: relative; overflow: hidden; min-height: 480px; box-shadow: var(--shadow-premium); }
 .live-google-map-frame { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 1; }
 .map-address-card { position: absolute; bottom: 25px; left: 25px; right: 25px; padding: 24px; border-radius: 12px; z-index: 2; box-shadow: var(--shadow-premium); }
@@ -256,7 +258,7 @@ body {
 /* ==========================================================================
    11. CORPORATE FOOTER & MAGNIFIED QR PLATFORMS
    ========================================================================== */
-.corporate-footer { background: var(--bg-dark-core); color: var(--white); padding: 100px 5% 40px; border-radius: 40px 40px 0 0; position: relative; z-index: 10; }
+.corporate-footer { background: var(--bg-dark-core); color: var(--white); padding: 100px 5% 40px; border-radius: 40px 40px 0 0; position: relative; z-index: 10; overflow: hidden; }
 .footer-top-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.8fr; gap: 40px; margin-bottom: 60px; }
 .footer-brand-column h3 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 20px; }
 .footer-brand-column p { color: #94a3b8; font-size: 14px; line-height: 1.8; }
@@ -273,7 +275,7 @@ body {
 .footer-bottom-bar { border-top: 1px solid rgba(255, 255, 255, 0.03); padding-top: 40px; text-align: center; color: #475569; font-size: 13px; font-weight: 500; }
 
 /* ==========================================================================
-   12. PRODUCTION CHATBOT TERMINAL OVERHAUL (BLUE BOX WITH CRISP WHITE TEXT)
+   12. SECURED SURGIS DIALOG WINDOW SYSTEM
    ========================================================================== */
 #chatbot-icon { position: fixed; bottom: 35px; right: 35px; width: 60px; height: 60px; background: var(--aegean-blue); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 10000; border: 1px solid rgba(255,255,255,0.1); }
 #chatbot-icon:hover { background: var(--crimson-red); transform: scale(1.05); }
@@ -287,25 +289,8 @@ body {
 #close-chat:hover { color: var(--white); }
 
 .chat-body { height: 320px; padding: 20px; overflow-y: auto; background: #030d22 !important; display: flex; flex-direction: column; gap: 14px; }
-
-/* Fixed High-Contrast AI Response Layout Layer (Deep Blue Background + Crisp White Text) */
-.chat-body .bot-msg { 
-    background: var(--aegean-blue) !important; 
-    color: var(--white) !important; 
-    padding: 14px 16px !important; 
-    border-radius: 18px 18px 18px 4px !important; 
-    font-size: 13px !important; 
-    max-width: 85% !important; 
-    align-self: flex-start !important; 
-    border: 1px solid rgba(255, 255, 255, 0.12) !important; 
-    line-height: 1.5 !important; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
-}
-/* Ensure loader spinning vectors keep pristine styling inside the blue container */
-.chat-body .bot-msg i {
-    color: var(--white) !important;
-}
-
+.chat-body .bot-msg { background: var(--aegean-blue) !important; color: var(--white) !important; padding: 14px 16px !important; border-radius: 18px 18px 18px 4px !important; font-size: 13px !important; max-width: 85% !important; align-self: flex-start !important; border: 1px solid rgba(255, 255, 255, 0.12) !important; line-height: 1.5 !important; box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important; }
+.chat-body .bot-msg i { color: var(--white) !important; }
 .chat-body .user-msg { background: var(--crimson-red) !important; color: var(--white) !important; padding: 14px 16px !important; border-radius: 18px 18px 4px 18px !important; font-size: 13px !important; max-width: 85% !important; align-self: flex-end !important; line-height: 1.5 !important; box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important; }
 
 .chat-input { display: flex; padding: 16px; border-top: 1px solid var(--border-glass); gap: 10px; background: var(--bg-light-secondary); }
@@ -314,7 +299,7 @@ body {
 .chat-input button:hover { background: var(--crimson-red); }
 
 /* ==========================================================================
-   13. SMARTPHONE & DESKTOP SCREEN VIEWPORT MEDIA BREAKPOINTS (TOTAL OPTIMIZATION)
+   13. SMARTPHONE & DESKTOP SCREEN VIEWPORT MEDIA BREAKPOINTS (STRICT MOBILE FIX)
    ========================================================================== */
 @media (max-width: 1200px) { 
     .hero-full-viewport { height: 500px !important; min-height: 500px !important; } 
@@ -323,34 +308,61 @@ body {
 @media (max-width: 992px) { 
     .nav-links { display: none; } 
     .acereditation-grid-layout { grid-template-columns: repeat(2, 1fr) !important; gap: 20px !important; } 
-    .stacking-deck-container { flex-direction: column; gap: 24px; } 
-    .anatomy-grid-layout, .testimonial-split-layout, .access-split-grid { grid-template-columns: 1fr; gap: 40px; padding: 35px; } 
-    .footer-top-grid { grid-template-columns: 1fr; gap: 40px; } 
-    .qr-code-placeholder-card { max-width: 100%; } 
+    
+    /* Disables overlapping horizontal dependencies that warp viewports */
+    .stacking-deck-container { 
+        flex-direction: column !important; 
+        gap: 20px !important; 
+        perspective: none !important;
+        transform-style: flat !important;
+        padding: 20px 10px !important;
+    }
+    .portfolio-deck-card {
+        width: 100% !important;
+        min-height: auto !important;
+        transform: none !important;
+        opacity: 1 !important;
+        z-index: 1 !important;
+    }
+    
+    .anatomy-grid-layout, .testimonial-split-layout, .access-split-grid { grid-template-columns: 1fr !important; gap: 40px !important; padding: 35px 20px !important; } 
+    .footer-top-grid { grid-template-columns: 1fr !important; gap: 40px !important; } 
+    .qr-code-placeholder-card { max-width: 100%; justify-content: center; } 
 }
 
 @media (max-width: 576px) { 
-    .acereditation-grid-layout { grid-template-columns: 1fr !important; } 
-    .auth-buttons, .search-wrapper { display: none; } 
+    body { padding-top: 70px; }
+    .main-header { height: 70px; padding: 10px 16px; }
+    .header-left-brand img { height: 42px !important; max-height: 42px !important; }
+    .acereditation-grid-layout { grid-template-columns: 1fr !important; gap: 16px !important; } 
+    .auth-buttons, .search-wrapper { display: none !important; } 
     
-    /* Strict Layout Sizing Overhaul for Smartphones */
-    .hero-full-viewport { height: 460px !important; min-height: 460px !important; }
-    .anatomy-grid-layout { padding: 20px; }
-    .real-anatomy-container { height: 360px; }
+    /* Calibrates Hero Stage Sizing to fit Smartphone screens perfectly */
+    .hero-full-viewport { 
+        height: 60vh !important; 
+        min-height: 400px !important; 
+        max-height: 520px !important; 
+    }
     
-    /* Chatbot Window Mobile Optimization Bounds */
+    .anatomy-grid-layout { padding: 20px 15px !important; }
+    .real-anatomy-container { height: 350px !important; margin-top: 15px !important; }
+    .hover-label-overlay { bottom: 10px; padding: 6px 16px; font-size: 11px; }
+    .instrument-viewport { height: 300px; }
+    .video-mockup-frame { height: 260px; }
+    .map-rendering-layer { min-height: 320px; }
+    .client-auth-card { padding: 25px 20px !important; }
+    
+    /* Locks AI Bot Frame seamlessly inside Mobile screens */
     #chatbot-window { 
         width: calc(100vw - 30px) !important; 
         right: 15px !important; 
-        bottom: 95px !important; 
-        max-height: 70vh !important;
+        bottom: 110px !important; 
+        max-height: 60vh !important; 
     }
-    .chat-body {
-        height: 280px !important;
-    }
+    .chat-body { height: 240px !important; padding: 15px !important; }
+    #chatbot-icon { bottom: 25px; right: 25px; width: 55px; height: 55px; font-size: 20px; }
 }
 
-::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-light-secondary); }
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
