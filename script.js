@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
     };
 
-    // --- 2. INTEGRATED INTEL ENGINE FOR LOCAL CHATBOT RESPONSE SIMULATION ---
     const localAIBrainFallback = {
         "hello": "Welcome to Surgis Technical Support Terminal. Specify a device specialty classification, quality Directive or specific catalog SKU code to verify material metadata specs instantly.",
         "hi": "Welcome to Surgis Technical Support Terminal. Specify a device specialty classification, quality Directive or specific catalog SKU code to verify material metadata specs instantly.",
@@ -31,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "sku": "Please enter the exact alphanumeric design string to retrieve metallurgy records. Standard series map to neuro (SKU-MN-992), torso (SKU-DB-440), and lower extremities (SKU-CO-311)."
     };
 
-    // --- 3. DUAL-LAYER SURGIS AI CONVERSATIONAL DRIVER ENGINE ---
+    // --- 2. DUAL-LAYER SURGIS AI CONVERSATIONAL DRIVER ENGINE ---
     try {
         const chatIcon = document.getElementById("chatbot-icon");
         const chatWindow = document.getElementById("chatbot-window");
@@ -45,14 +44,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 e.stopPropagation();
                 chatWindow.classList.toggle("hidden");
             });
-
             if (closeBtn) {
                 closeBtn.addEventListener("click", (e) => {
                     e.stopPropagation();
                     chatWindow.classList.add("hidden");
                 });
             }
-            chatWindow.addEventListener("click", (e) => { e.stopPropagation(); });
         }
 
         async function processChatWorkflow() {
@@ -65,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
             outputStream.scrollTop = outputStream.scrollHeight;
 
             const typingIndicatorIdx = Date.now();
-            outputStream.innerHTML += `<p class="bot-msg" id="msg-${typingIndicatorIdx}"><i class="fas fa-spinner fa-spin"></i> Processing master SKU index...</p>`;
+            outputStream.innerHTML += `<p class="bot-msg" id="msg-${typingIndicatorIdx}"><i class="fas fa-spinner fa-spin"></i> Processing master index...</p>`;
             outputStream.scrollTop = outputStream.scrollHeight;
             
             const loadingBubble = document.getElementById(`msg-${typingIndicatorIdx}`);
@@ -76,16 +73,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ message: text })
                 });
-                
-                if (!res.ok) throw new Error("Backend offline");
+                if (!res.ok) throw new Error();
                 const data = await res.json();
                 if(loadingBubble) loadingBubble.innerHTML = data.reply;
-
             } catch (err) {
                 setTimeout(() => {
                     const normalizedQuery = text.toLowerCase();
-                    let responseMatch = "Query catalog string logged. Your inquiry has been dispatched to Surgiments logistics support hub at Hosur. For immediate SKU pricing specifications, generate a Request RFQ form directly via the header menu panel.";
-                    
+                    let responseMatch = "Query catalog string logged. Support dispatched to Hosur Industrial facility routing grid hub.";
                     for (const keyString in localAIBrainFallback) {
                         if (normalizedQuery.includes(keyString)) {
                             responseMatch = localAIBrainFallback[keyString];
@@ -97,30 +91,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 }, 400); 
             }
         }
-
         if (sendBtn) sendBtn.addEventListener("click", processChatWorkflow);
-        if (inputField) {
-            inputField.addEventListener("keypress", (e) => {
-                if (e.key === "Enter") processChatWorkflow();
-            });
-        }
-    } catch (e) { console.error("Chatbot module safely isolated into standard loops:", e); }
+        if (inputField) inputField.addEventListener("keypress", (e) => { if (e.key === "Enter") processChatWorkflow(); });
+    } catch (e) { console.error("Chat engine safe-catch:", e); }
 
-    // --- 4. AUTOMATED MULTI-REVIEW INTERACTIVE SLIDER ENGINE ---
+    // --- 3. HARDENED REVIEWS SLIDER ENGINE (TOUCH GESTURE SWIPING INTERACTION) ---
     try {
         const reviewsTrack = document.getElementById("reviews-dynamic-track");
         const reviewDots = document.querySelectorAll("#reviews-dots-container .review-dot");
+        const reviewsContainer = document.querySelector(".reviews-slider-container");
+        
         let activeReviewIdx = 0;
         const countTotalReviews = reviewDots.length;
+        let reviewsInterval = null;
 
         function renderActiveReview(index) {
             activeReviewIdx = (index + countTotalReviews) % countTotalReviews;
             const offsetWidthTrack = -activeReviewIdx * 100;
-            
-            if (reviewsTrack) {
-                reviewsTrack.style.transform = `translateX(${offsetWidthTrack}%)`;
-            }
-
+            if (reviewsTrack) reviewsTrack.style.transform = `translateX(${offsetWidthTrack}%)`;
             reviewDots.forEach((dot, idx) => {
                 if(idx === activeReviewIdx) dot.classList.add("active");
                 else dot.classList.remove("active");
@@ -129,56 +117,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
         reviewDots.forEach(dot => {
             dot.addEventListener("click", () => {
-                const targetIdx = parseInt(dot.getAttribute("data-review-idx"), 10);
-                renderActiveReview(targetIdx);
+                renderActiveReview(parseInt(dot.getAttribute("data-review-idx"), 10));
+                resetReviewTimer();
             });
         });
 
-        setInterval(() => {
-            renderActiveReview(activeReviewIdx + 1);
-        }, 4000); 
+        // Touch Gesture Hooks for Mobile Swipe Processing
+        let touchStartReviewX = 0;
+        let touchEndReviewX = 0;
 
-    } catch (e) { console.error("Reviews slide module isolated safely:", e); }
+        if (reviewsContainer) {
+            reviewsContainer.addEventListener("touchstart", (e) => {
+                touchStartReviewX = e.touches[0].clientX;
+                clearInterval(reviewsInterval);
+            }, { passive: true });
 
-    // --- 5. RESILIENT BI-DIRECTIONAL SCROLL REVEAL SAFETY RUNTIME ---
-    try {
-        const revealElements = document.querySelectorAll(".scroll-trigger-reveal");
-        if (revealElements.length > 0 && 'IntersectionObserver' in window) {
-            const revealObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("reveal-active");
-                    } else {
-                        entry.target.classList.remove("reveal-active");
-                    }
-                });
-            }, { threshold: 0.02, rootMargin: "0px 0px -20px 0px" });
-            
-            revealElements.forEach(element => revealObserver.observe(element));
-        } else {
-            document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active"));
+            reviewsContainer.addEventListener("touchend", (e) => {
+                touchEndReviewX = e.changedTouches[0].clientX;
+                const swipeDistance = touchStartReviewX - touchEndReviewX;
+                if (Math.abs(swipeDistance) > 50) {
+                    if (swipeDistance > 0) renderActiveReview(activeReviewIdx + 1);
+                    else renderActiveReview(activeReviewIdx - 1);
+                }
+                startReviewTimer();
+            });
         }
-    } catch (e) {
-        console.warn("Reveal engine safely bypassed onto default visibility profiles:", e);
-        document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active"));
-    }
 
-    // --- 6. DUAL GATEWAY AUTHENTICATION TAB SWITCHER ---
-    try {
-        const authTabs = document.querySelectorAll(".auth-tab-btn");
-        authTabs.forEach(tab => {
-            tab.addEventListener("click", () => {
-                authTabs.forEach(t => t.classList.remove("active"));
-                document.querySelectorAll(".auth-panel-node").forEach(panel => panel.classList.remove("active"));
-                tab.classList.add("active");
-                const activePanelId = tab.getAttribute("data-target-form");
-                const targetPanel = document.getElementById(activePanelId);
-                if(targetPanel) targetPanel.classList.add("active");
-            });
-        });
-    } catch (e) { console.error("Authentication console tabs failure isolated:", e); }
+        function startReviewTimer() {
+            reviewsInterval = setInterval(() => { renderActiveReview(activeReviewIdx + 1); }, 4000);
+        }
+        function resetReviewTimer() { clearInterval(reviewsInterval); startReviewTimer(); }
+        startReviewTimer();
+    } catch (e) { console.error("Reviews touch runtime caught:", e); }
 
-    // --- 7. FLUID DRAGGABLE SLIDER CAROUSEL (8s HERO OVERLAY RUNTIMES) ---
+    // --- 4. FLUID HERO SLIDER CAROUSEL (TOUCH SEAMLESS 8-SECOND LOOPS) ---
     try {
         const sliderViewport = document.getElementById("hero-draggable-viewport");
         const sliderWrapper = document.getElementById("hero-slider-wrapper");
@@ -207,12 +179,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function initAutoCycle() {
             clearInterval(autoCycleTimer);
-            autoCycleTimer = setInterval(() => {
-                renderActiveSlide(currentSlideIndex + 1);
-            }, 8000); 
+            autoCycleTimer = setInterval(() => { renderActiveSlide(currentSlideIndex + 1); }, 8000);
         }
 
         if(sliderViewport && sliderWrapper) {
+            // Mouse Drag Handlers
             sliderViewport.addEventListener("mousedown", (e) => {
                 activeDragMode = true;
                 clearInterval(autoCycleTimer);
@@ -235,7 +206,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 sliderViewport.style.cursor = "grab";
                 const displacementX = e.clientX - initialCursorPositionX;
                 const structuralWidth = sliderViewport.offsetWidth;
-                
                 if (Math.abs(displacementX) > structuralWidth * 0.15) {
                     if (displacementX > 0) renderActiveSlide(currentSlideIndex - 1);
                     else renderActiveSlide(currentSlideIndex + 1);
@@ -245,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 initAutoCycle();
             });
 
-            // Touch mapping hooks for smooth mobile swiping processing
+            // Touch Drag Handlers (Fixes Mobile Hero cutoff scaling vulnerabilities)
             sliderViewport.addEventListener("touchstart", (e) => {
                 clearInterval(autoCycleTimer);
                 activeDragMode = true;
@@ -266,7 +236,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 activeDragMode = false;
                 const displacementX = e.changedTouches[0].clientX - initialCursorPositionX;
                 const structuralWidth = sliderViewport.offsetWidth;
-                
                 if (Math.abs(displacementX) > structuralWidth * 0.15) {
                     if (displacementX > 0) renderActiveSlide(currentSlideIndex - 1);
                     else renderActiveSlide(currentSlideIndex + 1);
@@ -282,16 +251,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     initAutoCycle();
                 });
             });
-
             initAutoCycle();
         }
-    } catch (e) { console.error("Draggable system cycle run isolated cleanly:", e); }
+    } catch (e) { console.error("Hero slider touch catch:", e); }
 
-    // --- 8. THE CARD HIDING STACK ILLUSION DECK MATRIX ---
+    // --- 5. THE CARD DECK INTERACTIVE CHANNELS (MOBILE HOVER EMBED REMAP) ---
     try {
         const deckCards = document.querySelectorAll(".portfolio-deck-card");
+        
+        // Desktop Hover Core Pipeline
         deckCards.forEach(card => {
             card.addEventListener("mouseenter", () => {
+                if (window.innerWidth < 993) return; // Skip logic engine operations on tablets/smartphones
                 const currentIdx = parseInt(card.getAttribute("data-card-idx"), 10);
                 deckCards.forEach((c, index) => {
                     if (index === currentIdx) {
@@ -313,66 +284,54 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             card.addEventListener("mouseleave", () => {
+                if (window.innerWidth < 993) return;
                 deckCards.forEach(c => {
                     c.style.transform = "translateX(0px) translateZ(0px) scale(1)";
                     c.style.opacity = "1";
                     c.style.zIndex = "10";
                 });
             });
-        });
-    } catch (e) { console.error("Card stack physics bounds isolated:", e); }
 
-    // --- 9. REAL-TIME FAST CURSOR TRACKING MATRIX FOR TESTIMONIAL CARDS ---
+            // Mobile Tap Handler Override (Fixes lack of mouse cursor hover on phones)
+            card.addEventListener("click", () => {
+                if (window.innerWidth > 992) return;
+                const wasActive = card.classList.contains("active-mobile-tap");
+                deckCards.forEach(c => c.classList.remove("active-mobile-tap"));
+                if (!wasActive) card.classList.add("active-mobile-tap");
+            });
+        });
+    } catch (e) { console.error("Card engine remapping safety catch:", e); }
+
+    // --- 6. RESILIENT BI-DIRECTIONAL SCROLL REVEAL SAFETY RUNTIME ---
     try {
-        const trackingBox = document.querySelector(".text-track-mouse-tilt");
-        const reactiveCard = document.querySelector(".mouse-hover-reactive-card");
-        
-        if (trackingBox && reactiveCard) {
-            trackingBox.addEventListener("mousemove", (e) => {
-                const rect = trackingBox.getBoundingClientRect();
-                const rotateX = ((rect.height / 2 - (e.clientY - rect.top)) / (rect.height / 2)) * 15; 
-                const rotateY = (((e.clientX - rect.left) - (rect.width / 2)) / (rect.width / 2)) * 15;
-                reactiveCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-            });
-            trackingBox.addEventListener("mouseleave", () => {
-                reactiveCard.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
-            });
+        const revealElements = document.querySelectorAll(".scroll-trigger-reveal");
+        if (revealElements.length > 0 && 'IntersectionObserver' in window) {
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add("reveal-active");
+                    else entry.target.classList.remove("reveal-active");
+                });
+            }, { threshold: 0.01, rootMargin: "0px 0px -10px 0px" });
+            revealElements.forEach(element => revealObserver.observe(element));
+        } else {
+            document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active"));
         }
-    } catch (e) { console.error("Perspective cursor trackers isolated:", e); }
+    } catch (e) { document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active")); }
 
-    // --- 10. STANDALONE HARDWARE TILT ENGINES ---
-    try {
-        const standaloneTilts = document.querySelectorAll(".tilt-target");
-        standaloneTilts.forEach(card => {
-            card.addEventListener("mousemove", (e) => {
-                const rect = card.getBoundingClientRect();
-                const rotateX = ((rect.height / 2 - (e.clientY - rect.top)) / (rect.height / 2)) * 10;
-                const rotateY = (((e.clientX - rect.left) - rect.width / 2) / (rect.width / 2)) * 10;
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-            });
-            card.addEventListener("mouseleave", () => {
-                card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
-            });
-        });
-    } catch (e) { console.error("Hardware tilt system bypassed:", e); }
-
-    // --- 11. ANATOMICAL LOOKUP ENGINE PLATFORMS ---
+    // --- 7. ANATOMICAL LOOKUP ENGINE PLATFORMS ---
     try {
         const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
         const fetchTarget = document.getElementById("anatomy-fetch-target");
         const label = document.getElementById("anatomy-ui-marker");
 
         hotspots.forEach(spot => {
-            spot.addEventListener("mouseenter", (e) => {
-                if (label) label.innerText = e.target.getAttribute("data-anatomy-region").toUpperCase();
-            });
-            spot.addEventListener("mouseleave", () => {
-                if (label) label.innerText = "Select Structural Node";
-            });
+            spot.addEventListener("mouseenter", (e) => { if (label) label.innerText = e.target.getAttribute("data-anatomy-region").toUpperCase(); });
+            spot.addEventListener("mouseleave", () => { if (label) label.innerText = "Select Structural Node"; });
             spot.addEventListener("click", async (e) => {
                 hotspots.forEach(h => h.classList.remove("active-node"));
                 e.target.classList.add("active-node");
                 const region = e.target.getAttribute("data-anatomy-region");
+                if (label) label.innerText = region.toUpperCase();
 
                 if (fetchTarget) {
                     fetchTarget.innerHTML = `<div class="fallback-prompt">Querying master specification indexes for ${region}...</div>`;
@@ -381,57 +340,49 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (!res.ok) throw new Error();
                         const data = await res.json();
                         fetchTarget.innerHTML = "";
-                        data.forEach(item => {
-                            fetchTarget.innerHTML += `<div class="instrument-item"><h5>${item.name} (${item.sku})</h5><p>${item.specialty}</p></div>`;
-                        });
+                        data.forEach(item => { fetchTarget.innerHTML += `<div class="instrument-item"><h5>${item.name} (${item.sku})</h5><p>${item.specialty}</p></div>`; });
                     } catch (err) {
                         fetchTarget.innerHTML = "";
                         const staticListing = anatomyPreloadedDatabase[region];
                         if (staticListing) {
                             staticListing.forEach(item => {
-                                fetchTarget.innerHTML += `
-                                    <div class="instrument-item">
-                                        <h5>${item.name} (${item.sku})</h5>
-                                        <p>${item.specialty}</p>
-                                        <span class="cached-badge"><i class="fas fa-shield-alt"></i> Verified Spec</span>
-                                    </div>`;
+                                fetchTarget.innerHTML += `<div class="instrument-item"><h5>${item.name} (${item.sku})</h5><p>${item.specialty}</p><span class="cached-badge"><i class="fas fa-shield-alt"></i> Verified Spec</span></div>`;
                             });
                         }
                     }
                 }
             });
         });
-    } catch (e) { console.error("Anatomical layout engine isolated:", e); }
+    } catch (e) { console.error("Anatomy engine safety bypass:", e); }
 
-    // --- 12. SCROLL PROGRESS IMAGE TRANSFORM SCRUBBERS ---
+    // --- 8. DUAL GATEWAY AUTHENTICATION TAB SWITCHER ---
     try {
-        const scrollProgressBar = document.getElementById("scroll-progress-bar");
-        const zoomImages = document.querySelectorAll(".scroll-zoom-img");
-        const mainHeader = document.querySelector(".main-header");
-        
-        window.addEventListener("scroll", () => {
-            const scrolled = window.pageYOffset;
-            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-            
-            if (totalHeight > 0 && scrollProgressBar) {
-                scrollProgressBar.style.width = `${(scrolled / totalHeight) * 100}%`;
-            }
-
-            if(mainHeader) {
-                if (window.scrollY > 50) mainHeader.classList.add("header-scrolled");
-                else mainHeader.classList.remove("header-scrolled");
-            }
-
-            zoomImages.forEach(img => {
-                const parentSection = img.closest("section");
-                if (parentSection) {
-                    const rect = parentSection.getBoundingClientRect();
-                    if (rect.top < window.innerHeight && rect.bottom > 0) {
-                        const viewScrollFactor = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-                        img.style.transform = `scale(${1 + (viewScrollFactor * 0.15)})`;
-                    }
-                }
+        const authTabs = document.querySelectorAll(".auth-tab-btn");
+        authTabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                authTabs.forEach(t => t.classList.remove("active"));
+                document.querySelectorAll(".auth-panel-node").forEach(panel => panel.classList.remove("active"));
+                tab.classList.add("active");
+                const activePanelId = tab.getAttribute("data-target-form");
+                const targetPanel = document.getElementById(activePanelId);
+                if(targetPanel) targetPanel.classList.add("active");
             });
         });
-    } catch (e) { console.error("Scroll scrub calculations isolated safely:", e); }
+    } catch (e) { console.error("Auth routing layer clear:", e); }
+
+    // --- 9. REAL-TIME CURSOR DESKTOP TRACKING TILT PERSPECTIVE ---
+    try {
+        const trackingBox = document.querySelector(".text-track-mouse-tilt");
+        const reactiveCard = document.querySelector(".mouse-hover-reactive-card");
+        if (trackingBox && reactiveCard) {
+            trackingBox.addEventListener("mousemove", (e) => {
+                if (window.innerWidth < 769) return;
+                const rect = trackingBox.getBoundingClientRect();
+                const rotateX = ((rect.height / 2 - (e.clientY - rect.top)) / (rect.height / 2)) * 15; 
+                const rotateY = (((e.clientX - rect.left) - (rect.width / 2)) / (rect.width / 2)) * 15;
+                reactiveCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+            trackingBox.addEventListener("mouseleave", () => { reactiveCard.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)"; });
+        }
+    } catch (e) { console.error("Torsion trackers catch:", e); }
 });
