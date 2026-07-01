@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
     };
 
-    // --- 2. THE CHATBOT TWO-WAY TOGGLE LOOP MECHANISM ---
+    // --- 2. ERROR-FREE TWO-WAY CHATBOT TOGGLE LOOP ---
     const chatIcon = document.getElementById("chatbot-icon");
     const chatWindow = document.getElementById("chatbot-window");
     const closeBtn = document.getElementById("close-chat");
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- 4. FLUID DRAGGABLE SLIDER CAROUSEL (3s AUTOMATED TIMEOUT CYCLE) ---
+    // --- 4. FLUID DRAGGABLE SLIDER CAROUSEL (8s HORIZONTAL INTERVAL RUNTIME) ---
     const sliderViewport = document.getElementById("hero-draggable-viewport");
     const sliderWrapper = document.getElementById("hero-slider-wrapper");
     const beads = document.querySelectorAll("#slider-pagination-container .bead");
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
         clearInterval(autoCycleTimer);
         autoCycleTimer = setInterval(() => {
             renderActiveSlide(currentSlideIndex + 1);
-        }, 3000); 
+        }, 8000); // 8-Second Uniform Automated Transition Phase Matrix
     }
 
     if(sliderViewport && sliderWrapper) {
@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- 6. REAL-TIME FAST CURSOR TRACKING MATRIX FOR TESTIMONIAL CARDS ---
+    // --- 6. FAST CURSOR TRACKING MATRIX FOR TESTIMONIAL CARDS ---
     const trackingBox = document.querySelector(".text-track-mouse-tilt");
     const reactiveCard = document.querySelector(".mouse-hover-reactive-card");
     
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- 8. ANATOMICAL INDEX LINKAGE CHANNELS ---
+    // --- 8. ANATOMICAL INDEX BLUEPRINT LINKAGE CHANNELS ---
     const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
     const fetchTarget = document.getElementById("anatomy-fetch-target");
     const label = document.getElementById("anatomy-ui-marker");
@@ -248,19 +248,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- 9. SCROLL REVEALS ---
-    const scrollProgressBar = document.getElementById("scroll-progress-bar");
-    const revealElements = document.querySelectorAll(".scroll-trigger-reveal");
-    
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add("reveal-active");
-            else entry.target.classList.remove("reveal-active");
-        });
-    }, { threshold: 0.05, rootMargin: "0px 0px -40px 0px" });
-    
-    revealElements.forEach(element => revealObserver.observe(element));
-
+    // --- 9. INTERSECTION PROGRESS METRICS ZOOMS ---
+    const zoomImages = document.querySelectorAll(".scroll-zoom-img");
     window.addEventListener("scroll", () => {
         const scrolled = window.pageYOffset;
         const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -268,14 +257,20 @@ document.addEventListener("DOMContentLoaded", () => {
         if (totalHeight > 0 && scrollProgressBar) {
             scrollProgressBar.style.width = `${(scrolled / totalHeight) * 100}%`;
         }
-        
-        if (mainHeader) {
-            if (window.scrollY > 50) mainHeader.classList.add("header-scrolled");
-            else mainHeader.classList.remove("header-scrolled");
-        }
+
+        zoomImages.forEach(img => {
+            const parentSection = img.closest("section");
+            if (parentSection) {
+                const rect = parentSection.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const viewScrollFactor = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+                    img.style.transform = `scale(${1 + (viewScrollFactor * 0.15)})`;
+                }
+            }
+        });
     });
 
-    // --- 10. METRICS COUNT SCHEDULERS ---
+    // --- 10. METRICS INTERSECTION COUNT SCHEDULERS ---
     const countElements = document.querySelectorAll(".count-target");
     if (countElements) {
         const countObserver = new IntersectionObserver((entries) => {
@@ -299,4 +294,31 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         countElements.forEach(el => countObserver.observe(el));
     }
+
+    // --- 11. CENTRAL AI DISPATCH CHAT SUBMISSION PIPELINE ---
+    async function sendChat() {
+        if (!inputField || !outputStream) return;
+        const text = inputField.value.trim();
+        if (!text) return;
+
+        outputStream.innerHTML += `<p class="user-msg">${text}</p>`;
+        inputField.value = "";
+        outputStream.scrollTop = outputStream.scrollHeight;
+
+        try {
+            const res = await fetch("http://127.0.0.1:8000/api/chatbot/query", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: text })
+            });
+            const data = await res.json();
+            outputStream.innerHTML += `<p class="bot-msg">${data.reply}</p>`;
+        } catch (err) {
+            outputStream.innerHTML += `<p class="bot-msg" style="color:var(--crimson-red);">Failed to connect to Surgis AI.</p>`;
+        }
+        outputStream.scrollTop = outputStream.scrollHeight;
+    }
+
+    if (sendBtn) sendBtn.addEventListener("click", sendChat);
+    if (inputField) inputField.addEventListener("keypress", (e) => { if (e.key === "Enter") sendChat(); });
 });
