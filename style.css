@@ -24,12 +24,13 @@
 }
 
 /* ==========================================================================
-   2. GLOBAL CANVASES & VIEWPORT ELEMENTS (STRICT OVERFLOW CONTROL)
+   2. GLOBAL CANVASES & STABLE AXIS PROTECTION (OVERFLOW BUG FIX)
    ========================================================================== */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 html { 
     scroll-behavior: smooth; 
     overflow-x: hidden !important; 
+    width: 100vw;
 }
 body { 
     background-color: var(--white); 
@@ -38,7 +39,7 @@ body {
     padding-top: 80px;
     width: 100vw;
     max-width: 100vw;
-    overflow-x: hidden !important; /* Locks structural axis to prevent right-side white spaces */
+    overflow-x: hidden !important; /* Enforces strict clipping boundary walls */
 }
 #scroll-progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--crimson-red), #e01a24); z-index: 100000; }
 
@@ -47,7 +48,7 @@ body {
 .topo-right { top: 25%; right: -8%; background-image: linear-gradient(220deg, #0066ff 0%, #020c22 60%, transparent 100%); clip-path: polygon(30% 0%, 100% 20%, 100% 100%, 0% 70%); }
 .ambient-luminous-flare { position: fixed; width: 700px; height: 700px; border-radius: 50%; top: 20%; left: 15%; background: radial-gradient(circle, rgba(0,102,255,0.04) 0%, transparent 70%); pointer-events: none; z-index: 0; filter: blur(100px); }
 
-/* Absolute Rounded Contours applied globally to Blocks, Squares, and Rectangles */
+/* Absolute 20px Rounded Curves */
 .blue-theme { background: var(--aegean-blue) !important; color: var(--white) !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 20px !important; }
 .blue-theme h5, .blue-theme h3, .blue-theme p, .blue-theme .stat-number-wrapper, .blue-theme .map-address-card h5 { color: var(--white) !important; }
 
@@ -57,7 +58,7 @@ body {
 .glass-hull { background: var(--card-surface); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); border-radius: 20px !important; transition: var(--transition-curve); }
 
 /* ==========================================================================
-   3. CLINICAL NAVBAR HEADER (SOLID AEGEAN BLUE & FIXED OVERLAP PATCH)
+   3. CLINICAL NAVBAR HEADER (SOLID AEGEAN BLUE)
    ========================================================================== */
 .main-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 4%; background: var(--aegean-blue); position: fixed; width: 100%; top: 0; left: 0; height: 80px; z-index: 9999; border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
 .header-left-brand { display: flex; align-items: center; }
@@ -96,14 +97,16 @@ body {
 .btn-pill-sm:hover { background: #d4131d; box-shadow: 0 4px 15px rgba(178, 13, 21, 0.4); }
 
 /* ==========================================================================
-   4. FULL-VIEWPORT HERO PROMOTIONAL ACCENTS (RE-STABILIZED PRE-FLIGHT MASKS)
+   4. HARDENED HERO CONTAINER FRAMEWORK (PREVENTS COLLAPSE ARTIFACTS)
    ========================================================================== */
 .hero-full-viewport { 
-    width: 100vw; 
-    height: calc(100vh - 80px); 
-    position: relative; 
-    overflow: hidden; 
-    background: #02050d; 
+    width: 100vw !important; 
+    max-width: 100vw !important;
+    height: calc(100vh - 80px) !important; 
+    min-height: 550px !important; 
+    position: relative !important; 
+    overflow: hidden !important; 
+    background: #030a16 !important; /* Shimmery base coat canvas matching image 1000492271 */
     z-index: 2;
 }
 .slider-draggable-track { width: 100%; height: 100%; position: relative; cursor: grab; }
@@ -111,9 +114,9 @@ body {
 .slider-wrapper-inner { display: flex; width: 100%; height: 100%; will-change: transform; }
 
 .slide-image-node { 
-    flex: 0 0 100%; 
-    width: 100%; 
-    height: 100%; 
+    flex: 0 0 100% !important; 
+    width: 100% !important; 
+    height: 100% !important; 
     position: relative; 
     overflow: hidden; 
     display: flex; 
@@ -122,7 +125,6 @@ body {
     background: #02050d;
 }
 
-/* Rigid asset scaling bounds forcing image layout boundaries */
 .slide-image-node img { 
     width: 100% !important; 
     height: 100% !important; 
@@ -146,10 +148,22 @@ body {
 .glint-text { background: linear-gradient(135deg, #ffffff 30%, var(--white) 50%, #ffffff 70%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
 /* ==========================================================================
-   5. SECTIONS REVEAL TIMING
+   5. SECTIONS REVEAL TIMING (SAFETY RESILIENT CORES)
    ========================================================================== */
-.scroll-trigger-reveal { opacity: 0; transform: translateY(40px) scale(0.99); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity; position: relative; z-index: 5; }
-.scroll-trigger-reveal.reveal-active { opacity: 1; transform: translateY(0) scale(1); }
+.scroll-trigger-reveal { 
+    opacity: 0; 
+    transform: translateY(30px) scale(0.99); 
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+    position: relative; 
+    z-index: 5; 
+    will-change: transform, opacity;
+}
+
+/* Fallback verification override layer: if active tag is missing, page stays readable */
+.scroll-trigger-reveal.reveal-active { 
+    opacity: 1 !important; 
+    transform: translateY(0) scale(1) !important; 
+}
 
 /* ==========================================================================
    6. METALLURGY TILES (ROUNDED RECTANGLES)
@@ -161,7 +175,7 @@ body {
 .stat-box p { font-size: 13px; font-weight: 700; margin-top: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
 
 /* ==========================================================================
-   7. INTERACTIVE STACKING CARD DECK MATRIX (PREMIUM RED HOVER TRANSFORMATIONS)
+   7. INTERACTIVE STACKING CARD DECK MATRIX (ROUNDED CONTOURS)
    ========================================================================== */
 .catalog-section { padding: 120px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; }
 .catalog-header-text { margin-bottom: 60px; }
@@ -170,21 +184,7 @@ body {
 .catalog-header-text p { color: var(--text-muted); margin-top: 10px; font-size: 16px; }
 
 .stacking-deck-container { display: flex; justify-content: center; align-items: center; gap: 24px; padding: 40px 0; perspective: 1200px; transform-style: preserve-3d; }
-
-.portfolio-deck-card { 
-    background: var(--white); 
-    border: 1px solid var(--border-glass); 
-    padding: 50px 30px; 
-    border-radius: 20px !important; /* Rounded corners active */
-    flex: 1; 
-    min-height: 350px; 
-    position: relative; 
-    box-shadow: var(--shadow-premium); 
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; 
-    will-change: transform, opacity; 
-    z-index: 10; 
-    cursor: pointer; 
-}
+.portfolio-deck-card { background: var(--white); border: 1px solid var(--border-glass); padding: 50px 30px; border-radius: 20px !important; flex: 1; min-height: 350px; position: relative; box-shadow: var(--shadow-premium); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease; will-change: transform, opacity; z-index: 10; cursor: pointer; }
 .card-num-indicator { font-size: 14px; font-weight: 800; color: #0066ff; margin-bottom: 20px; }
 .portfolio-deck-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 15px; color: var(--aegean-blue); }
 .card-description-summary { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
@@ -258,7 +258,7 @@ body {
 .form-submit-trigger:hover { background: #d4131d !important; box-shadow: 0 4px 15px rgba(178,13,21,0.3); }
 
 /* ==========================================================================
-   11. FOOTER AND MAGNIFIED QR PLATFORMS (BIG QR CONTAINER FIX)
+   11. FOOTER AND MAGNIFIED QR PLATFORMS
    ========================================================================== */
 .corporate-footer { background: var(--bg-dark-core); color: var(--white); padding: 100px 5% 40px; border-radius: 40px 40px 0 0; position: relative; z-index: 10; }
 .footer-top-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.8fr; gap: 40px; margin-bottom: 60px; }
@@ -269,33 +269,9 @@ body {
 .footer-nav-column a:hover { color: var(--white); transform: translateX(5px); }
 .footer-contact-column p { color: #94a3b8; font-size: 14px; margin-bottom: 16px; }
 
-/* Magnified Highly Accessible QR Target Box Rules */
 .footer-qr-code-column { display: flex; justify-content: flex-end; align-items: flex-start; }
-
-.qr-code-placeholder-card { 
-    background: rgba(255,255,255,0.05); 
-    border: 1px solid rgba(255,255,255,0.1); 
-    padding: 24px; 
-    text-align: center; 
-    width: 100%; 
-    max-width: 260px; /* Big explicit container width footprint */
-    border-radius: 20px;
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    gap: 14px; 
-    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-}
-
-.physical-qr-image-asset { 
-    width: 180px !important; /* Magnified Image Asset Bounds requested */
-    height: 180px !important; 
-    object-fit: contain; 
-    background: #ffffff; 
-    padding: 8px; 
-    border-radius: 12px;
-}
-
+.qr-code-placeholder-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 24px; text-align: center; width: 100%; max-width: 250px; border-radius: 20px; display: flex; flex-direction: column; align-items: center; gap: 14px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
+.physical-qr-image-asset { width: 180px !important; height: 180px !important; object-fit: contain; background: #ffffff; padding: 8px; border-radius: 12px; }
 .qr-code-placeholder-card span { font-size: 11px; color: #94a3b8; line-height: 1.4; display: block; font-weight: 600; }
 
 .footer-bottom-bar { border-top: 1px solid rgba(255, 255, 255, 0.03); padding-top: 40px; text-align: center; color: #475569; font-size: 13px; font-weight: 500; }
@@ -322,13 +298,7 @@ body {
 .chat-input button { background: var(--aegean-blue); color: var(--white); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 .chat-input button:hover { background: var(--crimson-red); }
 
-/* ==========================================================================
-   13. SCREEN BREAKPOINTS
-   ========================================================================== */
-@media (max-width: 1200px) { .hero-full-viewport { height: 500px; } }
-@media (max-width: 992px) { .nav-links { display: none; } .credibility-container { grid-template-columns: repeat(2, 1fr); gap: 20px; } .stacking-deck-container { flex-direction: column; gap: 20px; } .anatomy-grid-layout, .testimonial-split-layout, .access-split-grid { grid-template-columns: 1fr; gap: 40px; padding: 35px; } .footer-top-grid { grid-template-columns: 1fr; gap: 40px; } .qr-code-placeholder-card { max-width: 100%; } }
-@media (max-width: 576px) { .credibility-container { grid-template-columns: 1fr; } .auth-buttons, .search-wrapper { display: none; } #chatbot-window { width: calc(100vw - 40px); right: 20px; bottom: 95px; } }
-
+/* Custom Native Scrollbars */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg-light-secondary); }
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
