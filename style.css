@@ -24,7 +24,7 @@
 }
 
 /* ==========================================================================
-   2. GLOBAL CANVASES & VIEWPORT ELEMENTS (STRICT SIDE BOUNDARY CONTROL)
+   2. GLOBAL CANVASES & VIEWPORT ELEMENTS (STRICT BOUNDARY LOCK)
    ========================================================================== */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 html { 
@@ -48,7 +48,7 @@ body {
 .topo-right { top: 25%; right: -8%; background-image: linear-gradient(220deg, #0066ff 0%, #020c22 60%, transparent 100%); clip-path: polygon(30% 0%, 100% 20%, 100% 100%, 0% 70%); }
 .ambient-luminous-flare { position: fixed; width: 700px; height: 700px; border-radius: 50%; top: 20%; left: 15%; background: radial-gradient(circle, rgba(0,102,255,0.04) 0%, transparent 70%); pointer-events: none; z-index: 0; filter: blur(100px); }
 
-/* All Squares and Rectangles Forced with 20px Rounded Curves */
+/* Absolute 20px Rounded Curves for Standard Boxes */
 .blue-theme { background: var(--aegean-blue) !important; color: var(--white) !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 20px !important; }
 .blue-theme h5, .blue-theme h3, .blue-theme p, .blue-theme .stat-number-wrapper, .blue-theme .map-address-card h5 { color: var(--white) !important; }
 
@@ -58,7 +58,7 @@ body {
 .glass-hull { background: var(--card-surface); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); border-radius: 20px !important; transition: var(--transition-curve); }
 
 /* ==========================================================================
-   3. CLINICAL NAVBAR HEADER (SOLID AEGEAN BLUE & DYNAMIC DESKTOP SIZING)
+   3. CLINICAL NAVBAR HEADER
    ========================================================================== */
 .main-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 4%; background: var(--aegean-blue); position: fixed; width: 100%; top: 0; left: 0; height: 80px; z-index: 9999; border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
 .header-left-brand { display: flex; align-items: center; }
@@ -90,7 +90,7 @@ body {
 .btn-pill-sm:hover { background: #d4131d; box-shadow: 0 4px 15px rgba(178, 13, 21, 0.4); }
 
 /* ==========================================================================
-   4. HARDENED HERO STAGE CONTAINER FRAMEWORK
+   4. HARDENED HERO CONTAINER FRAMEWORK
    ========================================================================== */
 .hero-full-viewport { 
     width: 100vw !important; 
@@ -130,8 +130,6 @@ body {
 .slider-pagination-beads { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; }
 .slider-pagination-beads .bead { width: 10px; height: 10px; background: rgba(255, 255, 255, 0.3); border-radius: 50%; cursor: pointer; transition: var(--transition-snappy); }
 .slider-pagination-beads .bead.active { background: var(--crimson-red); transform: scale(1.2); width: 22px; border-radius: 5px; box-shadow: 0 0 10px var(--crimson-red); }
-
-.glint-text { background: linear-gradient(135deg, #ffffff 30%, var(--white) 50%, #ffffff 70%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
 /* ==========================================================================
    5. SECTIONS MOTION GRAPHICS REVEALS
@@ -206,7 +204,7 @@ body {
 .cached-badge { position: absolute; top: 14px; right: 18px; font-size: 10px; font-weight: 700; color: var(--crimson-red); background: rgba(178, 13, 21, 0.06); padding: 3px 10px; border-radius: 50px; text-transform: uppercase; border: 1px solid rgba(178, 13, 21, 0.15); }
 
 /* ==========================================================================
-   9. TESTIMONIALS SLIDER SYSTEMS (SYNCHRONIZED HOVER PATHS)
+   9. TESTIMONIALS SLIDER SYSTEMS
    ========================================================================== */
 .testimonials-section { padding: 120px 5%; background: var(--white); position: relative; z-index: 10; }
 .testimonial-split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
@@ -219,7 +217,6 @@ body {
 
 .testimonial-right-feed h3 { font-size: 36px; font-weight: 800; color: var(--aegean-blue); margin-bottom: 30px; letter-spacing: -0.5px; }
 
-/* Horizontal Slider Frame mechanics inside Testimonials viewports */
 .reviews-slider-container { width: 100%; overflow: hidden; position: relative; min-height: 240px; }
 .reviews-slider-track { display: flex; width: 100%; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
 .reviews-slider-track .review-bubble { flex: 0 0 100%; width: 100%; }
@@ -233,7 +230,7 @@ body {
 .reviews-pagination-dots .review-dot.active { background: var(--crimson-red); transform: scale(1.2); width: 18px; border-radius: 4px; }
 
 /* ==========================================================================
-   10. COMBINED LIVE MAP & ACCESS CONTROL PORTALS
+   10. COMBINED LIVE MAP & ACCESS PORTALS
    ========================================================================== */
 .access-split-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; padding: 120px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; }
 .map-rendering-layer { height: 100%; width: 100%; border-radius: 20px; position: relative; overflow: hidden; min-height: 480px; box-shadow: var(--shadow-premium); }
@@ -276,7 +273,7 @@ body {
 .footer-bottom-bar { border-top: 1px solid rgba(255, 255, 255, 0.03); padding-top: 40px; text-align: center; color: #475569; font-size: 13px; font-weight: 500; }
 
 /* ==========================================================================
-   12. SECURED SURGIS DIALOG SYSTEM TERMINAL
+   12. PRODUCTION CHATBOT TERMINAL OVERHAUL (BLUE BOX WITH CRISP WHITE TEXT)
    ========================================================================== */
 #chatbot-icon { position: fixed; bottom: 35px; right: 35px; width: 60px; height: 60px; background: var(--aegean-blue); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 10000; border: 1px solid rgba(255,255,255,0.1); }
 #chatbot-icon:hover { background: var(--crimson-red); transform: scale(1.05); }
@@ -289,16 +286,35 @@ body {
 #close-chat { background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; font-size: 16px; }
 #close-chat:hover { color: var(--white); }
 
-.chat-body { height: 320px; padding: 20px; overflow-y: auto; background: var(--white); display: flex; flex-direction: column; gap: 14px; }
-.bot-msg { background: var(--bg-light-secondary); color: var(--text-dark); padding: 14px 16px; border-radius: 18px 18px 18px 4px; font-size: 13px; max-width: 85%; align-self: flex-start; border: 1px solid var(--border-glass); line-height: 1.5; }
-.user-msg { background: var(--crimson-red); color: var(--white); padding: 14px 16px; border-radius: 18px 18px 4px 18px; font-size: 13px; max-width: 85%; align-self: flex-end; line-height: 1.5; }
+.chat-body { height: 320px; padding: 20px; overflow-y: auto; background: #030d22 !important; display: flex; flex-direction: column; gap: 14px; }
+
+/* Fixed High-Contrast AI Response Layout Layer (Deep Blue Background + Crisp White Text) */
+.chat-body .bot-msg { 
+    background: var(--aegean-blue) !important; 
+    color: var(--white) !important; 
+    padding: 14px 16px !important; 
+    border-radius: 18px 18px 18px 4px !important; 
+    font-size: 13px !important; 
+    max-width: 85% !important; 
+    align-self: flex-start !important; 
+    border: 1px solid rgba(255, 255, 255, 0.12) !important; 
+    line-height: 1.5 !important; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+}
+/* Ensure loader spinning vectors keep pristine styling inside the blue container */
+.chat-body .bot-msg i {
+    color: var(--white) !important;
+}
+
+.chat-body .user-msg { background: var(--crimson-red) !important; color: var(--white) !important; padding: 14px 16px !important; border-radius: 18px 18px 4px 18px !important; font-size: 13px !important; max-width: 85% !important; align-self: flex-end !important; line-height: 1.5 !important; box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important; }
+
 .chat-input { display: flex; padding: 16px; border-top: 1px solid var(--border-glass); gap: 10px; background: var(--bg-light-secondary); }
 .chat-input input { flex: 1; border: none; outline: none; background: var(--white); padding: 12px 20px; border-radius: 50px; font-size: 13px; color: var(--text-dark); border: 1px solid var(--border-glass); }
 .chat-input button { background: var(--aegean-blue); color: var(--white); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 .chat-input button:hover { background: var(--crimson-red); }
 
 /* ==========================================================================
-   13. SMARTPHONE & DESKTOP SCREEN VIEWPORT MEDIA BREAKPOINTS
+   13. SMARTPHONE & DESKTOP SCREEN VIEWPORT MEDIA BREAKPOINTS (TOTAL OPTIMIZATION)
    ========================================================================== */
 @media (max-width: 1200px) { 
     .hero-full-viewport { height: 500px !important; min-height: 500px !important; } 
@@ -316,10 +332,22 @@ body {
 @media (max-width: 576px) { 
     .acereditation-grid-layout { grid-template-columns: 1fr !important; } 
     .auth-buttons, .search-wrapper { display: none; } 
-    #chatbot-window { width: calc(100vw - 40px); right: 20px; bottom: 95px; } 
-    .hero-full-viewport { height: 480px !important; min-height: 480px !important; }
+    
+    /* Strict Layout Sizing Overhaul for Smartphones */
+    .hero-full-viewport { height: 460px !important; min-height: 460px !important; }
     .anatomy-grid-layout { padding: 20px; }
-    .real-anatomy-container { height: 380px; }
+    .real-anatomy-container { height: 360px; }
+    
+    /* Chatbot Window Mobile Optimization Bounds */
+    #chatbot-window { 
+        width: calc(100vw - 30px) !important; 
+        right: 15px !important; 
+        bottom: 95px !important; 
+        max-height: 70vh !important;
+    }
+    .chat-body {
+        height: 280px !important;
+    }
 }
 
 ::-webkit-scrollbar { width: 8px; }
