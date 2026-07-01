@@ -24,7 +24,7 @@
 }
 
 /* ==========================================================================
-   2. GLOBAL CANVASES & ANTI-SCROLL RE-LOCK
+   2. GLOBAL VIEWS & ANTI-SCROLL RE-LOCK (ELIMINATES RIGHT WHITE SPACE)
    ========================================================================== */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 html { 
@@ -49,6 +49,7 @@ body {
 .topo-right { top: 25%; right: -8%; background-image: linear-gradient(220deg, #0066ff 0%, #020c22 60%, transparent 100%); clip-path: polygon(30% 0%, 100% 20%, 100% 100%, 0% 70%); }
 .ambient-luminous-flare { position: fixed; width: 700px; height: 700px; border-radius: 50%; top: 20%; left: 15%; background: radial-gradient(circle, rgba(0,102,255,0.04) 0%, transparent 70%); pointer-events: none; z-index: 0; filter: blur(100px); }
 
+/* Absolute 20px Rounded Curves for Standard Boxes */
 .blue-theme { background: var(--aegean-blue) !important; color: var(--white) !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 20px !important; }
 .blue-theme h5, .blue-theme h3, .blue-theme p, .blue-theme .stat-number-wrapper, .blue-theme .map-address-card h5 { color: var(--white) !important; }
 
@@ -90,7 +91,7 @@ body {
 .btn-pill-sm:hover { background: #d4131d; box-shadow: 0 4px 15px rgba(178, 13, 21, 0.4); }
 
 /* ==========================================================================
-   4. HARDENED HERO VIEWPORT STAGE
+   4. HARDENED HERO VIEWPORT CONTAINER FRAMEWORK
    ========================================================================== */
 .hero-full-viewport { 
     width: 100vw !important; 
@@ -132,7 +133,7 @@ body {
 .slider-pagination-beads .bead.active { background: var(--crimson-red); transform: scale(1.2); width: 22px; border-radius: 5px; box-shadow: 0 0 10px var(--crimson-red); }
 
 /* ==========================================================================
-   5. SECTIONS REVEAL TRIGGERS
+   5. SECTIONS MOTION GRAPHICS REVEALS
    ========================================================================== */
 .scroll-trigger-reveal { 
     opacity: 0; 
@@ -145,78 +146,86 @@ body {
 .scroll-trigger-reveal.reveal-active { opacity: 1 !important; transform: translateY(0) scale(1) !important; }
 
 /* ==========================================================================
-   6. DOCUMENT-STYLE COMPLIANCE HUB (CLEAN ACCREDITATIONS OVERHAUL)
+   6. DOCUMENT-STYLE COMPLIANCE HUB (CLEAN LOGO ARCHITECTURE)
    ========================================================================== */
-.credibility-section { padding: 100px 5%; background: var(--white); border-bottom: 1px solid rgba(11,34,68,0.06); position: relative; z-index: 10; overflow: hidden; }
-.centering-override { text-align: center; margin-bottom: 50px; padding: 0 15px; }
+.credibility-section { 
+    padding: 100px 5%; 
+    background: var(--white); 
+    border-bottom: 1px solid rgba(11, 34, 68, 0.06); 
+    position: relative; 
+    z-index: 10; 
+    overflow: hidden; 
+}
+.centering-override { text-align: center; margin-bottom: 50px; }
 
 .regulatory-document-canvas {
     max-width: 1100px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 40px;
+}
+
+.regulatory-group-block {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.regulatory-subheading {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--aegean-blue);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-left: 4px solid var(--crimson-red);
+    padding-left: 12px;
+    margin-bottom: 10px;
 }
 
 .regulatory-row-grid {
     display: grid;
     gap: 30px;
     align-items: center;
-    justify-content: center;
-}
-
-.acereditation-grid-layout {
-    grid-template-columns: repeat(4, 1fr) !important;
-}
-
-.certificate-display-node {
-    background: transparent !important;
-    border: none !important;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 15px !important;
-    text-align: center;
-}
-
-.regulatory-logo-holder {
+    justify-items: center; 
     width: 100%;
-    height: 150px;
+}
+
+.quad-layout {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.triple-layout {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 825px; 
+    margin: 0 auto;
+}
+
+.pure-logo-node {
+    width: 100%;
+    max-width: 150px; 
+    height: 110px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #ffffff !important;
-    border: 1px solid rgba(11, 34, 68, 0.06);
-    border-radius: 12px;
-    margin-bottom: 18px;
-    padding: 16px;
-    box-shadow: 0 8px 25px rgba(11, 34, 68, 0.04);
     transition: transform 0.3s ease;
 }
-.certificate-display-node:hover .regulatory-logo-holder {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(11, 34, 68, 0.08);
-}
-
-.regulatory-logo-holder img {
+.pure-logo-node:hover { transform: scale(1.05); }
+.pure-logo-node img {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain !important;
+    object-fit: contain !important; 
 }
 
-.combined-license-badge {
-    background: linear-gradient(135deg, #0b2244 0%, #030d22 100%) !important;
+.regulatory-row-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(11, 34, 68, 0.08);
+    margin: 10px 0;
 }
-.Certificate-Vector-Icon { font-size: 44px; color: #f59e0b; filter: drop-shadow(0 0 8px rgba(245,158,11,0.25)); }
-.license-badge-tag { font-size: 13px; font-weight: 800; color: var(--white); letter-spacing: 0.5px; }
-.ce-text-emblem { font-size: 56px; font-weight: 800; color: #ffffff; letter-spacing: 2px; font-family: serif; }
-
-.certificate-display-node h5 { font-size: 16px; font-weight: 700; color: var(--text-dark) !important; margin-bottom: 6px; }
-.certificate-display-node p { font-size: 13px; color: var(--text-muted) !important; line-height: 1.4; }
 
 /* ==========================================================================
-   7. PRODUCT CATALOG & HOVER INTERACTIONS
+   7. INTERACTIVE STACKING CARD DECK MATRIX
    ========================================================================== */
 .catalog-section { padding: 120px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; overflow: hidden; }
 .catalog-header-text { margin-bottom: 60px; padding: 0 15px; }
@@ -246,7 +255,7 @@ body {
 
 .anatomy-svg-hotspot { position: absolute; width: 24px; height: 24px; background: var(--crimson-red); border-radius: 50%; border: 4px solid var(--white); box-shadow: 0 0 15px rgba(178, 13, 21, 0.5); cursor: pointer; transition: 0.3s ease; transform: translate(-50%, -50%); z-index: 10; }
 .anatomy-svg-hotspot:hover, .anatomy-svg-hotspot.active-node { transform: translate(-50%, -50%) scale(1.4); box-shadow: 0 0 0 10px rgba(178, 13, 21, 0.2), 0 0 20px var(--crimson-red); }
-.hover-label-overlay { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); font-size: 12px; font-weight: 700; background: var(--aegean-blue); color: var(--white); padding: 10px 24px; border-radius: 50px; pointer-events: none; text-transform: uppercase; letter-spacing: 1px; }
+.hover-label-overlay { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); font-size: 12px; font-weight: 700; background: var(--aegean-blue); color: var(--white); padding: 10px 24px; border-radius: 50px; pointer-events: none; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
 
 .anatomy-right-list h4 { font-size: 16px; font-weight: 700; color: var(--aegean-blue); text-transform: uppercase; letter-spacing: 0.8px; border-bottom: 1px solid var(--border-glass); padding-bottom: 18px; }
 .instrument-viewport { height: 380px; overflow-y: auto; padding-right: 12px; margin-top: 24px; }
@@ -258,7 +267,7 @@ body {
 .cached-badge { position: absolute; top: 14px; right: 18px; font-size: 10px; font-weight: 700; color: var(--crimson-red); background: rgba(178, 13, 21, 0.06); padding: 3px 10px; border-radius: 50px; text-transform: uppercase; border: 1px solid rgba(178, 13, 21, 0.15); }
 
 /* ==========================================================================
-   9. TESTIMONIAL REVIEWS SLIDER
+   9. TESTIMONIALS & DYNAMIC SWIPING TRACK
    ========================================================================== */
 .testimonials-section { padding: 120px 5%; background: var(--white); position: relative; z-index: 10; overflow: hidden; }
 .testimonial-split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
@@ -285,7 +294,7 @@ body {
 .reviews-pagination-dots .review-dot.active { background: var(--crimson-red); transform: scale(1.2); width: 18px; border-radius: 4px; }
 
 /* ==========================================================================
-   10. ACCESS GATEWAYS & MAP SYSTEMS
+   10. COMBINED LIVE MAP & ACCESS PORTALS
    ========================================================================== */
 .access-split-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; padding: 120px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; overflow: hidden; }
 .map-rendering-layer { height: 100%; width: 100%; border-radius: 20px; position: relative; overflow: hidden; min-height: 480px; box-shadow: var(--shadow-premium); }
@@ -309,7 +318,7 @@ body {
 .form-submit-trigger:hover { background: #d4131d !important; box-shadow: 0 4px 15px rgba(178,13,21,0.3); }
 
 /* ==========================================================================
-   11. CORPORATE FOOTER ELEMENTS
+   11. CORPORATE FOOTER & MAGNIFIED QR PLATFORMS
    ========================================================================== */
 .corporate-footer { background: var(--bg-dark-core); color: var(--white); padding: 100px 5% 40px; border-radius: 40px 40px 0 0; position: relative; z-index: 10; overflow: hidden; }
 .footer-top-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.8fr; gap: 40px; margin-bottom: 60px; }
@@ -328,7 +337,7 @@ body {
 .footer-bottom-bar { border-top: 1px solid rgba(255, 255, 255, 0.03); padding-top: 40px; text-align: center; color: #475569; font-size: 13px; font-weight: 500; }
 
 /* ==========================================================================
-   12. PRODUCTION AI CHATBOT TERMINAL HOOKS
+   12. SECURED SURGIS DIALOG TERMINAL INTERFACE
    ========================================================================== */
 #chatbot-icon { position: fixed; bottom: 35px; right: 35px; width: 60px; height: 60px; background: var(--aegean-blue); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 10000; border: 1px solid rgba(255,255,255,0.1); }
 #chatbot-icon:hover { background: var(--crimson-red); transform: scale(1.05); }
@@ -352,7 +361,7 @@ body {
 .chat-input button:hover { background: var(--crimson-red); }
 
 /* ==========================================================================
-   13. DEVICE HARDWARE SPECIFIC VIEWPORT RESPONSIVITY BREAKPOINTS
+   13. SMARTPHONE SCREEN BREAKPOINTS (TOTAL ALIGNMENT FIXES)
    ========================================================================== */
 @media (max-width: 1200px) { 
     .hero-full-viewport { height: 500px !important; min-height: 500px !important; } 
@@ -360,10 +369,7 @@ body {
 
 @media (max-width: 992px) { 
     .nav-links { display: none; } 
-    
-    /* Responsive Document Reflow */
-    .acereditation-grid-layout { grid-template-columns: repeat(2, 1fr) !important; gap: 30px !important; } 
-    .triple-layout { grid-template-columns: repeat(2, 1fr) !important; }
+    .acereditation-grid-layout { grid-template-columns: repeat(2, 1fr) !important; gap: 20px !important; } 
     
     .stacking-deck-container { 
         flex-direction: column !important; 
@@ -372,24 +378,40 @@ body {
         transform-style: flat !important;
         padding: 20px 10px !important;
     }
-    .portfolio-deck-card { width: 100% !important; min-height: auto !important; transform: none !important; opacity: 1 !important; z-index: 1 !important; }
+    .portfolio-deck-card {
+        width: 100% !important;
+        min-height: auto !important;
+        transform: none !important;
+        opacity: 1 !important;
+        z-index: 1 !important;
+    }
     
     .anatomy-grid-layout, .testimonial-split-layout, .access-split-grid { grid-template-columns: 1fr !important; gap: 40px !important; padding: 35px 20px !important; } 
     .footer-top-grid { grid-template-columns: 1fr !important; gap: 40px !important; } 
     .qr-code-placeholder-card { max-width: 100%; justify-content: center; } 
 }
 
+@media (max-width: 768px) {
+    .quad-layout { grid-template-columns: repeat(2, 1fr) !important; gap: 20px; }
+    .triple-layout { grid-template-columns: repeat(2, 1fr) !important; gap: 20px; margin: 0; }
+    .pure-logo-node { max-width: 120px !important; height: 90px; }
+    .regulatory-subheading { font-size: 16px; }
+}
+
 @media (max-width: 576px) { 
     body { padding-top: 70px; }
     .main-header { height: 70px; padding: 10px 16px; }
     .header-left-brand img { height: 42px !important; max-height: 42px !important; }
-    
-    /* Mobile Structural Axis Normalization */
-    .acereditation-grid-layout, .triple-layout { grid-template-columns: 1fr !important; gap: 20px !important; } 
-    .regulatory-logo-holder { height: 130px; }
-    
     .auth-buttons, .search-wrapper { display: none !important; } 
-    .hero-full-viewport { height: 60vh !important; min-height: 400px !important; max-height: 520px !important; }
+    
+    .quad-layout, .triple-layout { grid-template-columns: repeat(2, 1fr) !important; }
+    
+    /* Fits the Hero Carousel framework securely on phone screens */
+    .hero-full-viewport { 
+        height: 60vh !important; 
+        min-height: 400px !important; 
+        max-height: 520px !important; 
+    }
     
     .anatomy-grid-layout { padding: 20px 15px !important; }
     .real-anatomy-container { height: 350px !important; margin-top: 15px !important; }
@@ -399,7 +421,12 @@ body {
     .map-rendering-layer { min-height: 320px; }
     .client-auth-card { padding: 25px 20px !important; }
     
-    #chatbot-window { width: calc(100vw - 30px) !important; right: 15px !important; bottom: 110px !important; max-height: 60vh !important; }
+    #chatbot-window { 
+        width: calc(100vw - 30px) !important; 
+        right: 15px !important; 
+        bottom: 110px !important; 
+        max-height: 60vh !important; 
+    }
     .chat-body { height: 240px !important; padding: 15px !important; }
     #chatbot-icon { bottom: 25px; right: 25px; width: 55px; height: 55px; font-size: 20px; }
 }
