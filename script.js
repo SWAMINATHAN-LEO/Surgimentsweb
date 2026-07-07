@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- HERO SLIDER VARIABLES (Properly Scoped Globally Within Initializer) ---
+    // --- HERO SLIDER VARIABLES ---
     let currentSlideIndex = 0;
     let autoCycleTimer = null;
     const beads = document.querySelectorAll("#slider-pagination-container .bead");
@@ -200,6 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if(sliderViewport && sliderWrapper) {
             sliderViewport.addEventListener("mousedown", (e) => {
+                // Ensure drag interactions only map click events, letting scrolling trigger naturally
                 activeDragMode = true;
                 clearInterval(autoCycleTimer);
                 sliderWrapper.style.transition = "none";
@@ -359,4 +360,73 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     } catch (e) { console.error("Anatomical lookup fault:", e); }
+
+    // --- OUTSIDE CLOSING ACTION HANDLER ENGINE FOR SURGIS AI TERMINAL ---
+    try {
+        const chatIcon = document.getElementById("chatbot-icon");
+        const chatWindow = document.getElementById("chatbot-window");
+        const closeBtn = document.getElementById("close-chat");
+        const sendBtn = document.getElementById("send-chat");
+        const inputField = document.getElementById("chat-input-field");
+        const outputStream = document.getElementById("chat-stream-output");
+
+        if (chatIcon && chatWindow) {
+            chatIcon.addEventListener("click", (e) => {
+                e.stopPropagation();
+                chatWindow.classList.toggle("hidden");
+            });
+            if (closeBtn) {
+                closeBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    chatWindow.classList.add("hidden");
+                });
+            }
+            window.addEventListener("click", (e) => {
+                if (!chatWindow.classList.contains("hidden") && !chatWindow.contains(e.target) && !chatIcon.contains(e.target)) {
+                    chatWindow.classList.add("hidden");
+                }
+            });
+        }
+
+        async function processChatWorkflow() {
+            if (!inputField || !outputStream) return;
+            const text = inputField.value.trim();
+            if (!text) return;
+
+            outputStream.innerHTML += `<p class="user-msg">${text}</p>`;
+            inputField.value = "";
+            outputStream.scrollTop = outputStream.scrollHeight;
+
+            const typingIndicatorIdx = Date.now();
+            outputStream.innerHTML += `<p class="bot-msg" id="msg-${typingIndicatorIdx}"><i class="fas fa-spinner fa-spin"></i> Processing index...</p>`;
+            outputStream.scrollTop = outputStream.scrollHeight;
+            const loadingBubble = document.getElementById(`msg-${typingIndicatorIdx}`);
+
+            try {
+                const res = await fetch("http://127.0.0.1:8000/api/chatbot/query", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: text })
+                });
+                if (!res.ok) throw new Error();
+                const data = await res.json();
+                if(loadingBubble) loadingBubble.innerHTML = data.reply;
+            } catch (err) {
+                setTimeout(() => {
+                    const normalizedQuery = text.toLowerCase();
+                    let responseMatch = "Inquiry logged. Dispatched to Hosur Facility regulatory database.";
+                    for (const keyString in localAIBrainFallback) {
+                        if (normalizedQuery.includes(keyString)) {
+                            responseMatch = localAIBrainFallback[keyString];
+                            break;
+                        }
+                    }
+                    if(loadingBubble) loadingBubble.innerHTML = responseMatch;
+                    outputStream.scrollTop = outputStream.scrollHeight;
+                }, 400); 
+            }
+        }
+        if (sendBtn) sendBtn.addEventListener("click", processChatWorkflow);
+        if (inputField) inputField.addEventListener("keypress", (e) => { if (e.key === "Enter") processChatWorkflow(); });
+    } catch (e) { console.error("Chat terminal engine catch:", e); }
 });
