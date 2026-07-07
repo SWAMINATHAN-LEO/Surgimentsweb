@@ -19,14 +19,13 @@
     --text-light: #f8fafc;
     --shadow-premium: 0 25px 50px -12px rgba(11, 34, 68, 0.08);
     
-    /* Figma Motion Linear Easings */
     --figma-bezier: cubic-bezier(0.4, 0, 0.2, 1);
     --transition-curve: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-snappy: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 /* ==========================================================================
-   2. GLOBAL VIEWS & ANTI-SCROLL RE-LOCK (REMOVED BREAKOUT WIDTHS AND MARGINS)
+   2. GLOBAL VIEWS & ANTI-SCROLL RE-LOCK
    ========================================================================== */
 * { 
     margin: 0; 
@@ -90,13 +89,6 @@ body {
 
 .dynamic-underline::after { content: ''; position: absolute; bottom: 0; left: 18px; right: 18px; height: 2px; background: var(--crimson-red); transform: scaleX(0); transition: transform 0.3s ease; transform-origin: right; }
 .nav-item:hover::after { transform: scaleX(1); transform-origin: left; }
-
-.macro-dropdown { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--white); border-radius: 20px; padding: 22px; opacity: 0; visibility: hidden; min-width: 300px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid var(--border-glass); transition: var(--transition-curve); }
-.header-dropdown-container { position: relative; display: inline-block; }
-.header-dropdown-container:hover .macro-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(10px); }
-.dropdown-column h4 { font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
-.dropdown-column a { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-dark); padding: 10px; border-radius: 12px; font-size: 14px; font-weight: 500; transition: var(--transition-snappy); }
-.dropdown-column a:hover { background: var(--bg-light-secondary); color: var(--crimson-red); }
 
 .header-right-block { display: flex; align-items: center; gap: 18px; }
 .search-wrapper { position: relative; display: flex; align-items: center; }
@@ -214,40 +206,36 @@ body {
 .regulatory-row-divider { width: 100%; height: 1px; background: rgba(11, 34, 68, 0.08); margin: 15px 0; }
 
 /* ==========================================================================
-   7. STACKING PORTFOLIO CARDS (FIGMA INTUITIVE DISSOLVE OVERRIDES)
+   7. HIGH-END DESKTOP HORIZONTAL TIMELINE PIN CONTROLS
    ========================================================================== */
-.catalog-section { padding: 120px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; overflow: hidden; width: 100%; max-width: 100%; }
-.catalog-header-text { margin-bottom: 40px; padding: 0 15px; }
-.section-tag { font-size: 12px; font-weight: 800; color: var(--crimson-red); letter-spacing: 2px; display: inline-block; margin-bottom: 12px; }
-.catalog-header-text h2 { font-size: 38px; font-weight: 800; color: var(--aegean-blue); letter-spacing: -1px; }
-.catalog-header-text p { color: var(--text-muted); margin-top: 10px; font-size: 16px; }
+#catalog { scroll-margin-top: 0px !important; }
+.catalog-section { padding: 120px 0; background: var(--bg-light-secondary); overflow: hidden; width: 100%; max-width: 100%; }
 
-.vortex-deck-chamber { position: relative; width: 100%; min-height: 480px; margin-top: 20px; }
-.stacking-deck-container { display: flex; justify-content: center; align-items: center; gap: 24px; padding: 20px 0; perspective: 1400px; transform-style: preserve-3d; width: 100%; transition: all 0.6s var(--figma-bezier); }
+/* Infinite Scroll Pin Height Framework */
+#catalog-scroll-pin-wrapper { position: relative; height: 320vh; width: 100%; }
+.catalog-horizontal-sticky-pane { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 5%; overflow: hidden; width: 100%; }
 
-.portfolio-deck-card { background: var(--white); border: 1px solid var(--border-glass); padding: 50px 30px; border-radius: 20px !important; flex: 1; min-height: 350px; position: relative; box-shadow: var(--shadow-premium); transition: transform 0.6s var(--figma-bezier), opacity 0.6s var(--figma-bezier), background-color 0.3s ease, flex 0.6s var(--figma-bezier); will-change: transform, opacity, flex; z-index: 10; cursor: pointer; }
-.card-num-indicator { font-size: 14px; font-weight: 800; color: #0066ff; margin-bottom: 20px; }
-.portfolio-deck-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 15px; color: var(--aegean-blue); transition: color 0.3s; }
-.card-description-summary { font-size: 14px; color: var(--text-muted); line-height: 1.6; transition: color 0.3s; }
+.stacking-deck-container { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 40px; width: max-content; will-change: transform; transition: transform 0.1s var(--figma-bezier); padding: 40px 0; }
 
-.portfolio-deck-card:hover { background: var(--crimson-red) !important; border-color: var(--crimson-red) !important; box-shadow: 0 30px 60px rgba(178, 13, 21, 0.25) !important; }
-.portfolio-deck-card:hover h3, .portfolio-deck-card:hover .card-num-indicator, .portfolio-deck-card:hover .card-description-summary p { color: var(--white) !important; }
+/* 🌟 Dynamic Sheen Card Elements Setup */
+.glare-tilt-node { 
+    flex: 0 0 380px !important; 
+    width: 380px !important; 
+    min-height: 420px !important; 
+    transform-style: preserve-3d; 
+    will-change: transform; 
+    transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1); 
+    position: relative;
+    background: var(--white) !important;
+    border: 1px solid var(--border-glass) !important;
+    padding: 45px 35px !important;
+    border-radius: 24px !important;
+}
+.glare-reflection-sheen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none !important; border-radius: 24px; z-index: 5; transition: background 0.05s ease; }
 
-.expanded-spec-panel { display: none; opacity: 0; transform: translateY(15px); transition: opacity 0.5s var(--figma-bezier) 0.2s, transform 0.5s var(--figma-bezier) 0.2s; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 25px; width: 100%; }
-.expanded-spec-panel h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; color: rgba(255,255,255,0.7); }
-.panel-grid-specs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 25px; }
-.spec-capsule { background: rgba(255,255,255,0.08); padding: 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); }
-.spec-capsule h5 { font-size: 11px; text-transform: uppercase; opacity: 0.6; color: var(--text-light); }
-.spec-capsule p { font-size: 14px; font-weight: 600; margin-top: 4px; color: var(--white); }
-.btn-restore-cards { background: var(--white); color: var(--crimson-red); border: none; padding: 12px 24px; border-radius: 50px; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; transition: var(--transition-snappy); display: inline-flex; align-items: center; gap: 8px; }
-.btn-restore-cards:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,255,255,0.3); }
-
-.vortex-flush-active-node { flex: 5 !important; background: var(--aegean-blue) !important; border-color: rgba(255,255,255,0.1) !important; cursor: default !important; transform: scale(1.01) !important; z-index: 100 !important; box-shadow: 0 40px 80px rgba(11, 34, 68, 0.3) !important; }
-.vortex-flush-active-node h3, .vortex-flush-active-node .card-num-indicator, .vortex-flush-active-node .card-description-summary p { color: var(--white) !important; }
-.vortex-flush-active-node .expanded-spec-panel { display: block !important; opacity: 1 !important; transform: translateY(0); }
-
-/* Clean Figma-style cross-dissolve parameters removing high-speed spinning glitches */
-.vortex-flushed-trash-node { flex: 0.00001 !important; min-height: 0 !important; padding: 0 !important; margin: 0 !important; opacity: 0 !important; border: none !important; pointer-events: none !important; transform: scale(0.95) !important; pointer-events: none !important; }
+.card-num-indicator { font-size: 16px; font-weight: 800; color: #0066ff; margin-bottom: 25px; transform: translateZ(30px); }
+.glare-tilt-node h3 { font-size: 24px; font-weight: 800; color: var(--aegean-blue); margin-bottom: 18px; transform: translateZ(40px); }
+.glare-tilt-node .card-description-summary p { font-size: 14px; color: var(--text-muted); line-height: 1.6; transform: translateZ(25px); }
 
 /* ==========================================================================
    8. ANATOMICAL LOOKUP MATRIX & LASER SCAN SWEEP LAYOUTS
@@ -259,7 +247,6 @@ body {
 .real-anatomy-container { position: relative; height: 480px; display: flex; align-items: center; justify-content: center; margin-top: 30px; width: 100%; max-width: 100%; overflow: hidden; }
 .real-anatomy-img { height: 90%; width: auto; max-width: 100%; object-fit: contain; filter: opacity(0.85) drop-shadow(0 0 15px rgba(11, 34, 68, 0.05)); }
 
-/* Isolated static coordinates layout structure blocking coordinate pull issues */
 .anatomy-svg-hotspot { position: absolute; width: 24px; height: 24px; background: var(--crimson-red); border-radius: 50%; border: 4px solid var(--white); box-shadow: 0 0 15px rgba(178, 13, 21, 0.5); cursor: pointer; transform: translate(-50%, -50%) scale(1); transition: transform 0.25s var(--figma-bezier) !important; z-index: 10; }
 .anatomy-svg-hotspot:hover, .anatomy-svg-hotspot.active-node { transform: translate(-50%, -50%) scale(1.3) !important; box-shadow: 0 0 0 10px rgba(178, 13, 21, 0.18), 0 0 20px var(--crimson-red); }
 .hover-label-overlay { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); font-size: 12px; font-weight: 700; background: var(--aegean-blue); color: var(--white); padding: 10px 24px; border-radius: 50px; pointer-events: none; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
@@ -377,7 +364,7 @@ body {
 .footer-bottom-bar { border-top: 1px solid rgba(255, 255, 255, 0.03); padding-top: 40px; text-align: center; color: #475569; font-size: 13px; font-weight: 500; }
 
 /* ==========================================================================
-   12. SURGIS AI WINDOW TERMINAL INTERFACE (STATIC COORDINATE CORES)
+   12. SURGIS AI WINDOW TERMINAL INTERFACE
    ========================================================================== */
 #chatbot-icon { position: fixed; bottom: 35px; right: 35px; width: 60px; height: 60px; background: var(--aegean-blue); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 10000; border: 1px solid rgba(255,255,255,0.1); transform: scale(1); transition: transform 0.2s var(--figma-bezier); }
 #chatbot-icon:hover { background: var(--crimson-red); transform: scale(1.06); }
@@ -435,24 +422,12 @@ body {
     }
     .nav-links.mobile-menu-expanded { display: flex; opacity: 1; transform: translateY(0); pointer-events: auto; }
     .nav-item { width: 100%; text-align: center; font-size: 18px; padding: 12px 0; }
-    .header-dropdown-container .macro-dropdown { display: none !important; }
-
-    .stacking-deck-container { 
-        flex-direction: column !important; 
-        gap: 24px !important; 
-        perspective: none !important;
-        transform-style: flat !important;
-        padding: 20px 0 !important;
-    }
-    .portfolio-deck-card {
-        width: 100% !important;
-        min-height: auto !important;
-        transform: none !important;
-        opacity: 1 !important;
-        z-index: 1 !important;
-        padding: 35px 25px;
-    }
-    .panel-grid-specs { grid-template-columns: 1fr !important; }
+    
+    /* Turn off horizontal scrolls on mobile layout screens natively */
+    #catalog-scroll-pin-wrapper { height: auto !important; }
+    .catalog-horizontal-sticky-pane { position: relative !important; height: auto !important; padding: 40px 20px !important; }
+    .stacking-deck-container { display: flex !important; flex-direction: column !important; width: 100% !important; gap: 24px !important; }
+    .glare-tilt-node { flex: 1 1 auto !important; width: 100% !important; min-height: auto !important; transform: none !important; }
 }
 
 @media (max-width: 768px) {
