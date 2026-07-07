@@ -39,11 +39,24 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- GLOBAL KEYBOARD NAVIGATION MATRIX (HERO SLIDES & TESTIMONIAL CARDS) ---
+    // --- PURE SMOOTH-SCROLL EVENT INTERCEPTOR FOR HOME VIEWPORT SHIFTS ---
+    document.querySelectorAll('a[href="#home"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (history.pushState) {
+                history.pushState(null, null, ' ');
+            } else {
+                window.location.hash = '';
+            }
+            renderActiveSlide(0);
+            initAutoCycle();
+        });
+    });
+
+    // --- GLOBAL WINDOW-BOUND ARROW KEYBOARD ROUTING PIPELINE ---
     window.addEventListener("keydown", (e) => {
-        // Handle Hero Viewport changes globally via arrow keys
         if (e.key === "ArrowLeft") {
-            // Check if user is near the testimonial viewport coordinates, switch testimonial instead
             const reviewBounding = document.getElementById("testimonials").getBoundingClientRect();
             if (reviewBounding.top < window.innerHeight && reviewBounding.bottom > 0) {
                 renderActiveReview(activeReviewIdx - 1);
@@ -64,6 +77,18 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+
+    // --- HARDENED HERO PROMO VIDEO PLAYBACK TRIGGER ---
+    const promoVid = document.getElementById("hero-promo-video");
+    if (promoVid) {
+        const videoPromise = promoVid.play();
+        if (videoPromise !== undefined) {
+            videoPromise.catch(() => {
+                promoVid.muted = true;
+                promoVid.play();
+            });
+        }
+    }
 
     // --- OUTSIDE CLOSING ACTION HANDLER ENGINE FOR SURGIS AI TERMINAL ---
     try {
@@ -189,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
         startReviewTimer();
     } catch (e) { console.error("Review tracking system isolate:", e); }
 
-    // --- HERO SLIDER DRAGGABLE VIEWPORT ---
+    // --- HERO SLIDER DRAGGABLE VIEWPORT LAYER ---
     let currentSlideIndex = 0;
     let autoCycleTimer = null;
     const beads = document.querySelectorAll("#slider-pagination-container .bead");
