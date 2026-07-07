@@ -24,155 +24,56 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
     };
 
-    // --- 1. HIGH-END DESKTOP HORIZONTAL SCROLL STACKING CONTROLLER ---
-    const scrollWrapper = document.getElementById("catalog-scroll-pin-wrapper");
-    const horizontalTrack = document.getElementById("horizontal-scroll-track-node");
-    
-    if (scrollWrapper && horizontalTrack) {
-        window.addEventListener("scroll", () => {
-            if (window.innerWidth < 993) {
-                horizontalTrack.style.transform = "none";
-                return;
-            }
-            const wrapperTop = scrollWrapper.offsetTop;
-            const wrapperHeight = scrollWrapper.offsetHeight;
-            const viewportHeight = window.innerHeight;
-            const currentScroll = window.pageYOffset;
-
-            if (currentScroll >= wrapperTop && currentScroll <= (wrapperTop + wrapperHeight - viewportHeight)) {
-                const scrollPercentage = (currentScroll - wrapperTop) / (wrapperHeight - viewportHeight);
-                const maxPanWidth = horizontalTrack.scrollWidth - window.innerWidth * 0.9;
-                horizontalTrack.style.transform = `translateX(${-scrollPercentage * maxPanWidth}px)`;
-            }
-        });
-    }
-
-    // --- 2. 3D PERSPECTIVE GLARE SHEEN HOVER ENGINE ---
-    const tiltNodes = document.querySelectorAll(".glare-tilt-node");
-    if (window.innerWidth > 768) {
-        tiltNodes.forEach(node => {
-            const reflectionSheen = node.querySelector(".glare-reflection-sheen");
-            
-            node.addEventListener("mousemove", (e) => {
-                const bounding = node.getBoundingClientRect();
-                const mouseX = e.clientX - bounding.left;
-                const mouseY = e.clientY - bounding.top;
-                
-                const rotateX = ((bounding.height / 2 - mouseY) / (bounding.height / 2)) * 15;
-                const rotateY = ((mouseX - bounding.width / 2) / (bounding.width / 2)) * 15;
-                
-                node.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
-                
-                if (reflectionSheen) {
-                    const percentageX = (mouseX / bounding.width) * 100;
-                    const percentageY = (mouseY / bounding.height) * 100;
-                    reflectionSheen.style.background = `radial-gradient(circle at ${percentageX}% ${percentageY}%, rgba(255,255,255,0.2) 0%, transparent 75%)`;
-                }
-            });
-
-            node.addEventListener("mouseleave", () => {
-                node.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
-                if (reflectionSheen) {
-                    reflectionSheen.style.background = "transparent";
-                }
-            });
-        });
-    }
-
-    // --- 3. CLEANROOM PASSIVATION PARTICLES BACKDROP ---
+    // --- 1. PRODUCT MATRIX LAYOUT HIDING & STEPPING ENGINE ---
     try {
-        const fluidCanvas = document.getElementById("cleanroom-passivation-canvas");
-        if (fluidCanvas) {
-            const ctx = fluidCanvas.getContext("2d");
-            if (ctx) {
-                let activeNodesArray = [];
-                let cursorTrackingPointer = { x: null, y: null, currentRadius: 100 };
-
-                const resizeCanvasViewport = () => {
-                    fluidCanvas.width = window.innerWidth;
-                    fluidCanvas.height = window.innerHeight;
-                };
-                window.addEventListener("resize", resizeCanvasViewport);
-                resizeCanvasViewport();
-
-                window.addEventListener("mousemove", (e) => {
-                    cursorTrackingPointer.x = e.clientX;
-                    cursorTrackingPointer.y = e.clientY;
+        const deckCards = document.querySelectorAll(".portfolio-deck-card");
+        deckCards.forEach(card => {
+            card.addEventListener("mouseenter", () => {
+                if (window.innerWidth < 993) return;
+                const currentIdx = parseInt(card.getAttribute("data-card-idx"), 10);
+                deckCards.forEach((c, index) => {
+                    if (index === currentIdx) {
+                        c.style.transform = "translateX(0px) translateZ(40px) scale(1.05)";
+                        c.style.opacity = "1";
+                        c.style.zIndex = "50";
+                    } else if (index < currentIdx) {
+                        const multiplier = currentIdx - index;
+                        c.style.transform = `translateX(${60 + (multiplier * 20)}px) translateZ(-${multiplier * 30}px) scale(0.88)`;
+                        c.style.opacity = "0.25"; 
+                        c.style.zIndex = `${30 - multiplier}`;
+                    } else {
+                        const multiplier = index - currentIdx;
+                        c.style.transform = `translateX(-${60 + (multiplier * 20)}px) translateZ(-${multiplier * 30}px) scale(0.88)`;
+                        c.style.opacity = "0.25";
+                        c.style.zIndex = `${30 - multiplier}`;
+                    }
                 });
-                window.addEventListener("mouseleave", () => {
-                    cursorTrackingPointer.x = null;
-                    cursorTrackingPointer.y = null;
+            });
+
+            card.addEventListener("mouseleave", () => {
+                if (window.innerWidth < 993) return;
+                deckCards.forEach(c => {
+                    c.style.transform = "translateX(0px) translateZ(0px) scale(1)";
+                    c.style.opacity = "1";
+                    c.style.zIndex = "10";
                 });
-
-                class CleanroomNodeParticle {
-                    constructor() {
-                        this.x = Math.random() * fluidCanvas.width;
-                        this.y = Math.random() * fluidCanvas.height;
-                        this.velocityHorizontal = (Math.random() - 0.5) * 0.4;
-                        this.velocityVertical = (Math.random() - 0.5) * 0.4;
-                        this.baseSize = Math.random() * 2 + 1;
-                    }
-                    render() {
-                        ctx.beginPath();
-                        ctx.arc(this.x, this.y, this.baseSize, 0, Math.PI * 2);
-                        ctx.fillStyle = "rgba(11, 34, 68, 0.04)";
-                        ctx.fill();
-                    }
-                    reposition() {
-                        if (this.x > fluidCanvas.width || this.x < 0) this.velocityHorizontal = -this.velocityHorizontal;
-                        if (this.y > fluidCanvas.height || this.y < 0) this.velocityVertical = -this.velocityVertical;
-
-                        if (cursorTrackingPointer.x !== null && cursorTrackingPointer.y !== null) {
-                            let diffX = this.x - cursorTrackingPointer.x;
-                            let diffY = this.y - cursorTrackingPointer.y;
-                            let calculatedDistance = Math.sqrt(diffX * diffX + diffY * diffY);
-                            if (calculatedDistance < cursorTrackingPointer.currentRadius) {
-                                let pushAngle = Math.atan2(diffY, diffX);
-                                let localizedForce = (cursorTrackingPointer.currentRadius - calculatedDistance) / cursorTrackingPointer.currentRadius;
-                                this.x += Math.cos(pushAngle) * localizedForce * 3;
-                                this.y += Math.sin(pushAngle) * localizedForce * 3;
-                            }
-                        }
-                        this.x += this.velocityHorizontal;
-                        this.y += this.velocityVertical;
-                    }
-                }
-
-                for (let i = 0; i < 45; i++) {
-                    activeNodesArray.push(new CleanroomNodeParticle());
-                }
-
-                const operationalRenderLoop = () => {
-                    ctx.clearRect(0, 0, fluidCanvas.width, fluidCanvas.height);
-                    activeNodesArray.forEach(node => {
-                        node.reposition();
-                        node.render();
-                    });
-                    requestAnimationFrame(operationalRenderLoop);
-                };
-                operationalRenderLoop();
-            }
-        }
-    } catch(canvasErr) { console.warn(canvasErr); }
-
-    // --- SMARTPHONE INTERACTIVE MOBILE HEADER MENU DRIVER ---
-    const menuToggleBtn = document.getElementById("mobile-hamburger-btn");
-    const navigationMenu = document.getElementById("main-navigation-menu");
-    if (menuToggleBtn && navigationMenu) {
-        menuToggleBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            navigationMenu.classList.toggle("mobile-menu-expanded");
-        });
-        document.querySelectorAll("#main-navigation-menu .nav-item").forEach(item => {
-            item.addEventListener("click", () => {
-                navigationMenu.classList.remove("mobile-menu-expanded");
             });
         });
-    }
+    } catch (e) { console.error(e); }
 
-    // --- REVIEWS TESTIMONIAL NAVIGATION CONTROL SYSTEM ---
+    // --- 2. LIVELY TESTIMONIAL MEDIA SCAN ENGINE ---
+    try {
+        const testimonialPlay = document.getElementById("testimonial-play-trigger");
+        const testimonialFrame = document.querySelector(".video-mockup-frame");
+        if (testimonialPlay && testimonialFrame) {
+            testimonialPlay.addEventListener("click", () => {
+                testimonialFrame.classList.toggle("scan-active-shimmer");
+            });
+        }
+    } catch(e) { console.error(e); }
+
+    // --- 3. HARDENED REVIEWS TESTIMONIAL SWIPER ENGINE ---
     let activeReviewIdx = 0;
-    let reviewsInterval = null;
     const reviewDots = document.querySelectorAll("#reviews-dots-container .review-dot");
     const countTotalReviews = reviewDots.length;
     const reviewsTrack = document.getElementById("reviews-dynamic-track");
@@ -187,7 +88,46 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- HERO SLIDER VARIABLES ---
+    try {
+        const reviewsContainer = document.querySelector(".reviews-slider-container");
+        const reviewPrev = document.getElementById("review-prev-btn");
+        const reviewNext = document.getElementById("review-next-btn");
+
+        if(reviewPrev) reviewPrev.addEventListener("click", () => { renderActiveReview(activeReviewIdx - 1); resetReviewTimer(); });
+        if(reviewNext) reviewNext.addEventListener("click", () => { renderActiveReview(activeReviewIdx + 1); resetReviewTimer(); });
+
+        reviewDots.forEach(dot => {
+            dot.addEventListener("click", () => {
+                renderActiveReview(parseInt(dot.getAttribute("data-review-idx"), 10));
+                resetReviewTimer();
+            });
+        });
+
+        let touchStartReviewX = 0;
+        if (reviewsContainer) {
+            reviewsContainer.addEventListener("touchstart", (e) => {
+                touchStartReviewX = e.touches[0].clientX;
+                clearInterval(reviewsInterval);
+            }, { passive: true });
+
+            reviewsContainer.addEventListener("touchend", (e) => {
+                const swipeDistance = touchStartReviewX - e.changedTouches[0].clientX;
+                if (Math.abs(swipeDistance) > 50) {
+                    if (swipeDistance > 0) renderActiveReview(activeReviewIdx + 1);
+                    else renderActiveReview(activeReviewIdx - 1);
+                }
+                startReviewTimer();
+            });
+        }
+
+        function startReviewTimer() {
+            reviewsInterval = setInterval(() => { renderActiveReview(activeReviewIdx + 1); }, 4000);
+        }
+        function resetReviewTimer() { clearInterval(reviewsInterval); startReviewTimer(); }
+        startReviewTimer();
+    } catch (e) { console.error(e); }
+
+    // --- 4. FLUID DRAGGABLE HERO SLIDER CAROUSEL ---
     let currentSlideIndex = 0;
     let autoCycleTimer = null;
     const beads = document.querySelectorAll("#slider-pagination-container .bead");
@@ -212,117 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
         autoCycleTimer = setInterval(() => { renderActiveSlide(currentSlideIndex + 1); }, 8000);
     }
 
-    // --- PURE SMOOTH-SCROLL EVENT INTERCEPTOR FOR HOME VIEWPORT SHIFTS ---
-    document.querySelectorAll('a[href="#home"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            if (history.pushState) {
-                history.pushState(null, null, ' ');
-            } else {
-                window.location.hash = '';
-            }
-        });
-    });
-
-    // --- GLOBAL WINDOW-BOUND ARROW KEYBOARD ROUTING PIPELINE ---
-    window.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowLeft") {
-            const reviewBounding = document.getElementById("testimonials").getBoundingClientRect();
-            if (reviewBounding.top < window.innerHeight && reviewBounding.bottom > 0) {
-                renderActiveReview(activeReviewIdx - 1);
-                resetReviewTimer();
-            } else {
-                renderActiveSlide(currentSlideIndex - 1);
-                initAutoCycle();
-            }
-        } 
-        else if (e.key === "ArrowRight") {
-            const reviewBounding = document.getElementById("testimonials").getBoundingClientRect();
-            if (reviewBounding.top < window.innerHeight && reviewBounding.bottom > 0) {
-                renderActiveReview(activeReviewIdx + 1);
-                resetReviewTimer();
-            } else {
-                renderActiveSlide(currentSlideIndex + 1);
-                initAutoCycle();
-            }
-        }
-    });
-
-    // --- HARDENED VIDEO AUTO-PLAYBACK ENGINE ---
-    const promoVid = document.getElementById("hero-promo-video");
-    if (promoVid) {
-        promoVid.muted = true;
-        promoVid.setAttribute('muted', '');
-        promoVid.setAttribute('playsinline', '');
-        
-        const triggerVideoPlayback = () => {
-            let playPromise = promoVid.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    promoVid.muted = true;
-                    promoVid.play();
-                });
-            }
-        };
-
-        if (promoVid.readyState >= 1) {
-            triggerVideoPlayback();
-        } else {
-            promoVid.addEventListener('loadedmetadata', triggerVideoPlayback);
-            promoVid.addEventListener('canplay', triggerVideoPlayback);
-        }
-
-        promoVid.addEventListener('error', () => {
-            if (currentSlideIndex === 0) renderActiveSlide(1);
-        });
-
-        setTimeout(() => {
-            if ((promoVid.paused || promoVid.currentTime === 0) && currentSlideIndex === 0) {
-                renderActiveSlide(1);
-            }
-        }, 1500);
-    }
-
-    try {
-        const reviewsContainer = document.querySelector(".reviews-slider-container");
-        const reviewPrev = document.getElementById("review-prev-btn");
-        const reviewNext = document.getElementById("review-next-btn");
-
-        if(reviewPrev) reviewPrev.addEventListener("click", () => { renderActiveReview(activeReviewIdx - 1); resetReviewTimer(); });
-        if(reviewNext) reviewNext.addEventListener("click", () => { renderActiveReview(activeReviewIdx + 1); resetReviewTimer(); });
-
-        reviewDots.forEach(dot => {
-            dot.addEventListener("click", () => {
-                renderActiveReview(parseInt(dot.getAttribute("data-review-idx"), 10));
-                resetReviewTimer();
-            });
-        });
-
-        let touchStartReviewX = 0;
-        if (reviewsContainer) {
-            reviewsContainer.addEventListener("touchstart", (e) => {
-                touchStartReviewX = e.touches[0].clientX;
-                clearInterval(reviewsInterval);
-            }, { passive: true });
-            reviewsContainer.addEventListener("touchend", (e) => {
-                const swipeDistance = touchStartReviewX - e.changedTouches[0].clientX;
-                if (Math.abs(swipeDistance) > 50) {
-                    if (swipeDistance > 0) renderActiveReview(activeReviewIdx + 1);
-                    else renderActiveReview(activeReviewIdx - 1);
-                }
-                startReviewTimer();
-            });
-        }
-
-        function startReviewTimer() {
-            reviewsInterval = setInterval(() => { renderActiveReview(activeReviewIdx + 1); }, 4000);
-        }
-        function resetReviewTimer() { clearInterval(reviewsInterval); startReviewTimer(); }
-        startReviewTimer();
-    } catch (e) { console.error(e); }
-
-    // --- HERO SLIDER DRAGGABLE VIEWPORT ---
     try {
         const sliderViewport = document.getElementById("hero-draggable-viewport");
         let activeDragMode = false;
@@ -386,7 +215,73 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     } catch (e) { console.error(e); }
 
-    // --- 4. THE "LASER-SCAN" BLUEPRINT SWEEP ---
+    // --- SMARTPHONE INTERACTIVE MOBILE HEADER MENU DRIVER ---
+    const menuToggleBtn = document.getElementById("mobile-hamburger-btn");
+    if (menuToggleBtn && navigationMenu) {
+        menuToggleBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            navigationMenu.classList.toggle("mobile-menu-expanded");
+        });
+    }
+
+    // --- PURE SMOOTH-SCROLL EVENT INTERCEPTOR FOR HOME VIEWPORT SHIFTS ---
+    document.querySelectorAll('a[href="#home"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+
+    // --- GLOBAL WINDOW-BOUND ARROW KEYBOARD ROUTING PIPELINE ---
+    window.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") {
+            const reviewBounding = document.getElementById("testimonials").getBoundingClientRect();
+            if (reviewBounding.top < window.innerHeight && reviewBounding.bottom > 0) {
+                renderActiveReview(activeReviewIdx - 1);
+                resetReviewTimer();
+            } else {
+                renderActiveSlide(currentSlideIndex - 1);
+                initAutoCycle();
+            }
+        } 
+        else if (e.key === "ArrowRight") {
+            const reviewBounding = document.getElementById("testimonials").getBoundingClientRect();
+            if (reviewBounding.top < window.innerHeight && reviewBounding.bottom > 0) {
+                renderActiveReview(activeReviewIdx + 1);
+                resetReviewTimer();
+            } else {
+                renderActiveSlide(currentSlideIndex + 1);
+                initAutoCycle();
+            }
+        }
+    });
+
+    // --- HARDENED VIDEO AUTO-PLAYBACK ENGINE ---
+    const promoVid = document.getElementById("hero-promo-video");
+    if (promoVid) {
+        promoVid.muted = true;
+        promoVid.setAttribute('muted', '');
+        promoVid.setAttribute('playsinline', '');
+        
+        const triggerVideoPlayback = () => {
+            let playPromise = promoVid.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    promoVid.muted = true;
+                    promoVid.play();
+                });
+            }
+        };
+
+        if (promoVid.readyState >= 1) {
+            triggerVideoPlayback();
+        } else {
+            promoVid.addEventListener('loadedmetadata', triggerVideoPlayback);
+            promoVid.addEventListener('canplay', triggerVideoPlayback);
+        }
+    }
+
+    // --- 5. THE "LASER-SCAN" BLUEPRINT SWEEP ---
     try {
         const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
         const fetchTarget = document.getElementById("anatomy-fetch-target");
@@ -442,7 +337,67 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     } catch (e) { console.error(e); }
 
-    // --- 7. HARDENED SCROLL OBSERVERS ---
+    // --- 6. CLEANROOM PASSIVATION CHAMBER PARTICLES BACKGROUND ---
+    try {
+        const fluidCanvas = document.getElementById("cleanroom-passivation-canvas");
+        if (fluidCanvas) {
+            const ctx = fluidCanvas.getContext("2d");
+            if (ctx) {
+                let activeNodesArray = [];
+                let cursorTrackingPointer = { x: null, y: null, currentRadius: 100 };
+
+                const resizeCanvasViewport = () => {
+                    fluidCanvas.width = window.innerWidth;
+                    fluidCanvas.height = window.innerHeight;
+                };
+                window.addEventListener("resize", resizeCanvasViewport);
+                resizeCanvasViewport();
+
+                window.addEventListener("mousemove", (e) => {
+                    cursorTrackingPointer.x = e.clientX;
+                    cursorTrackingPointer.y = e.clientY;
+                });
+
+                class CleanroomNodeParticle {
+                    constructor() {
+                        this.x = Math.random() * fluidCanvas.width;
+                        this.y = Math.random() * fluidCanvas.height;
+                        this.velocityHorizontal = (Math.random() - 0.5) * 0.4;
+                        this.velocityVertical = (Math.random() - 0.5) * 0.4;
+                        this.baseSize = Math.random() * 2 + 1;
+                    }
+                    render() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.baseSize, 0, Math.PI * 2);
+                        ctx.fillStyle = "rgba(11, 34, 68, 0.04)";
+                        ctx.fill();
+                    }
+                    reposition() {
+                        if (this.x > fluidCanvas.width || this.x < 0) this.velocityHorizontal = -this.velocityHorizontal;
+                        if (this.y > fluidCanvas.height || this.y < 0) this.velocityVertical = -this.velocityVertical;
+                        this.x += this.velocityHorizontal;
+                        this.y += this.velocityVertical;
+                    }
+                }
+
+                for (let i = 0; i < 40; i++) {
+                    activeNodesArray.push(new CleanroomNodeParticle());
+                }
+
+                const operationalRenderLoop = () => {
+                    ctx.clearRect(0, 0, fluidCanvas.width, fluidCanvas.height);
+                    activeNodesArray.forEach(node => {
+                        node.reposition();
+                        node.render();
+                    });
+                    requestAnimationFrame(operationalRenderLoop);
+                };
+                operationalRenderLoop();
+            }
+        }
+    } catch(canvasErr) { console.warn(canvasErr); }
+
+    // --- 7. SCROLL REVEAL RUNTIME ---
     try {
         const revealElements = document.querySelectorAll(".scroll-trigger-reveal");
         if (revealElements.length > 0 && 'IntersectionObserver' in window) {
@@ -459,7 +414,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     } catch (e) { document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active")); }
 
-    // --- OUTSIDE CLOSING ACTION HANDLER ENGINE ---
+    // --- OUTSIDE CLOSING ACTION HANDLER ENGINE FOR SURGIS AI TERMINAL ---
     try {
         const chatIcon = document.getElementById("chatbot-icon");
         const chatWindow = document.getElementById("chatbot-window");
