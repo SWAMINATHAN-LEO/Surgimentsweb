@@ -39,17 +39,31 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- HARDENED HERO PROMO VIDEO INITIATOR PLAYBACK PIPELINE ---
-    const promoVid = document.getElementById("hero-promo-video");
-    if (promoVid) {
-        const structuralVideoPlaybackPromise = promoVid.play();
-        if (structuralVideoPlaybackPromise !== undefined) {
-            structuralVideoPlaybackPromise.catch(() => {
-                promoVid.muted = true;
-                promoVid.play();
-            });
+    // --- GLOBAL KEYBOARD NAVIGATION MATRIX (HERO SLIDES & TESTIMONIAL CARDS) ---
+    window.addEventListener("keydown", (e) => {
+        // Handle Hero Viewport changes globally via arrow keys
+        if (e.key === "ArrowLeft") {
+            // Check if user is near the testimonial viewport coordinates, switch testimonial instead
+            const reviewBounding = document.getElementById("testimonials").getBoundingClientRect();
+            if (reviewBounding.top < window.innerHeight && reviewBounding.bottom > 0) {
+                renderActiveReview(activeReviewIdx - 1);
+                resetReviewTimer();
+            } else {
+                renderActiveSlide(currentSlideIndex - 1);
+                initAutoCycle();
+            }
+        } 
+        else if (e.key === "ArrowRight") {
+            const reviewBounding = document.getElementById("testimonials").getBoundingClientRect();
+            if (reviewBounding.top < window.innerHeight && reviewBounding.bottom > 0) {
+                renderActiveReview(activeReviewIdx + 1);
+                resetReviewTimer();
+            } else {
+                renderActiveSlide(currentSlideIndex + 1);
+                initAutoCycle();
+            }
         }
-    }
+    });
 
     // --- OUTSIDE CLOSING ACTION HANDLER ENGINE FOR SURGIS AI TERMINAL ---
     try {
@@ -120,38 +134,30 @@ document.addEventListener("DOMContentLoaded", () => {
         if (inputField) inputField.addEventListener("keypress", (e) => { if (e.key === "Enter") processChatWorkflow(); });
     } catch (e) { console.error("Chat terminal engine catch:", e); }
 
-    // --- REVIEWS TESTIMONIAL NAVIGATION CONTROL SYSTEM (BUTTONS, KEYBOARDS, SWIPES) ---
+    // --- REVIEWS TESTIMONIAL NAVIGATION CONTROL SYSTEM ---
+    let activeReviewIdx = 0;
+    let reviewsInterval = null;
+    const reviewDots = document.querySelectorAll("#reviews-dots-container .review-dot");
+    const countTotalReviews = reviewDots.length;
+    const reviewsTrack = document.getElementById("reviews-dynamic-track");
+
+    function renderActiveReview(index) {
+        activeReviewIdx = (index + countTotalReviews) % countTotalReviews;
+        const offsetWidthTrack = -activeReviewIdx * 100;
+        if (reviewsTrack) reviewsTrack.style.transform = `translateX(${offsetWidthTrack}%)`;
+        reviewDots.forEach((dot, idx) => {
+            if(idx === activeReviewIdx) dot.classList.add("active");
+            else dot.classList.remove("active");
+        });
+    }
+
     try {
-        const reviewsTrack = document.getElementById("reviews-dynamic-track");
-        const reviewDots = document.querySelectorAll("#reviews-dots-container .review-dot");
         const reviewsContainer = document.querySelector(".reviews-slider-container");
         const reviewPrev = document.getElementById("review-prev-btn");
         const reviewNext = document.getElementById("review-next-btn");
-        const reviewInteractiveBlock = document.getElementById("testimonial-interactive-block");
-        
-        let activeReviewIdx = 0;
-        const countTotalReviews = reviewDots.length;
-        let reviewsInterval = null;
-
-        function renderActiveReview(index) {
-            activeReviewIdx = (index + countTotalReviews) % countTotalReviews;
-            const offsetWidthTrack = -activeReviewIdx * 100;
-            if (reviewsTrack) reviewsTrack.style.transform = `translateX(${offsetWidthTrack}%)`;
-            reviewDots.forEach((dot, idx) => {
-                if(idx === activeReviewIdx) dot.classList.add("active");
-                else dot.classList.remove("active");
-            });
-        }
 
         if(reviewPrev) reviewPrev.addEventListener("click", () => { renderActiveReview(activeReviewIdx - 1); resetReviewTimer(); });
         if(reviewNext) reviewNext.addEventListener("click", () => { renderActiveReview(activeReviewIdx + 1); resetReviewTimer(); });
-
-        if(reviewInteractiveBlock) {
-            reviewInteractiveBlock.addEventListener("keydown", (e) => {
-                if (e.key === "ArrowLeft") { renderActiveReview(activeReviewIdx - 1); resetReviewTimer(); }
-                else if (e.key === "ArrowRight") { renderActiveReview(activeReviewIdx + 1); resetReviewTimer(); }
-            });
-        }
 
         reviewDots.forEach(dot => {
             dot.addEventListener("click", () => {
@@ -183,43 +189,36 @@ document.addEventListener("DOMContentLoaded", () => {
         startReviewTimer();
     } catch (e) { console.error("Review tracking system isolate:", e); }
 
-    // --- HERO SLIDER DRAGGABLE VIEWPORT WITH KEYBOARD NAVIGATION LISTENER ---
+    // --- HERO SLIDER DRAGGABLE VIEWPORT ---
+    let currentSlideIndex = 0;
+    let autoCycleTimer = null;
+    const beads = document.querySelectorAll("#slider-pagination-container .bead");
+    const countTotalSlides = beads.length;
+    const sliderWrapper = document.getElementById("hero-slider-wrapper");
+
+    function renderActiveSlide(index) {
+        currentSlideIndex = (index + countTotalSlides) % countTotalSlides;
+        const offsetTrack = -currentSlideIndex * 100;
+        if (sliderWrapper) {
+            sliderWrapper.style.transition = "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
+            sliderWrapper.style.transform = `translateX(${offsetTrack}%)`;
+        }
+        beads.forEach((bead, idx) => {
+            if(idx === currentSlideIndex) bead.classList.add("active");
+            else bead.classList.remove("active");
+        });
+    }
+
+    function initAutoCycle() {
+        clearInterval(autoCycleTimer);
+        autoCycleTimer = setInterval(() => { renderActiveSlide(currentSlideIndex + 1); }, 8000);
+    }
+
     try {
         const sliderViewport = document.getElementById("hero-draggable-viewport");
-        const sliderWrapper = document.getElementById("hero-slider-wrapper");
-        const beads = document.querySelectorAll("#slider-pagination-container .bead");
-        
-        let currentSlideIndex = 0;
-        const countTotalSlides = beads.length;
-        let autoCycleTimer = null;
         let activeDragMode = false;
         let initialCursorPositionX = 0;
         let cumulativeTransformX = 0;
-
-        function renderActiveSlide(index) {
-            currentSlideIndex = (index + countTotalSlides) % countTotalSlides;
-            const offsetTrack = -currentSlideIndex * 100;
-            if (sliderWrapper) {
-                sliderWrapper.style.transition = "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
-                sliderWrapper.style.transform = `translateX(${offsetTrack}%)`;
-            }
-            beads.forEach((bead, idx) => {
-                if(idx === currentSlideIndex) bead.classList.add("active");
-                else bead.classList.remove("active");
-            });
-        }
-
-        if (sliderViewport) {
-            sliderViewport.addEventListener("keydown", (e) => {
-                if (e.key === "ArrowLeft") { renderActiveSlide(currentSlideIndex - 1); initAutoCycle(); }
-                else if (e.key === "ArrowRight") { renderActiveSlide(currentSlideIndex + 1); initAutoCycle(); }
-            });
-        }
-
-        function initAutoCycle() {
-            clearInterval(autoCycleTimer);
-            autoCycleTimer = setInterval(() => { renderActiveSlide(currentSlideIndex + 1); }, 8000);
-        }
 
         if(sliderViewport && sliderWrapper) {
             sliderViewport.addEventListener("mousedown", (e) => {
@@ -227,8 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 clearInterval(autoCycleTimer);
                 sliderWrapper.style.transition = "none";
                 initialCursorPositionX = e.clientX;
-                const matrix = new WebKitCSSMatrix(window.getComputedStyle(sliderWrapper).transform);
-                cumulativeTransformX = matrix.m41;
+                cumulativeTransformX = new WebKitCSSMatrix(window.getComputedStyle(sliderWrapper).transform).m41;
                 sliderViewport.style.cursor = "grabbing";
             });
             window.addEventListener("mousemove", (e) => {
@@ -279,7 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     } catch (e) { console.error("Hero touch pipeline exception:", e); }
 
-    // --- HIGH FREQUENCY POINTER OVERRIDE CAPABILITIES FOR CATACLYSMIC DECK SWIPING ---
+    // --- HIGH FREQUENCY POINTER OVERRIDE FOR CARDS ---
     try {
         const deckCards = document.querySelectorAll(".portfolio-deck-card");
         let activeRAFIndex = null;
@@ -383,34 +381,4 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     } catch (e) { console.error("Anatomical lookup fault:", e); }
-
-    // --- GATEWAY SWITCHERS ---
-    try {
-        const authTabs = document.querySelectorAll(".auth-tab-btn");
-        authTabs.forEach(tab => {
-            tab.addEventListener("click", () => {
-                authTabs.forEach(t => t.classList.remove("active"));
-                document.querySelectorAll(".auth-panel-node").forEach(panel => panel.classList.remove("active"));
-                tab.classList.add("active");
-                const targetPanel = document.getElementById(tab.getAttribute("data-target-form"));
-                if(targetPanel) targetPanel.classList.add("active");
-            });
-        });
-    } catch (e) { console.error("Tab routing engine failure:", e); }
-
-    // --- VECTOR CURSOR ROTATION PERSPECTIVE GRAPHICS ---
-    try {
-        const trackingBox = document.querySelector(".text-track-mouse-tilt");
-        const reactiveCard = document.querySelector(".mouse-hover-reactive-card");
-        if (trackingBox && reactiveCard) {
-            trackingBox.addEventListener("mousemove", (e) => {
-                if (window.innerWidth < 769) return;
-                const rect = trackingBox.getBoundingClientRect();
-                const rotateX = ((rect.height / 2 - (e.clientY - rect.top)) / (rect.height / 2)) * 15; 
-                const rotateY = (((e.clientX - rect.left) - (rect.width / 2)) / (rect.width / 2)) * 15;
-                reactiveCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-            });
-            trackingBox.addEventListener("mouseleave", () => { reactiveCard.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)"; });
-        }
-    } catch (e) { console.error("Torsion vector logic track catch:", e); }
 });
