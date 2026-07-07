@@ -49,8 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 window.location.hash = '';
             }
-            renderActiveSlide(0);
-            initAutoCycle();
         });
     });
 
@@ -78,86 +76,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // --- HARDENED HERO PROMO VIDEO PLAYBACK TRIGGER ---
+    // --- ENHANCED VIDEO AUTO-PLAYBACK AND BLACK SCREEN SAFETY FALLBACK ---
     const promoVid = document.getElementById("hero-promo-video");
     if (promoVid) {
-        const videoPromise = promoVid.play();
-        if (videoPromise !== undefined) {
-            videoPromise.catch(() => {
+        // Force playback on loaded metadata state
+        promoVid.addEventListener('loadedmetadata', () => {
+            promoVid.play().catch(() => {
                 promoVid.muted = true;
                 promoVid.play();
             });
-        }
+        });
+
+        // Safety Trigger: If video fails to play or loads a black frame, jump instantly to the next image slide
+        promoVid.addEventListener('error', () => {
+            console.log("Video asset unreachable. Engaging slide image backup...");
+            renderActiveSlide(1);
+        });
+
+        // If video stays unplayed or frozen for 1.5 seconds, skip it to prevent a blank black frame
+        setTimeout(() => {
+            if (promoVid.paused && currentSlideIndex === 0) {
+                renderActiveSlide(1);
+            }
+        }, 1500);
     }
-
-    // --- OUTSIDE CLOSING ACTION HANDLER ENGINE FOR SURGIS AI TERMINAL ---
-    try {
-        const chatIcon = document.getElementById("chatbot-icon");
-        const chatWindow = document.getElementById("chatbot-window");
-        const closeBtn = document.getElementById("close-chat");
-        const sendBtn = document.getElementById("send-chat");
-        const inputField = document.getElementById("chat-input-field");
-        const outputStream = document.getElementById("chat-stream-output");
-
-        if (chatIcon && chatWindow) {
-            chatIcon.addEventListener("click", (e) => {
-                e.stopPropagation();
-                chatWindow.classList.toggle("hidden");
-            });
-            if (closeBtn) {
-                closeBtn.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    chatWindow.classList.add("hidden");
-                });
-            }
-            window.addEventListener("click", (e) => {
-                if (!chatWindow.classList.contains("hidden") && !chatWindow.contains(e.target) && !chatIcon.contains(e.target)) {
-                    chatWindow.classList.add("hidden");
-                }
-            });
-        }
-
-        async function processChatWorkflow() {
-            if (!inputField || !outputStream) return;
-            const text = inputField.value.trim();
-            if (!text) return;
-
-            outputStream.innerHTML += `<p class="user-msg">${text}</p>`;
-            inputField.value = "";
-            outputStream.scrollTop = outputStream.scrollHeight;
-
-            const typingIndicatorIdx = Date.now();
-            outputStream.innerHTML += `<p class="bot-msg" id="msg-${typingIndicatorIdx}"><i class="fas fa-spinner fa-spin"></i> Processing index...</p>`;
-            outputStream.scrollTop = outputStream.scrollHeight;
-            const loadingBubble = document.getElementById(`msg-${typingIndicatorIdx}`);
-
-            try {
-                const res = await fetch("http://127.0.0.1:8000/api/chatbot/query", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ message: text })
-                });
-                if (!res.ok) throw new Error();
-                const data = await res.json();
-                if(loadingBubble) loadingBubble.innerHTML = data.reply;
-            } catch (err) {
-                setTimeout(() => {
-                    const normalizedQuery = text.toLowerCase();
-                    let responseMatch = "Inquiry logged. Dispatched to Hosur Facility regulatory database.";
-                    for (const keyString in localAIBrainFallback) {
-                        if (normalizedQuery.includes(keyString)) {
-                            responseMatch = localAIBrainFallback[keyString];
-                            break;
-                        }
-                    }
-                    if(loadingBubble) loadingBubble.innerHTML = responseMatch;
-                    outputStream.scrollTop = outputStream.scrollHeight;
-                }, 400); 
-            }
-        }
-        if (sendBtn) sendBtn.addEventListener("click", processChatWorkflow);
-        if (inputField) inputField.addEventListener("keypress", (e) => { if (e.key === "Enter") processChatWorkflow(); });
-    } catch (e) { console.error("Chat terminal engine catch:", e); }
 
     // --- REVIEWS TESTIMONIAL NAVIGATION CONTROL SYSTEM ---
     let activeReviewIdx = 0;
@@ -214,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
         startReviewTimer();
     } catch (e) { console.error("Review tracking system isolate:", e); }
 
-    // --- HERO SLIDER DRAGGABLE VIEWPORT LAYER ---
+    // --- HERO SLIDER DRAGGABLE VIEWPORT ---
     let currentSlideIndex = 0;
     let autoCycleTimer = null;
     const beads = document.querySelectorAll("#slider-pagination-container .bead");
