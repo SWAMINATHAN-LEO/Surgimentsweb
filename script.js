@@ -24,127 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
     };
 
-    // --- 1. SECURE PASSIVATION CHAMBER PARTICLES CANVAS ---
-    try {
-        const fluidCanvas = document.getElementById("cleanroom-passivation-canvas");
-        if (fluidCanvas) {
-            const ctx = fluidCanvas.getContext("2d");
-            if (ctx) {
-                let activeNodesArray = [];
-                let cursorTrackingPointer = { x: null, y: null, currentRadius: 100 };
-
-                const resizeCanvasViewport = () => {
-                    fluidCanvas.width = window.innerWidth;
-                    fluidCanvas.height = window.innerHeight;
-                };
-                window.addEventListener("resize", resizeCanvasViewport);
-                resizeCanvasViewport();
-
-                window.addEventListener("mousemove", (e) => {
-                    cursorTrackingPointer.x = e.clientX;
-                    cursorTrackingPointer.y = e.clientY;
-                });
-                window.addEventListener("mouseleave", () => {
-                    cursorTrackingPointer.x = null;
-                    cursorTrackingPointer.y = null;
-                });
-
-                class CleanroomNodeParticle {
-                    constructor() {
-                        this.x = Math.random() * fluidCanvas.width;
-                        this.y = Math.random() * fluidCanvas.height;
-                        this.velocityHorizontal = (Math.random() - 0.5) * 0.4;
-                        this.velocityVertical = (Math.random() - 0.5) * 0.4;
-                        this.baseSize = Math.random() * 2 + 1;
-                    }
-                    render() {
-                        ctx.beginPath();
-                        ctx.arc(this.x, this.y, this.baseSize, 0, Math.PI * 2);
-                        ctx.fillStyle = "rgba(11, 34, 68, 0.04)";
-                        ctx.fill();
-                    }
-                    reposition() {
-                        if (this.x > fluidCanvas.width || this.x < 0) this.velocityHorizontal = -this.velocityHorizontal;
-                        if (this.y > fluidCanvas.height || this.y < 0) this.velocityVertical = -this.velocityVertical;
-
-                        if (cursorTrackingPointer.x !== null && cursorTrackingPointer.y !== null) {
-                            let diffX = this.x - cursorTrackingPointer.x;
-                            let diffY = this.y - cursorTrackingPointer.y;
-                            let calculatedDistance = Math.sqrt(diffX * diffX + diffY * diffY);
-                            if (calculatedDistance < cursorTrackingPointer.currentRadius) {
-                                let pushAngle = Math.atan2(diffY, diffX);
-                                let localizedForce = (cursorTrackingPointer.currentRadius - calculatedDistance) / cursorTrackingPointer.currentRadius;
-                                this.x += Math.cos(pushAngle) * localizedForce * 3;
-                                this.y += Math.sin(pushAngle) * localizedForce * 3;
-                            }
-                        }
-                        this.x += this.velocityHorizontal;
-                        this.y += this.velocityVertical;
-                    }
-                }
-
-                for (let i = 0; i < 40; i++) {
-                    activeNodesArray.push(new CleanroomNodeParticle());
-                }
-
-                const operationalRenderLoop = () => {
-                    ctx.clearRect(0, 0, fluidCanvas.width, fluidCanvas.height);
-                    activeNodesArray.forEach(node => {
-                        node.reposition();
-                        node.render();
-                    });
-                    requestAnimationFrame(operationalRenderLoop);
-                };
-                operationalRenderLoop();
-            }
-        }
-    } catch(canvasErr) { 
-        console.warn("Canvas skipped securely:", canvasErr); 
-    }
-
-    // --- 2. THE CRYSTALLINE SHARD DEPTH-PARALLAX MATRIX ---
-    try {
-        window.addEventListener("mousemove", (e) => {
-            if (window.innerWidth < 992) return;
-            const normalizedCoordX = (e.clientX / window.innerWidth) - 0.5;
-            const normalizedCoordY = (e.clientY / window.innerHeight) - 0.5;
-
-            const shardLeft = document.getElementById("parallax-shard-left");
-            const shardRight = document.getElementById("parallax-shard-right");
-
-            if (shardLeft) shardLeft.style.transform = `translate3d(${normalizedCoordX * -25}px, ${normalizedCoordY * -15}px, 0px)`;
-            if (shardRight) shardRight.style.transform = `translate3d(${normalizedCoordX * 30}px, ${normalizedCoordY * 20}px, 0px)`;
-        });
-    } catch(err) { console.error("Parallax isolated:", err); }
-
-    // --- 3. THE FIGMA MAGNETIC SHIELD COMPONENT ENFORCEMENT ---
-    try {
-        const figmaPullTargets = document.querySelectorAll(".unique-figma-magnetic");
-        if (window.innerWidth > 768) {
-            figmaPullTargets.forEach(target => {
-                window.addEventListener("mousemove", (e) => {
-                    const itemBoundingRect = target.getBoundingClientRect();
-                    const nodeCenterX = itemBoundingRect.left + (itemBoundingRect.width / 2);
-                    const nodeCenterY = itemBoundingRect.top + (itemBoundingRect.height / 2);
-
-                    const vectorX = e.clientX - nodeCenterX;
-                    const vectorY = e.clientY - nodeCenterY;
-                    const linearHypotenuse = Math.sqrt(vectorX * vectorX + vectorY * vectorY);
-
-                    // Restriced to high-priority action buttons only
-                    if (linearHypotenuse < 50) {
-                        target.style.transform = `translate3d(${vectorX * 0.35}px, ${vectorY * 0.35}px, 0px)`;
-                    } else {
-                        target.style.transform = "translate3d(0px, 0px, 0px)";
-                    }
-                });
-                target.addEventListener("mouseleave", () => {
-                    target.style.transform = "translate3d(0px, 0px, 0px)";
-                });
-            });
-        }
-    } catch(err) { console.error("Figma magnetic system capture isolated:", err); }
-
     // --- SMARTPHONE INTERACTIVE MOBILE HEADER MENU DRIVER ---
     const menuToggleBtn = document.getElementById("mobile-hamburger-btn");
     const navigationMenu = document.getElementById("main-navigation-menu");
@@ -379,7 +258,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- 5. DISSOLVE & FLUSH COMPONENT ENGINE (FIGMA MOTION CLASS DESIGN) ---
     try {
         const deckCards = document.querySelectorAll(".portfolio-deck-card");
-        const drainNode = document.getElementById("vortex-drain-node");
         const rootContainer = document.getElementById("vortex-deck-trigger-root");
         let highFrequencyPointerRAF = null;
 
@@ -429,7 +307,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 e.stopPropagation();
                 rootContainer.classList.add("chamber-vortex-locked");
                 card.classList.add("vortex-flush-active-node");
-                if (drainNode) drainNode.classList.add("drain-core-active");
 
                 deckCards.forEach(c => {
                     if (c !== card) c.classList.add("vortex-flushed-trash-node");
@@ -442,7 +319,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     e.stopPropagation();
                     rootContainer.classList.remove("chamber-vortex-locked");
                     card.classList.remove("vortex-flush-active-node");
-                    if (drainNode) drainNode.classList.remove("drain-core-active");
 
                     deckCards.forEach(c => {
                         c.classList.remove("vortex-flushed-trash-node");
@@ -509,6 +385,25 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     } catch (e) { console.error("Anatomical diagnostic matrix fault:", e); }
+
+    // --- 7. HARDENED SCROLL OBSERVERS ---
+    try {
+        const revealElements = document.querySelectorAll(".scroll-trigger-reveal");
+        if (revealElements.length > 0 && 'IntersectionObserver' in window) {
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("reveal-active");
+                    }
+                });
+            }, { threshold: 0.01, rootMargin: "0px 0px -50px 0px" });
+            revealElements.forEach(element => revealObserver.observe(element));
+        } else {
+            document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active"));
+        }
+    } catch (e) { 
+        document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active")); 
+    }
 
     // --- OUTSIDE CLOSING ACTION HANDLER ENGINE FOR SURGIS AI TERMINAL ---
     try {
