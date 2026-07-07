@@ -237,48 +237,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     } catch (e) { console.error(e); }
 
-    // --- SMARTPHONE INTERACTIVE MOBILE HEADER MENU DRIVER ---
-    const menuToggleBtn = document.getElementById("mobile-hamburger-btn");
-    const navigationMenu = document.getElementById("main-navigation-menu");
-    if (menuToggleBtn && navigationMenu) {
-        menuToggleBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            navigationMenu.classList.toggle("mobile-menu-expanded");
-        });
-    }
-
-    // --- PURE SMOOTH-SCROLL EVENT INTERCEPTOR ---
-    document.querySelectorAll('a[href="#home"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    });
-
-    // --- GLOBAL WINDOW-BOUND ARROW KEYBOARD ROUTING PIPELINE ---
-    window.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowLeft") {
-            const reviewBounding = document.getElementById("testimonials").getBoundingClientRect();
-            if (reviewBounding.top < window.innerHeight && reviewBounding.bottom > 0) {
-                renderActiveReview(activeReviewIdx - 1);
-                resetReviewTimer();
-            } else {
-                renderActiveSlide(currentSlideIndex - 1);
-                initAutoCycle();
-            }
-        } 
-        else if (e.key === "ArrowRight") {
-            const reviewBounding = document.getElementById("testimonials").getBoundingClientRect();
-            if (reviewBounding.top < window.innerHeight && reviewBounding.bottom > 0) {
-                renderActiveReview(activeReviewIdx + 1);
-                resetReviewTimer();
-            } else {
-                renderActiveSlide(currentSlideIndex + 1);
-                initAutoCycle();
-            }
-        }
-    });
-
     // --- HARDENED VIDEO AUTO-PLAYBACK ENGINE ---
     const promoVid = document.getElementById("hero-promo-video");
     if (promoVid) {
@@ -358,65 +316,5 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         });
-    } catch (e) { console.error("Anatomical matrix fault isolated:", e); }
-
-    // --- 7. CLEANROOM PASSIVATION CHAMBER PARTICLES BACKGROUND ---
-    try {
-        const fluidCanvas = document.getElementById("cleanroom-passivation-canvas");
-        if (fluidCanvas) {
-            const ctx = fluidCanvas.getContext("2d");
-            if (ctx) {
-                let activeNodesArray = [];
-                let cursorTrackingPointer = { x: null, y: null, currentRadius: 100 };
-
-                const resizeCanvasViewport = () => {
-                    fluidCanvas.width = window.innerWidth;
-                    fluidCanvas.height = window.innerHeight;
-                };
-                window.addEventListener("resize", resizeCanvasViewport);
-                resizeCanvasViewport();
-
-                window.addEventListener("mousemove", (e) => {
-                    cursorTrackingPointer.x = e.clientX;
-                    cursorTrackingPointer.y = e.clientY;
-                });
-
-                class CleanroomNodeParticle {
-                    constructor() {
-                        this.x = Math.random() * fluidCanvas.width;
-                        this.y = Math.random() * fluidCanvas.height;
-                        this.velocityHorizontal = (Math.random() - 0.5) * 0.4;
-                        this.velocityVertical = (Math.random() - 0.5) * 0.4;
-                        this.baseSize = Math.random() * 2 + 1;
-                    }
-                    render() {
-                        ctx.beginPath();
-                        ctx.arc(this.x, this.y, this.baseSize, 0, Math.PI * 2);
-                        ctx.fillStyle = "rgba(11, 34, 68, 0.04)";
-                        ctx.fill();
-                    }
-                    reposition() {
-                        if (this.x > fluidCanvas.width || this.x < 0) this.velocityHorizontal = -this.velocityHorizontal;
-                        if (this.y > fluidCanvas.height || this.y < 0) this.velocityVertical = -this.velocityVertical;
-                        this.x += this.velocityHorizontal;
-                        this.y += this.velocityVertical;
-                    }
-                }
-
-                for (let i = 0; i < 40; i++) {
-                    activeNodesArray.push(new CleanroomNodeParticle());
-                }
-
-                const operationalRenderLoop = () => {
-                    ctx.clearRect(0, 0, fluidCanvas.width, fluidCanvas.height);
-                    activeNodesArray.forEach(node => {
-                        node.reposition();
-                        node.render();
-                    });
-                    requestAnimationFrame(operationalRenderLoop);
-                };
-                operationalRenderLoop();
-            }
-        }
-    } catch(canvasErr) { console.warn(canvasErr); }
+    } catch (e) { console.error(e); }
 });
