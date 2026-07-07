@@ -24,6 +24,137 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
     };
 
+    // --- 1. HIGH-END DESKTOP HORIZONTAL SCROLL STACKING CONTROLLER ---
+    const scrollWrapper = document.getElementById("catalog-scroll-pin-wrapper");
+    const horizontalTrack = document.getElementById("horizontal-scroll-track-node");
+    
+    if (scrollWrapper && horizontalTrack) {
+        window.addEventListener("scroll", () => {
+            if (window.innerWidth < 993) {
+                horizontalTrack.style.transform = "none";
+                return;
+            }
+            const wrapperTop = scrollWrapper.offsetTop;
+            const wrapperHeight = scrollWrapper.offsetHeight;
+            const viewportHeight = window.innerHeight;
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll >= wrapperTop && currentScroll <= (wrapperTop + wrapperHeight - viewportHeight)) {
+                const scrollPercentage = (currentScroll - wrapperTop) / (wrapperHeight - viewportHeight);
+                const maxPanWidth = horizontalTrack.scrollWidth - window.innerWidth * 0.9;
+                horizontalTrack.style.transform = `translateX(${-scrollPercentage * maxPanWidth}px)`;
+            }
+        });
+    }
+
+    // --- 2. 3D PERSPECTIVE GLARE SHEEN HOVER ENGINE ---
+    const tiltNodes = document.querySelectorAll(".glare-tilt-node");
+    if (window.innerWidth > 768) {
+        tiltNodes.forEach(node => {
+            const reflectionSheen = node.querySelector(".glare-reflection-sheen");
+            
+            node.addEventListener("mousemove", (e) => {
+                const bounding = node.getBoundingClientRect();
+                const mouseX = e.clientX - bounding.left;
+                const mouseY = e.clientY - bounding.top;
+                
+                const rotateX = ((bounding.height / 2 - mouseY) / (bounding.height / 2)) * 15;
+                const rotateY = ((mouseX - bounding.width / 2) / (bounding.width / 2)) * 15;
+                
+                node.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
+                
+                if (reflectionSheen) {
+                    const percentageX = (mouseX / bounding.width) * 100;
+                    const percentageY = (mouseY / bounding.height) * 100;
+                    reflectionSheen.style.background = `radial-gradient(circle at ${percentageX}% ${percentageY}%, rgba(255,255,255,0.18) 0%, transparent 75%)`;
+                }
+            });
+
+            node.addEventListener("mouseleave", () => {
+                node.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+                if (reflectionSheen) {
+                    reflectionSheen.style.background = "transparent";
+                }
+            });
+        });
+    }
+
+    // --- 3. CLEANROOM PASSIVATION PARTICLES BACKDROP ---
+    try {
+        const fluidCanvas = document.getElementById("cleanroom-passivation-canvas");
+        if (fluidCanvas) {
+            const ctx = fluidCanvas.getContext("2d");
+            if (ctx) {
+                let activeNodesArray = [];
+                let cursorTrackingPointer = { x: null, y: null, currentRadius: 100 };
+
+                const resizeCanvasViewport = () => {
+                    fluidCanvas.width = window.innerWidth;
+                    fluidCanvas.height = window.innerHeight;
+                };
+                window.addEventListener("resize", resizeCanvasViewport);
+                resizeCanvasViewport();
+
+                window.addEventListener("mousemove", (e) => {
+                    cursorTrackingPointer.x = e.clientX;
+                    cursorTrackingPointer.y = e.clientY;
+                });
+                window.addEventListener("mouseleave", () => {
+                    cursorTrackingPointer.x = null;
+                    cursorTrackingPointer.y = null;
+                });
+
+                class CleanroomNodeParticle {
+                    constructor() {
+                        this.x = Math.random() * fluidCanvas.width;
+                        this.y = Math.random() * fluidCanvas.height;
+                        this.velocityHorizontal = (Math.random() - 0.5) * 0.4;
+                        this.velocityVertical = (Math.random() - 0.5) * 0.4;
+                        this.baseSize = Math.random() * 2 + 1;
+                    }
+                    render() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.baseSize, 0, Math.PI * 2);
+                        ctx.fillStyle = "rgba(11, 34, 68, 0.04)";
+                        ctx.fill();
+                    }
+                    reposition() {
+                        if (this.x > fluidCanvas.width || this.x < 0) this.velocityHorizontal = -this.velocityHorizontal;
+                        if (this.y > fluidCanvas.height || this.y < 0) this.velocityVertical = -this.velocityVertical;
+
+                        if (cursorTrackingPointer.x !== null && cursorTrackingPointer.y !== null) {
+                            let diffX = this.x - cursorTrackingPointer.x;
+                            let diffY = this.y - cursorTrackingPointer.y;
+                            let calculatedDistance = Math.sqrt(diffX * diffX + diffY * diffY);
+                            if (calculatedDistance < cursorTrackingPointer.currentRadius) {
+                                let pushAngle = Math.atan2(diffY, diffX);
+                                let localizedForce = (cursorTrackingPointer.currentRadius - calculatedDistance) / cursorTrackingPointer.currentRadius;
+                                this.x += Math.cos(pushAngle) * localizedForce * 3;
+                                this.y += Math.sin(pushAngle) * localizedForce * 3;
+                            }
+                        }
+                        this.x += this.velocityHorizontal;
+                        this.y += this.velocityVertical;
+                    }
+                }
+
+                for (let i = 0; i < 45; i++) {
+                    activeNodesArray.push(new CleanroomNodeParticle());
+                }
+
+                const operationalRenderLoop = () => {
+                    ctx.clearRect(0, 0, fluidCanvas.width, fluidCanvas.height);
+                    activeNodesArray.forEach(node => {
+                        node.reposition();
+                        node.render();
+                    });
+                    requestAnimationFrame(operationalRenderLoop);
+                };
+                operationalRenderLoop();
+            }
+        }
+    } catch(canvasErr) { console.warn(canvasErr); }
+
     // --- SMARTPHONE INTERACTIVE MOBILE HEADER MENU DRIVER ---
     const menuToggleBtn = document.getElementById("mobile-hamburger-btn");
     const navigationMenu = document.getElementById("main-navigation-menu");
@@ -189,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         function resetReviewTimer() { clearInterval(reviewsInterval); startReviewTimer(); }
         startReviewTimer();
-    } catch (e) { console.error("Review tracking system isolate:", e); }
+    } catch (e) { console.error(e); }
 
     // --- HERO SLIDER DRAGGABLE VIEWPORT ---
     try {
@@ -253,84 +384,9 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             initAutoCycle();
         }
-    } catch (e) { console.error("Hero touch pipeline exception:", e); }
+    } catch (e) { console.error(e); }
 
-    // --- 5. DISSOLVE & FLUSH COMPONENT ENGINE (FIGMA MOTION CLASS DESIGN) ---
-    try {
-        const deckCards = document.querySelectorAll(".portfolio-deck-card");
-        const rootContainer = document.getElementById("vortex-deck-trigger-root");
-        let highFrequencyPointerRAF = null;
-
-        deckCards.forEach(card => {
-            card.addEventListener("mouseenter", () => {
-                if (window.innerWidth < 993 || rootContainer.classList.contains("chamber-vortex-locked")) return;
-                if (highFrequencyPointerRAF) cancelAnimationFrame(highFrequencyPointerRAF);
-                
-                highFrequencyPointerRAF = requestAnimationFrame(() => {
-                    const currentIdx = parseInt(card.getAttribute("data-card-idx"), 10);
-                    deckCards.forEach((c, index) => {
-                        if (index === currentIdx) {
-                            c.style.transform = "translateX(0px) translateZ(40px) scale(1.04)";
-                            c.style.opacity = "1";
-                            c.style.zIndex = "50";
-                        } else if (index < currentIdx) {
-                            const mult = currentIdx - index;
-                            c.style.transform = `translateX(${40 + (mult * 15)}px) translateZ(-${mult * 20}px) scale(0.92)`;
-                            c.style.opacity = "0.4"; 
-                            c.style.zIndex = `${30 - mult}`;
-                        } else {
-                            const mult = index - currentIdx;
-                            c.style.transform = `translateX(-${40 + (mult * 15)}px) translateZ(-${mult * 20}px) scale(0.92)`;
-                            c.style.opacity = "0.4";
-                            c.style.zIndex = `${30 - mult}`;
-                        }
-                    });
-                });
-            });
-
-            card.addEventListener("mouseleave", () => {
-                if (window.innerWidth < 993 || rootContainer.classList.contains("chamber-vortex-locked")) return;
-                if (highFrequencyPointerRAF) cancelAnimationFrame(highFrequencyPointerRAF);
-                
-                highFrequencyPointerRAF = requestAnimationFrame(() => {
-                    deckCards.forEach(c => {
-                        c.style.transform = "translateX(0px) translateZ(0px) scale(1)";
-                        c.style.opacity = "1";
-                        c.style.zIndex = "10";
-                    });
-                });
-            });
-
-            card.addEventListener("click", (e) => {
-                if (rootContainer.classList.contains("chamber-vortex-locked") || card.classList.contains("vortex-flush-active-node")) return;
-                
-                e.stopPropagation();
-                rootContainer.classList.add("chamber-vortex-locked");
-                card.classList.add("vortex-flush-active-node");
-
-                deckCards.forEach(c => {
-                    if (c !== card) c.classList.add("vortex-flushed-trash-node");
-                });
-            });
-
-            const resetBtn = card.querySelector(".btn-restore-cards");
-            if (resetBtn) {
-                resetBtn.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    rootContainer.classList.remove("chamber-vortex-locked");
-                    card.classList.remove("vortex-flush-active-node");
-
-                    deckCards.forEach(c => {
-                        c.classList.remove("vortex-flushed-trash-node");
-                        c.style.transform = "translateX(0px) translateZ(0px) scale(1)";
-                        c.style.opacity = "1";
-                    });
-                });
-            }
-        });
-    } catch (e) { console.error("Vortex flush system catch:", e); }
-
-    // --- 6. THE "LASER-SCAN" BLUEPRINT SWEEP ---
+    // --- 4. THE "LASER-SCAN" BLUEPRINT SWEEP ---
     try {
         const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
         const fetchTarget = document.getElementById("anatomy-fetch-target");
@@ -384,7 +440,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         });
-    } catch (e) { console.error("Anatomical diagnostic matrix fault:", e); }
+    } catch (e) { console.error(e); }
 
     // --- 7. HARDENED SCROLL OBSERVERS ---
     try {
@@ -401,11 +457,9 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active"));
         }
-    } catch (e) { 
-        document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active")); 
-    }
+    } catch (e) { document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active")); }
 
-    // --- OUTSIDE CLOSING ACTION HANDLER ENGINE FOR SURGIS AI TERMINAL ---
+    // --- OUTSIDE CLOSING ACTION HANDLER ENGINE ---
     try {
         const chatIcon = document.getElementById("chatbot-icon");
         const chatWindow = document.getElementById("chatbot-window");
