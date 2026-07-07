@@ -101,7 +101,7 @@ body {
 .mobile-menu-toggle { display: none; background: none; border: none; color: var(--white); font-size: 24px; cursor: pointer; transition: var(--transition-snappy); }
 
 /* ==========================================================================
-   4. HERO FULL VIEWPORT REGION (FIXED ACCURATE ANCHOR MATRICES)
+   4. HERO FULL VIEWPORT REGION (FIXED WHITE SPACE REMOVAL SHIFT)
    ========================================================================== */
 .hero-full-viewport { 
     width: 100vw !important; 
@@ -115,8 +115,8 @@ body {
     padding: 0;
     outline: none;
     
-    /* Rigid fix: tells browser viewport shifts to properly balance out navbar overlay offsets */
-    scroll-margin-top: -80px !important; 
+    /* Spacing margin to clear layout offsets when returning home */
+    scroll-margin-top: 80px !important; 
 }
 .slider-draggable-track { width: 100%; height: 100%; position: relative; cursor: grab; touch-action: pan-y; }
 .slider-draggable-track:active { cursor: grabbing; }
@@ -274,7 +274,7 @@ body {
 .form-submit-trigger:hover { background: #d4131d !important; box-shadow: 0 4px 15px rgba(178,13,21,0.3); }
 
 /* ==========================================================================
-   11. CORPOREEATE FOOTER & ONE-LINE COMPONENT LOCKS
+   11. CORPORATE FOOTER & ONE-LINE COMPONENT LOCKS
    ========================================================================== */
 .corporate-footer { background: var(--bg-dark-core); color: var(--white); padding: 100px 5% 40px; border-radius: 40px 40px 0 0; position: relative; z-index: 10; overflow: hidden; }
 .footer-top-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.8fr; gap: 40px; margin-bottom: 60px; }
