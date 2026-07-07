@@ -19,8 +19,8 @@
     --text-light: #f8fafc;
     --shadow-premium: 0 25px 50px -12px rgba(11, 34, 68, 0.08);
     
-    --figma-bezier: cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-curve: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    --figma-bezier: cubic-bezier(0.25, 1, 0.5, 1);
+    --transition-curve: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-snappy: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
@@ -89,6 +89,18 @@ body {
 
 .dynamic-underline::after { content: ''; position: absolute; bottom: 0; left: 18px; right: 18px; height: 2px; background: var(--crimson-red); transform: scaleX(0); transition: transform 0.3s ease; transform-origin: right; }
 .nav-item:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.header-right-block { display: flex; align-items: center; gap: 18px; }
+.search-wrapper { position: relative; display: flex; align-items: center; }
+.search-wrapper input { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.15); padding: 10px 18px 10px 40px; border-radius: 50px; font-size: 13px; width: 190px; transition: var(--transition-curve); color: var(--white); outline: none; }
+.search-wrapper input:focus { width: 240px; border-color: var(--white); background: rgba(255,255,255,0.15); }
+.search-wrapper i { position: absolute; left: 16px; color: rgba(255,255,255,0.5); font-size: 13px; }
+
+.auth-buttons { display: flex; gap: 12px; align-items: center; }
+.btn-text { background: none; border: none; font-size: 14px; font-weight: 600; cursor: pointer; color: rgba(255,255,255,0.85); white-space: nowrap; transition: var(--transition-snappy); transform: none !important; }
+.btn-text:hover { color: var(--white); }
+.btn-pill-sm { background: var(--crimson-red); color: var(--white); border: none; padding: 10px 22px; border-radius: 50px; font-size: 13px; font-weight: 600; cursor: pointer; transition: transform 0.15s var(--figma-bezier); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transform: none !important; will-change: transform; }
+.btn-pill-sm:hover { background: #d4131d; box-shadow: 0 4px 15px rgba(178, 13, 21, 0.4); }
 
 .mobile-menu-toggle { display: none; background: none; border: none; color: var(--white); font-size: 24px; cursor: pointer; transition: var(--transition-snappy); }
 
@@ -197,7 +209,7 @@ body {
 .regulatory-row-divider { width: 100%; height: 1px; background: rgba(11, 34, 68, 0.08); margin: 15px 0; }
 
 /* ==========================================================================
-   7. PRODUCT MATRIX STACKING LAYER WITH Restored 3D DEPTH TEXTS
+   7. ARRESTING 3D DEPTH CARD TEXT LIFTS (STUTTER-FREE GPU LAYER)
    ========================================================================== */
 .catalog-section { padding: 110px 5% 40px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; width: 100%; max-width: 100%; }
 .catalog-header-text { margin-bottom: 50px; padding: 0 15px; }
@@ -208,7 +220,6 @@ body {
 .vortex-deck-chamber { position: relative; width: 100%; }
 .stacking-deck-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 20px 0; perspective: 1200px; transform-style: preserve-3d; width: 100%; }
 
-/* Added preserve-3d viewport constraints to unlock sub-element transforms */
 .portfolio-deck-card { 
     background: var(--aegean-blue) !important; 
     border: 1px solid rgba(255,255,255,0.06) !important; 
@@ -217,21 +228,23 @@ body {
     min-height: 420px; 
     position: relative; 
     box-shadow: var(--shadow-premium); 
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
+    /* Perfectly fluid CSS transition matrix for absolute framing */
+    transition: transform 0.4s var(--figma-bezier), opacity 0.4s var(--figma-bezier), box-shadow 0.4s var(--figma-bezier); 
     will-change: transform, opacity; 
     z-index: 10; 
     cursor: pointer; 
-    transform-style: preserve-3d !important; /* Forces 3D spatial isolation */
+    transform-style: preserve-3d !important; 
 }
 
-/* Layered text transformations pushing components forward along Z-Axis limits */
+/* Enforces extreme lag-free text parallax lift profiles via standard styles */
 .card-num-indicator { 
     font-size: 16px; 
     font-weight: 800; 
     color: #ff4d54 !important; 
     margin-bottom: 25px; 
     transform: translateZ(0px);
-    transition: transform 0.5s var(--figma-bezier);
+    transition: transform 0.4s var(--figma-bezier);
+    will-change: transform;
 }
 .portfolio-deck-card h3 { 
     font-size: 24px; 
@@ -239,20 +252,25 @@ body {
     color: var(--white) !important; 
     margin-bottom: 18px; 
     transform: translateZ(0px);
-    transition: transform 0.5s var(--figma-bezier);
+    transition: transform 0.4s var(--figma-bezier);
+    will-change: transform;
 }
 .card-description-summary p { 
     font-size: 14px; 
     color: rgba(255,255,255,0.7) !important; 
     line-height: 1.6; 
     transform: translateZ(0px);
-    transition: transform 0.5s var(--figma-bezier);
+    transition: transform 0.4s var(--figma-bezier);
+    will-change: transform;
 }
 
-/* Elevates the inner contents when the specific parent node card is tracked */
-.portfolio-deck-card:hover .card-num-indicator { transform: translateZ(40px) !important; }
-.portfolio-deck-card:hover h3 { transform: translateZ(55px) !important; }
-.portfolio-deck-card:hover .card-description-summary p { transform: translateZ(30px) !important; }
+/* Elevates the structural layout depth variables safely upon cursor hover registers */
+.portfolio-deck-card:hover {
+    box-shadow: 0 35px 70px rgba(2, 6, 18, 0.45) !important;
+}
+.portfolio-deck-card:hover .card-num-indicator { transform: translateZ(35px) !important; }
+.portfolio-deck-card:hover h3 { transform: translateZ(50px) !important; }
+.portfolio-deck-card:hover .card-description-summary p { transform: translateZ(25px) !important; }
 
 /* ==========================================================================
    8. ANATOMICAL LOOKUP MATRIX
