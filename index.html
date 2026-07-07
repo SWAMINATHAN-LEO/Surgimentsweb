@@ -4,17 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surgiments | Master Surgical Instrumentation Logistics</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=9.0">
+    <link rel="stylesheet" href="style.css?v=11.0">
 </head>
 <body>
 
-    <!-- Lightweight Background Cleanroom Particle Matrix Canvas Layer -->
     <canvas id="cleanroom-passivation-canvas"></canvas>
 
     <div id="scroll-progress-bar"></div>
-    
     <div class="crystalline-shard-overlay topo-left" id="parallax-shard-left"></div>
     <div class="crystalline-shard-overlay topo-right" id="parallax-shard-right"></div>
     <div class="ambient-luminous-flare"></div>
@@ -54,14 +52,13 @@
                 <div class="slide-image-node video-node-wrapper">
                     <video id="hero-promo-video" autoplay loop muted playsinline preload="auto">
                         <source src="images/hero-slide-1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
                     </video>
                 </div>
-                <div class="slide-image-node"><img src="images/hero-slide-2.jpg" alt="Surgiments Slide 2" draggable="false"></div>
-                <div class="slide-image-node"><img src="images/hero-slide-3.jpg" alt="Surgiments Slide 3" draggable="false"></div>
-                <div class="slide-image-node"><img src="images/hero-slide-4.jpg" alt="Surgiments Slide 4" draggable="false"></div>
-                <div class="slide-image-node"><img src="images/hero-slide-5.jpg" alt="Surgiments Slide 5" draggable="false"></div>
-                <div class="slide-image-node"><img src="images/hero-slide-6.jpg" alt="Surgiments Slide 6" draggable="false"></div>
+                <div class="slide-image-node"><img src="images/hero-slide-2.jpg" alt="Slide 2" draggable="false"></div>
+                <div class="slide-image-node"><img src="images/hero-slide-3.jpg" alt="Slide 3" draggable="false"></div>
+                <div class="slide-image-node"><img src="images/hero-slide-4.jpg" alt="Slide 4" draggable="false"></div>
+                <div class="slide-image-node"><img src="images/hero-slide-5.jpg" alt="Slide 5" draggable="false"></div>
+                <div class="slide-image-node"><img src="images/hero-slide-6.jpg" alt="Slide 6" draggable="false"></div>
             </div>
             <div class="slider-pagination-beads" id="slider-pagination-container">
                 <span class="bead active" data-slide-index="0"></span>
@@ -85,9 +82,9 @@
             <div class="regulatory-group-block">
                 <h3 class="regulatory-subheading">Certifications</h3>
                 <div class="regulatory-row-grid quad-layout">
-                    <div class="pure-logo-node"><img src="images/urs9001.png" alt="URS ISO 9001 Quality Certification"></div>
-                    <div class="pure-logo-node"><img src="images/urs13485.png" alt="URS ISO 13485 Medical Devices Quality Certification"></div>
-                    <div class="pure-logo-node"><img src="images/iso.png" alt="ISO Standard Registration"></div>
+                    <div class="pure-logo-node"><img src="images/1000492947.png" alt="ISO 9001"></div>
+                    <div class="pure-logo-node"><img src="images/1000492951.png" alt="ISO 13485"></div>
+                    <div class="pure-logo-node"><img src="images/iso.png" alt="ISO Standard"></div>
                     <div class="pure-logo-node testing-text-node"><h4>CE for Micro Instruments</h4></div>
                 </div>
             </div>
@@ -97,9 +94,9 @@
             <div class="regulatory-group-block">
                 <h3 class="regulatory-subheading">Licenses</h3>
                 <div class="regulatory-row-grid triple-layout">
-                    <div class="pure-logo-node"><img src="images/msme.png" alt="MSME Registration Certificate Logo"></div>
-                    <div class="pure-logo-node"><img src="images/tmr.png" alt="Trade Marks Registry Seal"></div>
-                    <div class="pure-logo-node"><img src="images/cdsco.png" alt="CDSCO National Vetting Crest"></div>
+                    <div class="pure-logo-node"><img src="images/msme.png" alt="MSME"></div>
+                    <div class="pure-logo-node"><img src="images/tmr.png" alt="Trade Marks"></div>
+                    <div class="pure-logo-node"><img src="images/cdsco.png" alt="CDSCO"></div>
                 </div>
             </div>
         </div>
@@ -109,41 +106,195 @@
         <div class="catalog-header-text">
             <span class="section-tag">SPECIALIZED PORTFOLIO</span>
             <h2>Specialized Instrumentation Series</h2>
-            <p>Hover over individual classifications to expand item descriptions while forcing alternative cards to smoothly step back and hide inside the stack.</p>
+            <p>Click on any structural matrix card below to flip the series and reveal associated technical inventory modules.</p>
         </div>
         
+        <!-- Interactive 3D Flip Layout System -->
         <div class="vortex-deck-chamber">
-            <div class="stacking-deck-container">
+            <div class="stacking-deck-container" id="product-grid-container">
                 
-                <div class="portfolio-deck-card red-theme" data-card-idx="0">
-                    <div class="card-num-indicator">01</div>
-                    <h3>Neuro & Skull Base</h3>
-                    <div class="card-description-summary">
-                        <p>Premium micro-canal retractors, self-retaining scalp stabilizers, and dural access tools forged for delicate cranial procedures.</p>
+                <!-- CARD 1 -->
+                <div class="portfolio-deck-card" data-card-idx="0">
+                    <div class="card-flip-wrapper">
+                        <div class="card-front red-theme">
+                            <div class="card-num-indicator">01</div>
+                            <h3>Neuro & Skull Base</h3>
+                            <div class="card-description-summary">
+                                <p>Premium micro-canal retractors, self-retaining scalp stabilizers, and dural access tools forged for delicate cranial procedures.</p>
+                            </div>
+                        </div>
+                        <div class="card-back blue-theme">
+                            <i class="fas fa-brain"></i>
+                            <h3>Neuro Matrix Active</h3>
+                            <p>System Linked</p>
+                        </div>
+                    </div>
+                    <!-- Right-side Pop-Up Options Panel -->
+                    <div class="related-options-panel">
+                        <div class="panel-header">
+                            <h4><i class="fas fa-layer-group"></i> Neuro & Skull Base Modules</h4>
+                            <button class="btn-restore-deck" aria-label="Close Panel"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="options-grid">
+                            <div class="option-card">
+                                <div class="opt-icon"><i class="fas fa-microscope"></i></div>
+                                <div class="opt-details">
+                                    <h5>Micro-Canal Retractors</h5>
+                                    <p>Titanium Grade V • 0% Reflection</p>
+                                </div>
+                                <button class="opt-add"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <div class="option-card">
+                                <div class="opt-icon"><i class="fas fa-scissors"></i></div>
+                                <div class="opt-details">
+                                    <h5>Yasargil Scissors</h5>
+                                    <p>High Passivation Alloy</p>
+                                </div>
+                                <button class="opt-add"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <div class="option-card">
+                                <div class="opt-icon"><i class="fas fa-skull"></i></div>
+                                <div class="opt-details">
+                                    <h5>Cranial Tissue Forceps</h5>
+                                    <p>Precision Serrated Tips</p>
+                                </div>
+                                <button class="opt-add"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <div class="option-card">
+                                <div class="opt-icon"><i class="fas fa-screwdriver"></i></div>
+                                <div class="opt-details">
+                                    <h5>Skull Base Drivers</h5>
+                                    <p>Torque-Limited Calibration</p>
+                                </div>
+                                <button class="opt-add"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="portfolio-deck-card red-theme" data-card-idx="1">
-                    <div class="card-num-indicator">02</div>
-                    <h3>Cardio-Thoracic Line</h3>
-                    <div class="card-description-summary">
-                        <p>High-tensile sternal spreaders, pediatric rib retractors, and micro-vascular tissue forceps built for extreme durability.</p>
+                <!-- CARD 2 -->
+                <div class="portfolio-deck-card" data-card-idx="1">
+                    <div class="card-flip-wrapper">
+                        <div class="card-front red-theme">
+                            <div class="card-num-indicator">02</div>
+                            <h3>Cardio-Thoracic Line</h3>
+                            <div class="card-description-summary">
+                                <p>High-tensile sternal spreaders, pediatric rib retractors, and micro-vascular tissue forceps built for extreme durability.</p>
+                            </div>
+                        </div>
+                        <div class="card-back blue-theme">
+                            <i class="fas fa-heart-pulse"></i>
+                            <h3>Thoracic Matrix Active</h3>
+                            <p>System Linked</p>
+                        </div>
+                    </div>
+                    <div class="related-options-panel">
+                        <div class="panel-header">
+                            <h4><i class="fas fa-layer-group"></i> Cardio-Thoracic Modules</h4>
+                            <button class="btn-restore-deck" aria-label="Close Panel"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="options-grid">
+                            <div class="option-card">
+                                <div class="opt-icon"><i class="fas fa-compress-arrows-alt"></i></div>
+                                <div class="opt-details">
+                                    <h5>Finochietto Rib Spreaders</h5>
+                                    <p>Surgical Steel 316L</p>
+                                </div>
+                                <button class="opt-add"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <div class="option-card">
+                                <div class="opt-icon"><i class="fas fa-vial"></i></div>
+                                <div class="opt-details">
+                                    <h5>DeBakey Vascular Forceps</h5>
+                                    <p>Atraumatic Grip Torsion</p>
+                                </div>
+                                <button class="opt-add"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="portfolio-deck-card red-theme" data-card-idx="2">
-                    <div class="card-num-indicator">03</div>
-                    <h3>Orthopedic Trauma</h3>
-                    <div class="card-description-summary">
-                        <p>Heavy-duty Liston bone cutting pliers, high-torque bone awls, wire tighteners, and custom articulation instrumentation sets.</p>
+                <!-- CARD 3 -->
+                <div class="portfolio-deck-card" data-card-idx="2">
+                    <div class="card-flip-wrapper">
+                        <div class="card-front red-theme">
+                            <div class="card-num-indicator">03</div>
+                            <h3>Orthopedic Trauma</h3>
+                            <div class="card-description-summary">
+                                <p>Heavy-duty Liston bone cutting pliers, high-torque bone awls, wire tighteners, and custom articulation instrumentation sets.</p>
+                            </div>
+                        </div>
+                        <div class="card-back blue-theme">
+                            <i class="fas fa-bone"></i>
+                            <h3>Orthopedic Matrix Active</h3>
+                            <p>System Linked</p>
+                        </div>
+                    </div>
+                    <div class="related-options-panel">
+                        <div class="panel-header">
+                            <h4><i class="fas fa-layer-group"></i> Orthopedic Trauma Modules</h4>
+                            <button class="btn-restore-deck" aria-label="Close Panel"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="options-grid">
+                            <div class="option-card">
+                                <div class="opt-icon"><i class="fas fa-cut"></i></div>
+                                <div class="opt-details">
+                                    <h5>Liston Bone Cutters</h5>
+                                    <p>Hardened Cobalt-Chrome</p>
+                                </div>
+                                <button class="opt-add"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <div class="option-card">
+                                <div class="opt-icon"><i class="fas fa-tools"></i></div>
+                                <div class="opt-details">
+                                    <h5>Kirschner Wire Drivers</h5>
+                                    <p>Specular Micro-Polished</p>
+                                </div>
+                                <button class="opt-add"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="portfolio-deck-card red-theme" data-card-idx="3">
-                    <div class="card-num-indicator">04</div>
-                    <h3>Minimally Invasive</h3>
-                    <div class="card-description-summary">
-                        <p>Ultra-slender insulation-verified shafts optimized for laparoscopic tissue dissection, arthroscopy, and fine sinoscopy.</p>
+                <!-- CARD 4 -->
+                <div class="portfolio-deck-card" data-card-idx="3">
+                    <div class="card-flip-wrapper">
+                        <div class="card-front red-theme">
+                            <div class="card-num-indicator">04</div>
+                            <h3>Minimally Invasive</h3>
+                            <div class="card-description-summary">
+                                <p>Ultra-slender insulation-verified shafts optimized for laparoscopic tissue dissection, arthroscopy, and fine sinoscopy.</p>
+                            </div>
+                        </div>
+                        <div class="card-back blue-theme">
+                            <i class="fas fa-camera-retro"></i>
+                            <h3>Invasive Matrix Active</h3>
+                            <p>System Linked</p>
+                        </div>
+                    </div>
+                    <div class="related-options-panel">
+                        <div class="panel-header">
+                            <h4><i class="fas fa-layer-group"></i> Minimally Invasive Modules</h4>
+                            <button class="btn-restore-deck" aria-label="Close Panel"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="options-grid">
+                            <div class="option-card">
+                                <div class="opt-icon"><i class="fas fa-search-plus"></i></div>
+                                <div class="opt-details">
+                                    <h5>Laparoscopic Dissectors</h5>
+                                    <p>Polymer Insulation Core</p>
+                                </div>
+                                <button class="opt-add"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <div class="option-card">
+                                <div class="opt-icon"><i class="fas fa-x-ray"></i></div>
+                                <div class="opt-details">
+                                    <h5>Arthroscopy Shafts</h5>
+                                    <p>Absorption Jet Black</p>
+                                </div>
+                                <button class="opt-add"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -159,14 +310,11 @@
                 
                 <div class="real-anatomy-container blue-theme">
                     <img src="images/anatomy-outline.png" alt="Clinical Anatomy Search Outline" class="real-anatomy-img">
-                    
                     <div class="anatomy-svg-hotspot" data-anatomy-region="head" style="top: 12%; left: 50%;"></div>
                     <div class="anatomy-svg-hotspot" data-anatomy-region="torso" style="top: 38%; left: 50%;"></div>
                     <div class="anatomy-svg-hotspot" data-anatomy-region="extremities" style="top: 55%; left: 32%;"></div>
                     <div class="anatomy-svg-hotspot" data-anatomy-region="extremities" style="top: 55%; left: 68%;"></div>
-                    
                     <div id="blueprint-laser-scan-line"></div>
-                    
                     <div class="hover-label-overlay" id="anatomy-ui-marker">Select Structural Node</div>
                 </div>
             </div>
@@ -184,13 +332,12 @@
         <div class="testimonial-split-layout">
             <div class="testimonial-left-media">
                 <div class="video-mockup-frame blue-theme">
-                    <img src="https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Surgiments Production Passivation Tracking" id="testimonial-media-img">
+                    <img src="https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Surgiments Production Tracking" id="testimonial-media-img">
                     <div class="play-overlay-icon" id="testimonial-play-trigger"><i class="fas fa-play"></i></div>
                     <div class="passivation-scan-overlay"></div>
                 </div>
             </div>
             <div class="testimonial-right-feed text-track-mouse-tilt">
-                
                 <div class="testimonial-inline-header-block">
                     <h3>Practitioner Reviews</h3>
                     <div class="reviews-arrow-action-buttons">
@@ -231,20 +378,13 @@
     <section class="access-split-grid scroll-trigger-reveal">
         <div class="map-embed-wrapper">
             <div class="map-rendering-layer blue-theme">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.821376840733!2d77.78937021118671!3d12.764132819853922!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae7109da6b99a7%3A0x8f61a2e615728d35!2sSURGIMENTS!5e0!3m2!1sen!2s!4v1719240000000!5m2!1sen!2s" 
-                    class="live-google-map-frame" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.821376840733!2d77.78937021118671!3d12.764132819853922!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae7109da6b99a7%3A0x8f61a2e615728d35!2sSURGIMENTS!5e0!3m2!1sen!2s!4v1719240000000!5m2!1sen!2s" class="live-google-map-frame" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 <div class="map-address-card blue-theme">
                     <h5>SURGIMENTS FACILITY</h5>
                     <p>No. N/30, SIDCO Industrial Estate, III Phase, Hosur, TN 635126</p>
                 </div>
             </div>
         </div>
-        
         <div class="client-auth-card blue-theme">
             <div class="auth-tabs-header">
                 <button class="auth-tab-btn active" data-target-form="client-form">Client Procurement</button>
@@ -290,7 +430,7 @@
             </div>
             <div class="footer-qr-code-column">
                 <div class="qr-code-placeholder-card">
-                    <img src="images/contact-qr.png" alt="Surgiments Address phonebook sync QR" class="physical-qr-image-asset">
+                    <img src="images/contact-qr.png" alt="Surgiments Sync QR" class="physical-qr-image-asset">
                     <span>Scan to Sync Contact, Map & Facility Logistics Automatically</span>
                 </div>
             </div>
@@ -300,7 +440,7 @@
         </div>
     </footer>
 
-    <div id="chatbot-icon"><i class="fas fa-robot" id="ai-wave"></i></div>
+    <div id="chatbot-icon" class="unique-figma-magnetic"><i class="fas fa-robot"></i></div>
     <div id="chatbot-window" class="hidden blue-theme">
         <div class="chat-header">
             <div class="ai-title-badge"><span class="live-indicator"></span> SURGIS AI</div>
@@ -315,8 +455,7 @@
         </div>
     </div>
 
-    <!-- Connected both interactive physics script elements securely -->
-    <script src="animations.js?v=9.0"></script>
-    <script src="script.js?v=9.0"></script>
+    <script src="animations.js?v=11.0"></script>
+    <script src="script.js?v=11.0"></script>
 </body>
 </html>
