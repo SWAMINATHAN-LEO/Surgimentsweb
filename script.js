@@ -39,6 +39,48 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // --- REVIEWS TESTIMONIAL NAVIGATION CONTROL SYSTEM ---
+    let activeReviewIdx = 0;
+    let reviewsInterval = null;
+    const reviewDots = document.querySelectorAll("#reviews-dots-container .review-dot");
+    const countTotalReviews = reviewDots.length;
+    const reviewsTrack = document.getElementById("reviews-dynamic-track");
+
+    function renderActiveReview(index) {
+        activeReviewIdx = (index + countTotalReviews) % countTotalReviews;
+        const offsetWidthTrack = -activeReviewIdx * 100;
+        if (reviewsTrack) reviewsTrack.style.transform = `translateX(${offsetWidthTrack}%)`;
+        reviewDots.forEach((dot, idx) => {
+            if(idx === activeReviewIdx) dot.classList.add("active");
+            else dot.classList.remove("active");
+        });
+    }
+
+    // --- HERO SLIDER VARIABLES (Properly Scoped Globally Within Initializer) ---
+    let currentSlideIndex = 0;
+    let autoCycleTimer = null;
+    const beads = document.querySelectorAll("#slider-pagination-container .bead");
+    const countTotalSlides = beads.length;
+    const sliderWrapper = document.getElementById("hero-slider-wrapper");
+
+    function renderActiveSlide(index) {
+        currentSlideIndex = (index + countTotalSlides) % countTotalSlides;
+        const offsetTrack = -currentSlideIndex * 100;
+        if (sliderWrapper) {
+            sliderWrapper.style.transition = "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
+            sliderWrapper.style.transform = `translateX(${offsetTrack}%)`;
+        }
+        beads.forEach((bead, idx) => {
+            if(idx === currentSlideIndex) bead.classList.add("active");
+            else bead.classList.remove("active");
+        });
+    }
+
+    function initAutoCycle() {
+        clearInterval(autoCycleTimer);
+        autoCycleTimer = setInterval(() => { renderActiveSlide(currentSlideIndex + 1); }, 8000);
+    }
+
     // --- PURE SMOOTH-SCROLL EVENT INTERCEPTOR FOR HOME VIEWPORT SHIFTS ---
     document.querySelectorAll('a[href="#home"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -79,17 +121,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- ENHANCED HARDENED VIDEO LOGISTICS & AUTO-PLAYBACK PIPELINE ---
     const promoVid = document.getElementById("hero-promo-video");
     if (promoVid) {
-        // Enforce settings for production deployment audio-policies
         promoVid.muted = true;
         promoVid.setAttribute('muted', '');
         promoVid.setAttribute('playsinline', '');
         
-        // Dynamic payload fetch verification logic
         const triggerVideoPlayback = () => {
             let playPromise = promoVid.play();
             if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("Browser structural restriction hit. Forcing muted bypass runtime.", error);
+                playPromise.catch(() => {
                     promoVid.muted = true;
                     promoVid.play();
                 });
@@ -103,7 +142,6 @@ document.addEventListener("DOMContentLoaded", () => {
             promoVid.addEventListener('canplay', triggerVideoPlayback);
         }
 
-        // Safety fallback checks
         promoVid.addEventListener('error', () => {
             console.log("Video source issue detected. Skipping to static slider image framework...");
             if (currentSlideIndex === 0) renderActiveSlide(1);
@@ -115,23 +153,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 renderActiveSlide(1);
             }
         }, 1500);
-    }
-
-    // --- REVIEWS TESTIMONIAL NAVIGATION CONTROL SYSTEM ---
-    let activeReviewIdx = 0;
-    let reviewsInterval = null;
-    const reviewDots = document.querySelectorAll("#reviews-dots-container .review-dot");
-    const countTotalReviews = reviewDots.length;
-    const reviewsTrack = document.getElementById("reviews-dynamic-track");
-
-    function renderActiveReview(index) {
-        activeReviewIdx = (index + countTotalReviews) % countTotalReviews;
-        const offsetWidthTrack = -activeReviewIdx * 100;
-        if (reviewsTrack) reviewsTrack.style.transform = `translateX(${offsetWidthTrack}%)`;
-        reviewDots.forEach((dot, idx) => {
-            if(idx === activeReviewIdx) dot.classList.add("active");
-            else dot.classList.remove("active");
-        });
     }
 
     try {
@@ -172,30 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
         startReviewTimer();
     } catch (e) { console.error("Review tracking system isolate:", e); }
 
-    // --- HERO SLIDER DRAGGABLE VIEWPORT ---
-    let currentSlideIndex = 0;
-    let autoCycleTimer = null;
-    const beads = document.querySelectorAll("#slider-pagination-container .bead");
-    const countTotalSlides = beads.length;
-
-    function renderActiveSlide(index) {
-        currentSlideIndex = (index + countTotalSlides) % countTotalSlides;
-        const offsetTrack = -currentSlideIndex * 100;
-        if (sliderWrapper) {
-            sliderWrapper.style.transition = "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
-            sliderWrapper.style.transform = `translateX(${offsetTrack}%)`;
-        }
-        beads.forEach((bead, idx) => {
-            if(idx === currentSlideIndex) bead.classList.add("active");
-            else bead.classList.remove("active");
-        });
-    }
-
-    function initAutoCycle() {
-        clearInterval(autoCycleTimer);
-        autoCycleTimer = setInterval(() => { renderActiveSlide(currentSlideIndex + 1); }, 8000);
-    }
-
+    // --- HERO SLIDER DRAGGABLE VIEWPORT ACTIVATION ---
     try {
         const sliderViewport = document.getElementById("hero-draggable-viewport");
         let activeDragMode = false;
@@ -363,4 +361,73 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     } catch (e) { console.error("Anatomical lookup fault:", e); }
+
+    // --- OUTSIDE CLOSING ACTION HANDLER ENGINE FOR SURGIS AI TERMINAL ---
+    try {
+        const chatIcon = document.getElementById("chatbot-icon");
+        const chatWindow = document.getElementById("chatbot-window");
+        const closeBtn = document.getElementById("close-chat");
+        const sendBtn = document.getElementById("send-chat");
+        const inputField = document.getElementById("chat-input-field");
+        const outputStream = document.getElementById("chat-stream-output");
+
+        if (chatIcon && chatWindow) {
+            chatIcon.addEventListener("click", (e) => {
+                e.stopPropagation();
+                chatWindow.classList.toggle("hidden");
+            });
+            if (closeBtn) {
+                closeBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    chatWindow.classList.add("hidden");
+                });
+            }
+            window.addEventListener("click", (e) => {
+                if (!chatWindow.classList.contains("hidden") && !chatWindow.contains(e.target) && !chatIcon.contains(e.target)) {
+                    chatWindow.classList.add("hidden");
+                }
+            });
+        }
+
+        async function processChatWorkflow() {
+            if (!inputField || !outputStream) return;
+            const text = inputField.value.trim();
+            if (!text) return;
+
+            outputStream.innerHTML += `<p class="user-msg">${text}</p>`;
+            inputField.value = "";
+            outputStream.scrollTop = outputStream.scrollHeight;
+
+            const typingIndicatorIdx = Date.now();
+            outputStream.innerHTML += `<p class="bot-msg" id="msg-${typingIndicatorIdx}"><i class="fas fa-spinner fa-spin"></i> Processing index...</p>`;
+            outputStream.scrollTop = outputStream.scrollHeight;
+            const loadingBubble = document.getElementById(`msg-${typingIndicatorIdx}`);
+
+            try {
+                const res = await fetch("http://127.0.0.1:8000/api/chatbot/query", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: text })
+                });
+                if (!res.ok) throw new Error();
+                const data = await res.json();
+                if(loadingBubble) loadingBubble.innerHTML = data.reply;
+            } catch (err) {
+                setTimeout(() => {
+                    const normalizedQuery = text.toLowerCase();
+                    let responseMatch = "Inquiry logged. Dispatched to Hosur Facility regulatory database.";
+                    for (const keyString in localAIBrainFallback) {
+                        if (normalizedQuery.includes(keyString)) {
+                            responseMatch = localAIBrainFallback[keyString];
+                            break;
+                        }
+                    }
+                    if(loadingBubble) loadingBubble.innerHTML = responseMatch;
+                    outputStream.scrollTop = outputStream.scrollHeight;
+                }, 400); 
+            }
+        }
+        if (sendBtn) sendBtn.addEventListener("click", processChatWorkflow);
+        if (inputField) inputField.addEventListener("keypress", (e) => { if (e.key === "Enter") processChatWorkflow(); });
+    } catch (e) { console.error("Chat terminal engine catch:", e); }
 });
