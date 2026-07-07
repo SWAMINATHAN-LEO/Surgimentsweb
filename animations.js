@@ -78,9 +78,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 animateFluidPassivation();
             }
         }
-    } catch(err) { console.warn(err); }
+    } catch(err) {
+        console.warn("Ambient background canvas suspended securely:", err);
+    }
 
-    // --- 2. CRYSTALLINE GLASS SHARD PARALLAX DEPTH MATRIX ---
+    // --- 2. CRYTSALLINE GLASS SHARD PARALLAX DEPTH MATRIX ---
     try {
         window.addEventListener("mousemove", (e) => {
             if (window.innerWidth < 992) return;
@@ -93,9 +95,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (leftShard) leftShard.style.transform = `translate3d(${offsetX * -20}px, ${offsetY * -12}px, 0px)`;
             if (rightShard) rightShard.style.transform = `translate3d(${offsetX * 25}px, ${offsetY * 18}px, 0px)`;
         });
-    } catch(e) { console.error(e); }
+    } catch(e) { console.error("Background parallax bounds isolated.", e); }
 
-    // --- 3. HARDWARE-ACCELERATED FIGMA MAGNETIC TRACKING TARGETS ---
+    // --- 3. HARDWARE-ACCELERATED BUTTON ENHANCEMENT ---
     try {
         const interactiveButtons = document.querySelectorAll(".unique-figma-magnetic, .slider-arrow-btn, #chatbot-icon");
         interactiveButtons.forEach(btn => {
@@ -113,5 +115,5 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.style.transform = "translate3d(0px, 0px, 0px) scale(1)";
             });
         });
-    } catch(e) { console.error(e); }
+    } catch(e) { console.error("Button physics tracking isolated:", e); }
 });
