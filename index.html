@@ -6,7 +6,9 @@
     <title>Surgiments | Master Surgical Instrumentation Logistics</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- Implemented absolute cache-busting string parameter to instantly purge broken browser memory caches -->
+    <link rel="stylesheet" href="style.css?v=2.1">
 </head>
 <body>
 
@@ -58,7 +60,6 @@
             </div>
             <div class="auth-buttons">
                 <button class="btn-text normal-auth-trigger">Client Gateway</button>
-                <!-- Added magnetic tracking target hooks -->
                 <button class="btn-pill-sm normal-auth-trigger magnetic-pull-target"><i class="fas fa-file-invoice"></i> Request RFQ</button>
             </div>
         </div>
@@ -90,7 +91,8 @@
         </div>
     </section>
 
-    <section id="heritage" class="credibility-section scroll-trigger-reveal">
+    <!-- Added direct opacity layout safe-guards to guarantee visible rendering under cached states -->
+    <section id="heritage" class="credibility-section scroll-trigger-reveal" style="opacity: 1 !important; transform: none !important;">
         <div class="catalog-header-text centering-override">
             <span class="section-tag">REGULATORY COMPLIANCE</span>
             <h2>Certifications & Licenses</h2>
@@ -115,7 +117,7 @@
         </div>
     </section>
 
-    <section id="catalog" class="catalog-section scroll-trigger-reveal">
+    <section id="catalog" class="catalog-section scroll-trigger-reveal" style="opacity: 1 !important; transform: none !important;">
         <div class="catalog-header-text" id="catalog-headline-container">
             <span class="section-tag">SPECIALIZED PORTFOLIO</span>
             <h2>Specialized Instrumentation Series</h2>
@@ -201,7 +203,7 @@
         </div>
     </section>
 
-    <section id="anatomy" class="anatomy-section scroll-trigger-reveal">
+    <section id="anatomy" class="anatomy-section scroll-trigger-reveal" style="opacity: 1 !important; transform: none !important;">
         <div class="anatomy-grid-layout">
             <div class="anatomy-left-vector">
                 <h3>Anatomical Alignment Index</h3>
@@ -210,13 +212,11 @@
                 <div class="real-anatomy-container blue-theme">
                     <img src="images/anatomy-outline.png" alt="Clinical Anatomy Search Outline" class="real-anatomy-img">
                     
-                    <!-- Added inline absolute coordinates with custom pull hooks -->
                     <div class="anatomy-svg-hotspot magnetic-pull-target" data-anatomy-region="head" style="top: 12%; left: 50%;"></div>
                     <div class="anatomy-svg-hotspot magnetic-pull-target" data-anatomy-region="torso" style="top: 38%; left: 50%;"></div>
                     <div class="anatomy-svg-hotspot magnetic-pull-target" data-anatomy-region="extremities" style="top: 55%; left: 32%;"></div>
                     <div class="anatomy-svg-hotspot magnetic-pull-target" data-anatomy-region="extremities" style="top: 55%; left: 68%;"></div>
                     
-                    <!-- Dynamic absolute horizontal laser overlay scan line -->
                     <div id="blueprint-laser-scan-line"></div>
                     
                     <div class="hover-label-overlay" id="anatomy-ui-marker">Select Structural Node</div>
@@ -232,7 +232,7 @@
         </div>
     </section>
 
-    <section id="testimonials" class="testimonials-section scroll-trigger-reveal" tabindex="0">
+    <section id="testimonials" class="testimonials-section scroll-trigger-reveal" tabindex="0" style="opacity: 1 !important; transform: none !important;">
         <div class="testimonial-split-layout">
             <div class="testimonial-left-media">
                 <div class="video-mockup-frame blue-theme">
@@ -279,7 +279,7 @@
         </div>
     </section>
 
-    <section class="access-split-grid scroll-trigger-reveal">
+    <section class="access-split-grid scroll-trigger-reveal" style="opacity: 1 !important; transform: none !important;">
         <div class="map-embed-wrapper">
             <div class="map-rendering-layer blue-theme">
                 <iframe 
@@ -322,7 +322,7 @@
         </div>
     </section>
 
-    <footer class="corporate-footer scroll-trigger-reveal">
+    <footer class="corporate-footer scroll-trigger-reveal" style="opacity: 1 !important; transform: none !important;">
         <div class="footer-top-grid">
             <div class="footer-brand-column">
                 <h3>SURGIMENTS</h3>
@@ -351,7 +351,6 @@
         </div>
     </footer>
 
-    <!-- Added magnetic class indicator to AI block icon -->
     <div id="chatbot-icon" class="magnetic-pull-target"><i class="fas fa-robot" id="ai-wave"></i></div>
     <div id="chatbot-window" class="hidden blue-theme">
         <div class="chat-header">
@@ -367,6 +366,7 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Linked up your script with the same version tracking string to force instantaneous asset updates across desktops -->
+    <script src="script.js?v=2.1"></script>
 </body>
 </html>
