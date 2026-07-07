@@ -21,12 +21,19 @@
             <img src="images/logo.png" alt="Surgiments Header Logo" id="header-brand-logo">
         </div>
         
-        <nav class="nav-links">
+        <!-- Mobile Toggle Menu Icon Button -->
+        <button class="mobile-menu-toggle" id="mobile-hamburger-btn" aria-label="Toggle Navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <nav class="nav-links" id="main-navigation-menu">
             <a href="#home" class="nav-item dynamic-underline">Home</a>
             <a href="#heritage" class="nav-item dynamic-underline">Accreditations</a>
             
             <div class="header-dropdown-container">
-                <a href="#catalog" class="nav-item drop-trigger">Products <i class="fas fa-chevron-down"></i></a>
+                <a href="#catalog" class="nav-item drop-trigger">
+                    <span class="inline-arrow-wrapper">Products <i class="fas fa-chevron-down"></i></span>
+                </a>
                 <div class="macro-dropdown">
                     <div class="dropdown-column">
                         <h4>Classification Categories</h4>
@@ -55,9 +62,10 @@
     </header>
 
     <section id="home" class="hero-full-viewport">
-        <div class="slider-draggable-track" id="hero-draggable-viewport">
+        <div class="slider-draggable-track" id="hero-draggable-viewport" tabindex="0">
             <div class="slider-wrapper-inner" id="hero-slider-wrapper">
                 <div class="slide-image-node video-node-wrapper">
+                    <!-- Added playsinline, muted, autoplay, and loop configuration for strict cross-browser audio-policy playbacks -->
                     <video id="hero-promo-video" autoplay loop muted playsinline preload="auto">
                         <source src="images/hero-slide-1.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -109,7 +117,7 @@
         <div class="catalog-header-text">
             <span class="section-tag">SPECIALIZED PORTFOLIO</span>
             <h2>Specialized Instrumentation Series</h2>
-            <p>Hover over individual classifications to expand item descriptions while forcing alternative cards to smoothly step back and hide inside the stack.</p>
+            <p>Hover or touch individual classifications to expand item descriptions seamlessly into view.</p>
         </div>
         
         <div class="stacking-deck-container">
@@ -178,7 +186,7 @@
                     <div class="play-overlay-icon"><i class="fas fa-play"></i></div>
                 </div>
             </div>
-            <div class="testimonial-right-feed text-track-mouse-tilt">
+            <div class="testimonial-right-feed text-track-mouse-tilt" tabindex="0" id="testimonial-interactive-block">
                 <h3>Practitioner Reviews</h3>
                 
                 <div class="reviews-slider-container">
@@ -201,10 +209,17 @@
                     </div>
                 </div>
                 
-                <div class="reviews-pagination-dots" id="reviews-dots-container">
-                    <span class="review-dot active" data-review-idx="0"></span>
-                    <span class="review-dot" data-review-idx="1"></span>
-                    <span class="review-dot" data-review-idx="2"></span>
+                <!-- Added Flexbox Manual Arrow Buttons with Pagination Container -->
+                <div class="reviews-nav-footer-controls">
+                    <div class="reviews-pagination-dots" id="reviews-dots-container">
+                        <span class="review-dot active" data-review-idx="0"></span>
+                        <span class="review-dot" data-review-idx="1"></span>
+                        <span class="review-dot" data-review-idx="2"></span>
+                    </div>
+                    <div class="reviews-arrow-action-buttons">
+                        <button class="slider-arrow-btn" id="review-prev-btn" aria-label="Previous Review"><i class="fas fa-arrow-left"></i></button>
+                        <button class="slider-arrow-btn" id="review-next-btn" aria-label="Next Review"><i class="fas fa-arrow-right"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -267,8 +282,8 @@
             </div>
             <div class="footer-contact-column">
                 <h4>Industrial Facility Routing</h4>
-                <p><i class="fas fa-envelope"></i> logistics@surgiments.com</p>
-                <p><i class="fas fa-phone-alt"></i> +1 (800) 450-9001</p>
+                <div class="inline-footer-contact"><i class="fas fa-envelope"></i> <span>surgiments@gmail.com</span></div>
+                <div class="inline-footer-contact"><i class="fas fa-phone-alt"></i> <span>+91 944 8081908</span></div>
             </div>
             <div class="footer-qr-code-column">
                 <div class="qr-code-placeholder-card">
