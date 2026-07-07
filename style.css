@@ -209,7 +209,7 @@ body {
 .regulatory-row-divider { width: 100%; height: 1px; background: rgba(11, 34, 68, 0.08); margin: 15px 0; }
 
 /* ==========================================================================
-   7. ARRESTING 3D DEPTH CARD TEXT LIFTS (STUTTER-FREE GPU LAYER)
+   7. PRODUCT MATRIX LAYER CORES (RESTORED CRIMSON RED BASE MATRIX)
    ========================================================================== */
 .catalog-section { padding: 110px 5% 40px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; width: 100%; max-width: 100%; }
 .catalog-header-text { margin-bottom: 50px; padding: 0 15px; }
@@ -220,15 +220,15 @@ body {
 .vortex-deck-chamber { position: relative; width: 100%; }
 .stacking-deck-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 20px 0; perspective: 1200px; transform-style: preserve-3d; width: 100%; }
 
+/* Re-anchored backgrounds cleanly back to Crimson Red schemas */
 .portfolio-deck-card { 
-    background: var(--aegean-blue) !important; 
+    background: var(--crimson-red) !important; 
     border: 1px solid rgba(255,255,255,0.06) !important; 
     padding: 50px 30px; 
     border-radius: 24px !important; 
     min-height: 420px; 
     position: relative; 
     box-shadow: var(--shadow-premium); 
-    /* Perfectly fluid CSS transition matrix for absolute framing */
     transition: transform 0.4s var(--figma-bezier), opacity 0.4s var(--figma-bezier), box-shadow 0.4s var(--figma-bezier); 
     will-change: transform, opacity; 
     z-index: 10; 
@@ -236,11 +236,10 @@ body {
     transform-style: preserve-3d !important; 
 }
 
-/* Enforces extreme lag-free text parallax lift profiles via standard styles */
 .card-num-indicator { 
     font-size: 16px; 
     font-weight: 800; 
-    color: #ff4d54 !important; 
+    color: rgba(255, 255, 255, 0.5) !important; /* Matte white indicator tint */
     margin-bottom: 25px; 
     transform: translateZ(0px);
     transition: transform 0.4s var(--figma-bezier);
@@ -257,25 +256,24 @@ body {
 }
 .card-description-summary p { 
     font-size: 14px; 
-    color: rgba(255,255,255,0.7) !important; 
+    color: rgba(255,255,255,0.85) !important; 
     line-height: 1.6; 
     transform: translateZ(0px);
     transition: transform 0.4s var(--figma-bezier);
     will-change: transform;
 }
 
-/* Elevates the structural layout depth variables safely upon cursor hover registers */
 .portfolio-deck-card:hover {
-    box-shadow: 0 35px 70px rgba(2, 6, 18, 0.45) !important;
+    box-shadow: 0 35px 70px rgba(178, 13, 21, 0.3) !important;
 }
-.portfolio-deck-card:hover .card-num-indicator { transform: translateZ(35px) !important; }
+.portfolio-deck-card:hover .card-num-indicator { transform: translateZ(35px) !important; color: var(--white) !important; }
 .portfolio-deck-card:hover h3 { transform: translateZ(50px) !important; }
 .portfolio-deck-card:hover .card-description-summary p { transform: translateZ(25px) !important; }
 
 /* ==========================================================================
    8. ANATOMICAL LOOKUP MATRIX
    ========================================================================== */
-.anatomy-section { padding: 60px 5% 120px 5%; background: var(--white); border-bottom: 1px solid rgba(11,34,68,0.06); position: relative; z-index: 10; overflow: hidden; width: 100%; max-width: 100%; }
+.anatomy-section { padding: 40px 5% 120px 5%; background: var(--white); border-bottom: 1px solid rgba(11,34,68,0.06); position: relative; z-index: 10; overflow: hidden; width: 100%; max-width: 100%; }
 .anatomy-grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; background: var(--bg-light-secondary); padding: 50px; border-radius: 20px; border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); width: 100%; }
 .anatomy-left-vector h3 { font-size: 28px; font-weight: 800; color: var(--aegean-blue); }
 .anatomy-left-vector p { color: var(--text-muted); margin-top: 10px; font-size: 14px; }
