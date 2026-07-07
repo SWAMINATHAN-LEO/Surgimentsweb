@@ -24,7 +24,7 @@
 }
 
 /* ==========================================================================
-   2. GLOBAL VIEWS & ANTI-SCROLL RE-LOCK (CRITICAL HORIZONTAL OVERFLOW REMOVAL)
+   2. GLOBAL VIEWS & ANTI-SCROLL RE-LOCK (REMOVED 100VW GHOST BORDERS)
    ========================================================================== */
 * { 
     margin: 0; 
@@ -45,10 +45,11 @@ body {
 }
 #scroll-progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--crimson-red), #e01a24); z-index: 100000; }
 
-.crystalline-shard-overlay { position: absolute; width: 45vw; height: 70vh; pointer-events: none; z-index: 1; background-size: contain; background-repeat: no-repeat; opacity: 0.12; }
+/* Fixed overlay pointer-events to prevent mouse hover scroll freezing glitches */
+.crystalline-shard-overlay { position: absolute; width: 45vw; height: 70vh; pointer-events: none !important; z-index: 1; background-size: contain; background-repeat: no-repeat; opacity: 0.12; }
 .topo-left { top: 5%; left: -5%; background-image: linear-gradient(140deg, var(--crimson-red) 0%, var(--aegean-blue) 50%, transparent 100%); clip-path: polygon(0% 0%, 100% 0%, 65% 100%, 0% 80%); }
 .topo-right { top: 25%; right: -8%; background-image: linear-gradient(220deg, #0066ff 0%, #020c22 60%, transparent 100%); clip-path: polygon(30% 0%, 100% 20%, 100% 100%, 0% 70%); }
-.ambient-luminous-flare { position: fixed; width: 700px; height: 700px; border-radius: 50%; top: 20%; left: 15%; background: radial-gradient(circle, rgba(0,102,255,0.04) 0%, transparent 70%); pointer-events: none; z-index: 0; filter: blur(100px); }
+.ambient-luminous-flare { position: fixed; width: 700px; height: 700px; border-radius: 50%; top: 20%; left: 15%; background: radial-gradient(circle, rgba(0,102,255,0.04) 0%, transparent 70%); pointer-events: none !important; z-index: 0; filter: blur(100px); }
 
 .blue-theme { background: var(--aegean-blue) !important; color: var(--white) !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 20px !important; }
 .blue-theme h5, .blue-theme h3, .blue-theme p, .blue-theme .stat-number-wrapper, .blue-theme .map-address-card h5 { color: var(--white) !important; }
@@ -116,7 +117,7 @@ body {
     outline: none;
     scroll-margin-top: 80px !important; 
 }
-.slider-draggable-track { width: 100%; height: 100%; position: relative; cursor: grab; touch-action: pan-y; }
+.slider-draggable-track { width: 100%; height: 100%; position: relative; cursor: grab; touch-action: auto !important; }
 .slider-draggable-track:active { cursor: grabbing; }
 .slider-wrapper-inner { display: flex; width: 100%; height: 100%; will-change: transform; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 
@@ -324,7 +325,7 @@ body {
 
 /* ==========================================================================
    12. SURGIS AI WINDOW TERMINAL INTERFACE
-   ========================================================================= */
+   ========================================================================== */
 #chatbot-icon { position: fixed; bottom: 35px; right: 35px; width: 60px; height: 60px; background: var(--aegean-blue); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 10000; border: 1px solid rgba(255,255,255,0.1); }
 #chatbot-icon:hover { background: var(--crimson-red); transform: scale(1.05); }
 
@@ -353,7 +354,6 @@ body {
     .hero-full-viewport { height: calc(100vh - 80px) !important; } 
 }
 
-/* Tablet Layout Optimization */
 @media (max-width: 1024px) {
     .anatomy-grid-layout { grid-template-columns: 1fr !important; gap: 40px; padding: 30px; }
     .quad-layout { grid-template-columns: repeat(2, 1fr) !important; gap: 20px; }
@@ -412,7 +412,6 @@ body {
     .pure-logo-node { max-width: 160px !important; height: 110px !important; }
 }
 
-/* Smartphone Layout Optimization (Locks right white overflow spaces out) */
 @media (max-width: 576px) { 
     body { padding-top: 70px; }
     .main-header { height: 70px; padding: 10px 16px; }
