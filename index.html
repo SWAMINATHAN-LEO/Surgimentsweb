@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surgiments | Master Surgical Instrumentation Logistics</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Implemented absolute cache-busting string parameter to instantly purge broken browser memory caches -->
-    <link rel="stylesheet" href="style.css?v=2.1">
+    <link rel="stylesheet" href="style.css?v=3.0">
 </head>
 <body>
 
-    <!-- Dynamic Passivation Chamber Particle Canvas Node Layer -->
     <canvas id="cleanroom-passivation-canvas"></canvas>
 
     <div id="scroll-progress-bar"></div>
@@ -60,7 +57,7 @@
             </div>
             <div class="auth-buttons">
                 <button class="btn-text normal-auth-trigger">Client Gateway</button>
-                <button class="btn-pill-sm normal-auth-trigger magnetic-pull-target"><i class="fas fa-file-invoice"></i> Request RFQ</button>
+                <button class="btn-pill-sm normal-auth-trigger unique-figma-magnetic"><i class="fas fa-file-invoice"></i> Request RFQ</button>
             </div>
         </div>
     </header>
@@ -91,8 +88,7 @@
         </div>
     </section>
 
-    <!-- Added direct opacity layout safe-guards to guarantee visible rendering under cached states -->
-    <section id="heritage" class="credibility-section scroll-trigger-reveal" style="opacity: 1 !important; transform: none !important;">
+    <section id="heritage" class="credibility-section scroll-trigger-reveal">
         <div class="catalog-header-text centering-override">
             <span class="section-tag">REGULATORY COMPLIANCE</span>
             <h2>Certifications & Licenses</h2>
@@ -117,11 +113,11 @@
         </div>
     </section>
 
-    <section id="catalog" class="catalog-section scroll-trigger-reveal" style="opacity: 1 !important; transform: none !important;">
+    <section id="catalog" class="catalog-section scroll-trigger-reveal">
         <div class="catalog-header-text" id="catalog-headline-container">
             <span class="section-tag">SPECIALIZED PORTFOLIO</span>
             <h2>Specialized Instrumentation Series</h2>
-            <p>Hover over items to focus, or select a classification matrix card to cleanly flush all other components out of the chamber register.</p>
+            <p>Select a classification series below to dissolve alternative records and preview internal technical specifications metrics directly.</p>
         </div>
         
         <div class="vortex-deck-chamber">
@@ -140,7 +136,7 @@
                             <div class="spec-capsule"><h5>Alloy Integrity</h5><p>Titanium Grade V</p></div>
                             <div class="spec-capsule"><h5>Light Yield</h5><p>0% Anti-Reflection Satin</p></div>
                         </div>
-                        <button class="btn-restore-cards"><i class="fas fa-undo"></i> Reset Matrix Chamber</button>
+                        <button class="btn-restore-cards"><i class="fas fa-arrow-left"></i> Return to Portfolio</button>
                     </div>
                 </div>
 
@@ -157,7 +153,7 @@
                             <div class="spec-capsule"><h5>Alloy Integrity</h5><p>Surgical Steel 316L</p></div>
                             <div class="spec-capsule"><h5>Light Yield</h5><p>Satin Matte Finish</p></div>
                         </div>
-                        <button class="btn-restore-cards"><i class="fas fa-undo"></i> Reset Matrix Chamber</button>
+                        <button class="btn-restore-cards"><i class="fas fa-arrow-left"></i> Return to Portfolio</button>
                     </div>
                 </div>
 
@@ -174,7 +170,7 @@
                             <div class="spec-capsule"><h5>Alloy Integrity</h5><p>Hardened Cobalt-Chrome</p></div>
                             <div class="spec-capsule"><h5>Light Yield</h5><p>Specular Micro-Polished</p></div>
                         </div>
-                        <button class="btn-restore-cards"><i class="fas fa-undo"></i> Reset Matrix Chamber</button>
+                        <button class="btn-restore-cards"><i class="fas fa-arrow-left"></i> Return to Portfolio</button>
                     </div>
                 </div>
 
@@ -191,19 +187,15 @@
                             <div class="spec-capsule"><h5>Alloy Integrity</h5><p>Insulation-Verified Polymer Core</p></div>
                             <div class="spec-capsule"><h5>Light Yield</h5><p>Absorption Jet Black</p></div>
                         </div>
-                        <button class="btn-restore-cards"><i class="fas fa-undo"></i> Reset Matrix Chamber</button>
+                        <button class="btn-restore-cards"><i class="fas fa-arrow-left"></i> Return to Portfolio</button>
                     </div>
                 </div>
 
             </div>
-            
-            <div class="matrix-drain-receptor" id="vortex-drain-node">
-                <div class="vortex-spinning-core"><i class="fas fa-radiation"></i></div>
-            </div>
         </div>
     </section>
 
-    <section id="anatomy" class="anatomy-section scroll-trigger-reveal" style="opacity: 1 !important; transform: none !important;">
+    <section id="anatomy" class="anatomy-section scroll-trigger-reveal">
         <div class="anatomy-grid-layout">
             <div class="anatomy-left-vector">
                 <h3>Anatomical Alignment Index</h3>
@@ -212,10 +204,10 @@
                 <div class="real-anatomy-container blue-theme">
                     <img src="images/anatomy-outline.png" alt="Clinical Anatomy Search Outline" class="real-anatomy-img">
                     
-                    <div class="anatomy-svg-hotspot magnetic-pull-target" data-anatomy-region="head" style="top: 12%; left: 50%;"></div>
-                    <div class="anatomy-svg-hotspot magnetic-pull-target" data-anatomy-region="torso" style="top: 38%; left: 50%;"></div>
-                    <div class="anatomy-svg-hotspot magnetic-pull-target" data-anatomy-region="extremities" style="top: 55%; left: 32%;"></div>
-                    <div class="anatomy-svg-hotspot magnetic-pull-target" data-anatomy-region="extremities" style="top: 55%; left: 68%;"></div>
+                    <div class="anatomy-svg-hotspot" data-anatomy-region="head" style="top: 12%; left: 50%;"></div>
+                    <div class="anatomy-svg-hotspot" data-anatomy-region="torso" style="top: 38%; left: 50%;"></div>
+                    <div class="anatomy-svg-hotspot" data-anatomy-region="extremities" style="top: 55%; left: 32%;"></div>
+                    <div class="anatomy-svg-hotspot" data-anatomy-region="extremities" style="top: 55%; left: 68%;"></div>
                     
                     <div id="blueprint-laser-scan-line"></div>
                     
@@ -232,7 +224,7 @@
         </div>
     </section>
 
-    <section id="testimonials" class="testimonials-section scroll-trigger-reveal" tabindex="0" style="opacity: 1 !important; transform: none !important;">
+    <section id="testimonials" class="testimonials-section scroll-trigger-reveal" tabindex="0">
         <div class="testimonial-split-layout">
             <div class="testimonial-left-media">
                 <div class="video-mockup-frame blue-theme">
@@ -279,7 +271,7 @@
         </div>
     </section>
 
-    <section class="access-split-grid scroll-trigger-reveal" style="opacity: 1 !important; transform: none !important;">
+    <section class="access-split-grid scroll-trigger-reveal">
         <div class="map-embed-wrapper">
             <div class="map-rendering-layer blue-theme">
                 <iframe 
@@ -322,7 +314,7 @@
         </div>
     </section>
 
-    <footer class="corporate-footer scroll-trigger-reveal" style="opacity: 1 !important; transform: none !important;">
+    <footer class="corporate-footer scroll-trigger-reveal">
         <div class="footer-top-grid">
             <div class="footer-brand-column">
                 <h3>SURGIMENTS</h3>
@@ -351,7 +343,7 @@
         </div>
     </footer>
 
-    <div id="chatbot-icon" class="magnetic-pull-target"><i class="fas fa-robot" id="ai-wave"></i></div>
+    <div id="chatbot-icon"><i class="fas fa-robot" id="ai-wave"></i></div>
     <div id="chatbot-window" class="hidden blue-theme">
         <div class="chat-header">
             <div class="ai-title-badge"><span class="live-indicator"></span> SURGIS AI</div>
@@ -366,7 +358,6 @@
         </div>
     </div>
 
-    <!-- Linked up your script with the same version tracking string to force instantaneous asset updates across desktops -->
-    <script src="script.js?v=2.1"></script>
+    <script src="script.js?v=3.0"></script>
 </body>
 </html>
