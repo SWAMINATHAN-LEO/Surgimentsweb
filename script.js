@@ -76,26 +76,42 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // --- ENHANCED VIDEO AUTO-PLAYBACK AND BLACK SCREEN SAFETY FALLBACK ---
+    // --- ENHANCED HARDENED VIDEO LOGISTICS & AUTO-PLAYBACK PIPELINE ---
     const promoVid = document.getElementById("hero-promo-video");
     if (promoVid) {
-        // Force playback on loaded metadata state
-        promoVid.addEventListener('loadedmetadata', () => {
-            promoVid.play().catch(() => {
-                promoVid.muted = true;
-                promoVid.play();
-            });
-        });
+        // Enforce settings for production deployment audio-policies
+        promoVid.muted = true;
+        promoVid.setAttribute('muted', '');
+        promoVid.setAttribute('playsinline', '');
+        
+        // Dynamic payload fetch verification logic
+        const triggerVideoPlayback = () => {
+            let playPromise = promoVid.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Browser structural restriction hit. Forcing muted bypass runtime.", error);
+                    promoVid.muted = true;
+                    promoVid.play();
+                });
+            }
+        };
 
-        // Safety Trigger: If video fails to play or loads a black frame, jump instantly to the next image slide
+        if (promoVid.readyState >= 1) {
+            triggerVideoPlayback();
+        } else {
+            promoVid.addEventListener('loadedmetadata', triggerVideoPlayback);
+            promoVid.addEventListener('canplay', triggerVideoPlayback);
+        }
+
+        // Safety fallback checks
         promoVid.addEventListener('error', () => {
-            console.log("Video asset unreachable. Engaging slide image backup...");
-            renderActiveSlide(1);
+            console.log("Video source issue detected. Skipping to static slider image framework...");
+            if (currentSlideIndex === 0) renderActiveSlide(1);
         });
 
-        // If video stays unplayed or frozen for 1.5 seconds, skip it to prevent a blank black frame
         setTimeout(() => {
-            if (promoVid.paused && currentSlideIndex === 0) {
+            if ((promoVid.paused || promoVid.currentTime === 0) && currentSlideIndex === 0) {
+                console.log("Video timeout reached. Skipping to primary layout image asset...");
                 renderActiveSlide(1);
             }
         }, 1500);
@@ -161,7 +177,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let autoCycleTimer = null;
     const beads = document.querySelectorAll("#slider-pagination-container .bead");
     const countTotalSlides = beads.length;
-    const sliderWrapper = document.getElementById("hero-slider-wrapper");
 
     function renderActiveSlide(index) {
         currentSlideIndex = (index + countTotalSlides) % countTotalSlides;
