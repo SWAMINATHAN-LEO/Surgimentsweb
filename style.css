@@ -21,7 +21,7 @@
     
     --figma-bezier: cubic-bezier(0.4, 0, 0.2, 1);
     --transition-curve: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    --transition-snappy: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+    --transition-snappy: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 /* ==========================================================================
@@ -46,7 +46,7 @@ body {
 }
 #scroll-progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--crimson-red), #e01a24); z-index: 100000; }
 
-.crystalline-shard-overlay { position: absolute; width: 45vw; height: 70vh; pointer-events: none !important; z-index: 1; background-size: contain; background-repeat: no-repeat; opacity: 0.12; will-change: transform; transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1); }
+.crystalline-shard-overlay { position: absolute; width: 45vw; height: 70vh; pointer-events: none !important; z-index: 1; background-size: contain; background-repeat: no-repeat; opacity: 0.12; }
 .topo-left { top: 5%; left: -5%; background-image: linear-gradient(140deg, var(--crimson-red) 0%, var(--aegean-blue) 50%, transparent 100%); clip-path: polygon(0% 0%, 100% 0%, 65% 100%, 0% 80%); }
 .topo-right { top: 25%; right: -8%; background-image: linear-gradient(220deg, #0066ff 0%, #020c22 60%, transparent 100%); clip-path: polygon(30% 0%, 100% 20%, 100% 100%, 0% 70%); }
 .ambient-luminous-flare { position: fixed; width: 700px; height: 700px; border-radius: 50%; top: 20%; left: 15%; background: radial-gradient(circle, rgba(0,102,255,0.04) 0%, transparent 70%); pointer-events: none !important; z-index: 0; filter: blur(100px); }
@@ -161,15 +161,18 @@ body {
 .scroll-trigger-reveal.reveal-active { opacity: 1 !important; transform: translateY(0) !important; }
 
 /* ==========================================================================
-   6. CREDIBILITY SECTION LOGO GRID
+   6. CREDIBILITY & ACCREDITATION PARTITIONS
    ========================================================================== */
 .credibility-section { padding: 110px 6%; background: var(--white); border-bottom: 1px solid rgba(11, 34, 68, 0.06); position: relative; z-index: 10; overflow: hidden; width: 100%; max-width: 100%; }
 .centering-override { text-align: center; margin-bottom: 60px; }
-.regulatory-document-canvas { max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 50px; width: 100%; }
+.regulatory-document-canvas { max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; width: 100%; }
+
+.regulatory-group-block { display: flex; flex-direction: column; gap: 20px; }
+.regulatory-subheading { font-size: 20px; font-weight: 700; color: var(--aegean-blue); text-transform: uppercase; letter-spacing: 1px; border-left: 4px solid var(--crimson-red); padding-left: 12px; margin-bottom: 10px; }
 
 .regulatory-row-grid { display: grid; gap: 40px; align-items: center; justify-items: center; width: 100%; }
-.quad-layout { grid-template-columns: repeat(4, 1fr); }
-.triple-layout { grid-template-columns: repeat(3, 1fr); max-width: 960px; margin: 0 auto; }
+.quad-layout { grid-template-columns: linear-gradient(transparent, transparent); grid-template-columns: repeat(4, 1fr); }
+.triple-layout { grid-template-columns: repeat(3, 1fr); max-width: 960px; margin: 0; }
 
 .pure-logo-node { 
     width: 100%; 
@@ -206,41 +209,26 @@ body {
 .regulatory-row-divider { width: 100%; height: 1px; background: rgba(11, 34, 68, 0.08); margin: 15px 0; }
 
 /* ==========================================================================
-   7. HIGH-END DESKTOP HORIZONTAL TIMELINE PIN CONTROLS (FIXED COLOR OVERRIDES)
+   7. PRODUCT MATRIX STACKING LAYER (ZERO WHITE GAP DESIGN)
    ========================================================================== */
-#catalog { scroll-margin-top: 0px !important; }
-.catalog-section { padding: 120px 0; background: var(--bg-light-secondary); overflow: hidden; width: 100%; max-width: 100%; }
+.catalog-section { padding: 110px 5% 40px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; width: 100%; max-width: 100%; }
+.catalog-header-text { margin-bottom: 50px; padding: 0 15px; }
+.section-tag { font-size: 12px; font-weight: 800; color: var(--crimson-red); letter-spacing: 2px; display: inline-block; margin-bottom: 12px; }
+.catalog-header-text h2 { font-size: 38px; font-weight: 800; color: var(--aegean-blue); letter-spacing: -1px; }
+.catalog-header-text p { color: var(--text-muted); margin-top: 10px; font-size: 16px; }
 
-#catalog-scroll-pin-wrapper { position: relative; height: 320vh; width: 100%; }
-.catalog-horizontal-sticky-pane { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 5%; overflow: hidden; width: 100%; }
+.vortex-deck-chamber { position: relative; width: 100%; width: 100%; }
+.stacking-deck-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 20px 0; perspective: 1200px; transform-style: preserve-3d; width: 100%; }
 
-.stacking-deck-container { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 40px; width: max-content; will-change: transform; transition: transform 0.1s var(--figma-bezier); padding: 40px 0; }
-
-/* Fixed Brand Color Matrix Matching Request Specs */
-.glare-tilt-node { 
-    flex: 0 0 380px !important; 
-    width: 380px !important; 
-    min-height: 420px !important; 
-    transform-style: preserve-3d; 
-    will-change: transform; 
-    transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1); 
-    position: relative;
-    background: var(--aegean-blue) !important; /* Fixed from White back to Aegean Blue */
-    border: 1px solid rgba(255,255,255,0.08) !important;
-    padding: 45px 35px !important;
-    border-radius: 24px !important;
-    box-shadow: var(--shadow-premium);
-}
-.glare-reflection-sheen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none !important; border-radius: 24px; z-index: 5; transition: background 0.05s ease; }
-
-.card-num-indicator { font-size: 16px; font-weight: 800; color: #ff4d54 !important; margin-bottom: 25px; transform: translateZ(30px); }
-.glare-tilt-node h3 { font-size: 24px; font-weight: 800; color: var(--white) !important; margin-bottom: 18px; transform: translateZ(40px); }
-.glare-tilt-node .card-description-summary p { font-size: 14px; color: rgba(255,255,255,0.7) !important; line-height: 1.6; transform: translateZ(25px); }
+.portfolio-deck-card { background: var(--aegean-blue) !important; border: 1px solid rgba(255,255,255,0.06) !important; padding: 50px 30px; border-radius: 24px !important; min-height: 420px; position: relative; box-shadow: var(--shadow-premium); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity; z-index: 10; cursor: pointer; }
+.card-num-indicator { font-size: 16px; font-weight: 800; color: #ff4d54 !important; margin-bottom: 25px; }
+.portfolio-deck-card h3 { font-size: 24px; font-weight: 800; color: var(--white) !important; margin-bottom: 18px; }
+.card-description-summary p { font-size: 14px; color: rgba(255,255,255,0.7) !important; line-height: 1.6; }
 
 /* ==========================================================================
-   8. ANATOMICAL LOOKUP MATRIX & LASER SCAN SWEEP LAYOUTS
+   8. ANATOMICAL LOOKUP MATRIX
    ========================================================================== */
-.anatomy-section { padding: 120px 5%; background: var(--white); border-bottom: 1px solid rgba(11,34,68,0.06); position: relative; z-index: 10; overflow: hidden; width: 100%; max-width: 100%; }
+.anatomy-section { padding: 60px 5% 120px 5%; background: var(--white); border-bottom: 1px solid rgba(11,34,68,0.06); position: relative; z-index: 10; overflow: hidden; width: 100%; max-width: 100%; }
 .anatomy-grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; background: var(--bg-light-secondary); padding: 50px; border-radius: 20px; border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); width: 100%; }
 .anatomy-left-vector h3 { font-size: 28px; font-weight: 800; color: var(--aegean-blue); }
 .anatomy-left-vector p { color: var(--text-muted); margin-top: 10px; font-size: 14px; }
@@ -285,13 +273,19 @@ body {
 .cached-badge { position: absolute; top: 14px; right: 18px; font-size: 10px; font-weight: 700; color: var(--crimson-red); background: rgba(178, 13, 21, 0.06); padding: 3px 10px; border-radius: 50px; text-transform: uppercase; border: 1px solid rgba(178, 13, 21, 0.15); }
 
 /* ==========================================================================
-   9. TESTIMONIAL REVIEWS
+   9. TESTIMONIAL REVIEWS & INTERACTIVE SHIMMER
    ========================================================================== */
 .testimonials-section { padding: 120px 5%; background: var(--white); position: relative; z-index: 10; overflow: hidden; outline: none; width: 100%; max-width: 100%; }
 .testimonial-split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; width: 100%; }
+
 .video-mockup-frame { height: 380px; position: relative; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-premium); }
 .video-mockup-frame img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
 .play-overlay-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: var(--aegean-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; color: var(--white); transition: var(--transition-snappy); z-index: 15; box-shadow: 0 10px 25px rgba(11,34,68,0.3); }
+
+/* Custom lively radar scan pulse effects for the play review elements */
+.passivation-scan-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; background: linear-gradient(180deg, transparent, rgba(178,13,21,0.15), transparent); transform: translateY(-100%); z-index: 2; }
+.scan-active-shimmer .passivation-scan-overlay { animation: loopsScanPulse 1.4s linear infinite; }
+@keyframes loopsScanPulse { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
 
 .video-mockup-frame:hover .play-overlay-icon { background: var(--crimson-red) !important; transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 10px 30px rgba(178,13,21,0.5); }
 .video-mockup-frame:hover img { filter: brightness(0.6) contrast(1.05); }
@@ -397,6 +391,7 @@ body {
 @media (max-width: 1024px) {
     .anatomy-grid-layout { grid-template-columns: 1fr !important; gap: 40px; padding: 30px; }
     .quad-layout, .triple-layout { grid-template-columns: repeat(2, 1fr) !important; gap: 24px; }
+    .stacking-deck-container { grid-template-columns: repeat(2, 1fr) !important; gap: 24px; }
 }
 
 @media (max-width: 992px) { 
@@ -422,12 +417,10 @@ body {
     }
     .nav-links.mobile-menu-expanded { display: flex; opacity: 1; transform: translateY(0); pointer-events: auto; }
     .nav-item { width: 100%; text-align: center; font-size: 18px; padding: 12px 0; }
-    
-    /* Responsive stacking alignments fallback */
-    #catalog-scroll-pin-wrapper { height: auto !important; }
-    .catalog-horizontal-sticky-pane { position: relative !important; height: auto !important; padding: 40px 20px !important; }
-    .stacking-deck-container { display: flex !important; flex-direction: column !important; width: 100% !important; gap: 24px !important; }
-    .glare-tilt-node { flex: 1 1 auto !important; width: 100% !important; min-height: auto !important; transform: none !important; }
+    .header-dropdown-container .macro-dropdown { display: none !important; }
+
+    .stacking-deck-container { grid-template-columns: 1fr !important; gap: 24px !important; }
+    .portfolio-deck-card { width: 100% !important; min-height: auto !important; transform: none !important; opacity: 1 !important; z-index: 1 !important; padding: 35px 25px; }
 }
 
 @media (max-width: 768px) {
