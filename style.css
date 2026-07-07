@@ -56,7 +56,7 @@ body {
 .red-theme h3, .red-theme p, .red-theme .reviewer-meta { color: var(--white) !important; }
 
 /* ==========================================================================
-   3. CLINICAL NAVBAR HEADER (FIXED DROP DOWN ALIGNMENT)
+   3. CLINICAL NAVBAR HEADER (FIXED NAVIGATION DROPDOWNS)
    ========================================================================== */
 .main-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 4%; background: var(--aegean-blue); position: fixed; width: 100%; top: 0; left: 0; height: 80px; z-index: 9999; border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
 .header-left-brand { display: flex; align-items: center; }
@@ -101,7 +101,7 @@ body {
 .mobile-menu-toggle { display: none; background: none; border: none; color: var(--white); font-size: 24px; cursor: pointer; transition: var(--transition-snappy); }
 
 /* ==========================================================================
-   4. HERO FULL VIEWPORT REGION
+   4. HERO FULL VIEWPORT REGION (FIXED ACCURATE ANCHOR MATRICES)
    ========================================================================== */
 .hero-full-viewport { 
     width: 100vw !important; 
@@ -114,6 +114,9 @@ body {
     margin: 0;
     padding: 0;
     outline: none;
+    
+    /* Rigid fix: tells browser viewport shifts to properly balance out navbar overlay offsets */
+    scroll-margin-top: -80px !important; 
 }
 .slider-draggable-track { width: 100%; height: 100%; position: relative; cursor: grab; touch-action: pan-y; }
 .slider-draggable-track:active { cursor: grabbing; }
@@ -226,7 +229,7 @@ body {
 
 .testimonial-right-feed { width: 100%; overflow: hidden; }
 
-/* Structural flex heading ensuring the custom review buttons are moved fully to the right side of the layout */
+/* Structural flex heading layer forcing control arrows to remain completely flush layout right side */
 .testimonial-inline-header-block { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; width: 100%; }
 .testimonial-inline-header-block h3 { font-size: 36px; font-weight: 800; color: var(--aegean-blue); letter-spacing: -0.5px; margin-bottom: 0; }
 
@@ -271,7 +274,7 @@ body {
 .form-submit-trigger:hover { background: #d4131d !important; box-shadow: 0 4px 15px rgba(178,13,21,0.3); }
 
 /* ==========================================================================
-   11. CORPORATE FOOTER & ONE-LINE EMAIL LOGO FIXES
+   11. CORPOREEATE FOOTER & ONE-LINE COMPONENT LOCKS
    ========================================================================== */
 .corporate-footer { background: var(--bg-dark-core); color: var(--white); padding: 100px 5% 40px; border-radius: 40px 40px 0 0; position: relative; z-index: 10; overflow: hidden; }
 .footer-top-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.8fr; gap: 40px; margin-bottom: 60px; }
@@ -281,8 +284,8 @@ body {
 .footer-nav-column a { display: block; color: #94a3b8; text-decoration: none; margin-bottom: 16px; transition: var(--transition-snappy); font-size: 14px; }
 .footer-nav-column a:hover { color: var(--white); transform: translateX(5px); }
 
-/* Force inline-flex layout with vertical centering to lock icon and link text to a single line */
-.inline-footer-contact { display: flex; flex-direction: row !important; align-items: center !important; justify-content: flex-start !important; gap: 10px; margin-bottom: 16px; color: #94a3b8; font-size: 14px; width: 100%; white-space: nowrap; }
+/* Guarantees icon and text string sit flush side-by-side inside a single linear horizontal space tracking layout */
+.inline-footer-contact { display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: flex-start !important; gap: 10px; margin-bottom: 16px; color: #94a3b8; font-size: 14px; width: 100%; white-space: nowrap; }
 .inline-footer-contact i { color: var(--crimson-red); font-size: 15px; width: 18px; text-align: center; display: inline-block !important; margin: 0 !important; }
 .inline-footer-contact span { color: #94a3b8; display: inline-block !important; }
 
