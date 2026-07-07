@@ -24,7 +24,26 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
     };
 
-    // --- 1. PRODUCT MATRIX LAYOUT HIDING & STEPPING ENGINE ---
+    // --- 1. SAFE CHICKEN-EXIT SCROLL REVEALS (FORCED FALLBACK VISIBILITY) ---
+    try {
+        const revealElements = document.querySelectorAll(".scroll-trigger-reveal");
+        if (revealElements.length > 0 && 'IntersectionObserver' in window) {
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("reveal-active");
+                    }
+                });
+            }, { threshold: 0.01, rootMargin: "0px 0px -50px 0px" });
+            revealElements.forEach(element => revealObserver.observe(element));
+        } else {
+            document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active"));
+        }
+    } catch (e) {
+        document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active"));
+    }
+
+    // --- 2. PRODUCT MATRIX LAYOUT HIDING & STEPPING ENGINE ---
     try {
         const deckCards = document.querySelectorAll(".portfolio-deck-card");
         deckCards.forEach(card => {
@@ -59,9 +78,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             });
         });
-    } catch (e) { console.error(e); }
+    } catch (e) { console.error("Product desk alignment catch:", e); }
 
-    // --- 2. LIVELY TESTIMONIAL MEDIA SCAN ENGINE ---
+    // --- 3. LIVELY TESTIMONIAL MEDIA SCAN ENGINE ---
     try {
         const testimonialPlay = document.getElementById("testimonial-play-trigger");
         const testimonialFrame = document.querySelector(".video-mockup-frame");
@@ -70,10 +89,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 testimonialFrame.classList.toggle("scan-active-shimmer");
             });
         }
-    } catch(e) { console.error(e); }
+    } catch(e) { console.error("Testimonial action fault isolated:", e); }
 
-    // --- 3. HARDENED REVIEWS TESTIMONIAL SWIPER ENGINE ---
+    // --- 4. REVIEWS TESTIMONIAL SWIPER ENGINE ---
     let activeReviewIdx = 0;
+    let reviewsInterval = null;
     const reviewDots = document.querySelectorAll("#reviews-dots-container .review-dot");
     const countTotalReviews = reviewDots.length;
     const reviewsTrack = document.getElementById("reviews-dynamic-track");
@@ -125,9 +145,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         function resetReviewTimer() { clearInterval(reviewsInterval); startReviewTimer(); }
         startReviewTimer();
-    } catch (e) { console.error(e); }
+    } catch (e) { console.error("Reviews module caught safely:", e); }
 
-    // --- 4. FLUID DRAGGABLE HERO SLIDER CAROUSEL ---
+    // --- 5. HERO SLIDER LOGISTICS ENGINE ---
     let currentSlideIndex = 0;
     let autoCycleTimer = null;
     const beads = document.querySelectorAll("#slider-pagination-container .bead");
@@ -213,10 +233,11 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             initAutoCycle();
         }
-    } catch (e) { console.error(e); }
+    } catch (e) { console.error("Slider touch matrix exception:", e); }
 
     // --- SMARTPHONE INTERACTIVE MOBILE HEADER MENU DRIVER ---
     const menuToggleBtn = document.getElementById("mobile-hamburger-btn");
+    const navigationMenu = document.getElementById("main-navigation-menu");
     if (menuToggleBtn && navigationMenu) {
         menuToggleBtn.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -281,7 +302,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // --- 5. THE "LASER-SCAN" BLUEPRINT SWEEP ---
+    // --- 6. THE "LASER-SCAN" BLUEPRINT SWEEP ---
     try {
         const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
         const fetchTarget = document.getElementById("anatomy-fetch-target");
@@ -335,9 +356,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         });
-    } catch (e) { console.error(e); }
+    } catch (e) { console.error("Anatomical matrix fault isolated:", e); }
 
-    // --- 6. CLEANROOM PASSIVATION CHAMBER PARTICLES BACKGROUND ---
+    // --- 7. CLEANROOM PASSIVATION CHAMBER PARTICLES BACKGROUND ---
     try {
         const fluidCanvas = document.getElementById("cleanroom-passivation-canvas");
         if (fluidCanvas) {
@@ -395,24 +416,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 operationalRenderLoop();
             }
         }
-    } catch(canvasErr) { console.warn(canvasErr); }
-
-    // --- 7. SCROLL REVEAL RUNTIME ---
-    try {
-        const revealElements = document.querySelectorAll(".scroll-trigger-reveal");
-        if (revealElements.length > 0 && 'IntersectionObserver' in window) {
-            const revealObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("reveal-active");
-                    }
-                });
-            }, { threshold: 0.01, rootMargin: "0px 0px -50px 0px" });
-            revealElements.forEach(element => revealObserver.observe(element));
-        } else {
-            document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active"));
-        }
-    } catch (e) { document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active")); }
+    } catch(canvasErr) { console.warn("Background particles canvas bypass:", canvasErr); }
 
     // --- OUTSIDE CLOSING ACTION HANDLER ENGINE FOR SURGIS AI TERMINAL ---
     try {
