@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (reflectionSheen) {
                     const percentageX = (mouseX / bounding.width) * 100;
                     const percentageY = (mouseY / bounding.height) * 100;
-                    reflectionSheen.style.background = `radial-gradient(circle at ${percentageX}% ${percentageY}%, rgba(255,255,255,0.18) 0%, transparent 75%)`;
+                    reflectionSheen.style.background = `radial-gradient(circle at ${percentageX}% ${percentageY}%, rgba(255,255,255,0.2) 0%, transparent 75%)`;
                 }
             });
 
