@@ -206,18 +206,17 @@ body {
 .regulatory-row-divider { width: 100%; height: 1px; background: rgba(11, 34, 68, 0.08); margin: 15px 0; }
 
 /* ==========================================================================
-   7. HIGH-END DESKTOP HORIZONTAL TIMELINE PIN CONTROLS
+   7. HIGH-END DESKTOP HORIZONTAL TIMELINE PIN CONTROLS (FIXED COLOR OVERRIDES)
    ========================================================================== */
 #catalog { scroll-margin-top: 0px !important; }
 .catalog-section { padding: 120px 0; background: var(--bg-light-secondary); overflow: hidden; width: 100%; max-width: 100%; }
 
-/* Infinite Scroll Pin Height Framework */
 #catalog-scroll-pin-wrapper { position: relative; height: 320vh; width: 100%; }
 .catalog-horizontal-sticky-pane { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 5%; overflow: hidden; width: 100%; }
 
 .stacking-deck-container { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 40px; width: max-content; will-change: transform; transition: transform 0.1s var(--figma-bezier); padding: 40px 0; }
 
-/* 🌟 Dynamic Sheen Card Elements Setup */
+/* Fixed Brand Color Matrix Matching Request Specs */
 .glare-tilt-node { 
     flex: 0 0 380px !important; 
     width: 380px !important; 
@@ -226,16 +225,17 @@ body {
     will-change: transform; 
     transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1); 
     position: relative;
-    background: var(--white) !important;
-    border: 1px solid var(--border-glass) !important;
+    background: var(--aegean-blue) !important; /* Fixed from White back to Aegean Blue */
+    border: 1px solid rgba(255,255,255,0.08) !important;
     padding: 45px 35px !important;
     border-radius: 24px !important;
+    box-shadow: var(--shadow-premium);
 }
 .glare-reflection-sheen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none !important; border-radius: 24px; z-index: 5; transition: background 0.05s ease; }
 
-.card-num-indicator { font-size: 16px; font-weight: 800; color: #0066ff; margin-bottom: 25px; transform: translateZ(30px); }
-.glare-tilt-node h3 { font-size: 24px; font-weight: 800; color: var(--aegean-blue); margin-bottom: 18px; transform: translateZ(40px); }
-.glare-tilt-node .card-description-summary p { font-size: 14px; color: var(--text-muted); line-height: 1.6; transform: translateZ(25px); }
+.card-num-indicator { font-size: 16px; font-weight: 800; color: #ff4d54 !important; margin-bottom: 25px; transform: translateZ(30px); }
+.glare-tilt-node h3 { font-size: 24px; font-weight: 800; color: var(--white) !important; margin-bottom: 18px; transform: translateZ(40px); }
+.glare-tilt-node .card-description-summary p { font-size: 14px; color: rgba(255,255,255,0.7) !important; line-height: 1.6; transform: translateZ(25px); }
 
 /* ==========================================================================
    8. ANATOMICAL LOOKUP MATRIX & LASER SCAN SWEEP LAYOUTS
@@ -423,7 +423,7 @@ body {
     .nav-links.mobile-menu-expanded { display: flex; opacity: 1; transform: translateY(0); pointer-events: auto; }
     .nav-item { width: 100%; text-align: center; font-size: 18px; padding: 12px 0; }
     
-    /* Turn off horizontal scrolls on mobile layout screens natively */
+    /* Responsive stacking alignments fallback */
     #catalog-scroll-pin-wrapper { height: auto !important; }
     .catalog-horizontal-sticky-pane { position: relative !important; height: auto !important; padding: 40px 20px !important; }
     .stacking-deck-container { display: flex !important; flex-direction: column !important; width: 100% !important; gap: 24px !important; }
