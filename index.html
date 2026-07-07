@@ -10,10 +10,13 @@
 </head>
 <body>
 
+    <!-- Dynamic Passivation Chamber Particle Canvas Node Layer -->
+    <canvas id="cleanroom-passivation-canvas"></canvas>
+
     <div id="scroll-progress-bar"></div>
     
-    <div class="crystalline-shard-overlay topo-left"></div>
-    <div class="crystalline-shard-overlay topo-right"></div>
+    <div class="crystalline-shard-overlay topo-left" id="parallax-shard-left"></div>
+    <div class="crystalline-shard-overlay topo-right" id="parallax-shard-right"></div>
     <div class="ambient-luminous-flare"></div>
 
     <header class="main-header">
@@ -55,7 +58,8 @@
             </div>
             <div class="auth-buttons">
                 <button class="btn-text normal-auth-trigger">Client Gateway</button>
-                <button class="btn-pill-sm normal-auth-trigger"><i class="fas fa-file-invoice"></i> Request RFQ</button>
+                <!-- Added magnetic tracking target hooks -->
+                <button class="btn-pill-sm normal-auth-trigger magnetic-pull-target"><i class="fas fa-file-invoice"></i> Request RFQ</button>
             </div>
         </div>
     </header>
@@ -95,9 +99,8 @@
 
         <div class="regulatory-document-canvas">
             <div class="regulatory-row-grid quad-layout">
-                <!-- Fixed relative image paths to target urs9001 and urs13485 matching your repository sidebar -->
-                <div class="pure-logo-node"><img src="images/urs9001.png" alt="URS ISO 9001 Quality Certification"></div>
-                <div class="pure-logo-node"><img src="images/urs13485.png" alt="URS ISO 13485 Medical Devices Quality Certification"></div>
+                <div class="pure-logo-node"><img src="images/1000492947.png" alt="URS ISO 9001 Quality Certification"></div>
+                <div class="pure-logo-node"><img src="images/1000492951.png" alt="URS ISO 13485 Medical Devices Quality Certification"></div>
                 <div class="pure-logo-node"><img src="images/iso.png" alt="ISO 7153-1 Material Compliance Standard Registration"></div>
                 <div class="pure-logo-node testing-text-node"><h4>CE for Micro Instruments</h4></div>
             </div>
@@ -113,40 +116,87 @@
     </section>
 
     <section id="catalog" class="catalog-section scroll-trigger-reveal">
-        <div class="catalog-header-text">
+        <div class="catalog-header-text" id="catalog-headline-container">
             <span class="section-tag">SPECIALIZED PORTFOLIO</span>
             <h2>Specialized Instrumentation Series</h2>
-            <p>Hover over individual classifications to expand item descriptions seamlessly into view.</p>
+            <p>Hover over items to focus, or select a classification matrix card to cleanly flush all other components out of the chamber register.</p>
         </div>
         
-        <div class="stacking-deck-container">
-            <div class="portfolio-deck-card tilt-target blue-theme" data-card-idx="0">
-                <div class="card-num-indicator">01</div>
-                <h3>Neuro & Skull Base</h3>
-                <div class="card-description-summary">
-                    <p>Premium micro-canal retractors, self-retaining scalp stabilizers, and dural access tools forged for delicate cranial procedures.</p>
+        <div class="vortex-deck-chamber">
+            <div class="stacking-deck-container" id="vortex-deck-trigger-root">
+                
+                <div class="portfolio-deck-card tilt-target blue-theme" data-card-idx="0">
+                    <div class="card-num-indicator">01</div>
+                    <h3>Neuro & Skull Base</h3>
+                    <div class="card-description-summary">
+                        <p>Premium micro-canal retractors, self-retaining scalp stabilizers, and dural access tools forged for delicate cranial procedures.</p>
+                    </div>
+                    <div class="expanded-spec-panel">
+                        <h4>Master Blueprint Registers</h4>
+                        <div class="panel-grid-specs">
+                            <div class="spec-capsule"><h5>Passivation Code</h5><p>PAS-992-ALPHA</p></div>
+                            <div class="spec-capsule"><h5>Alloy Integrity</h5><p>Titanium Grade V</p></div>
+                            <div class="spec-capsule"><h5>Light Yield</h5><p>0% Anti-Reflection Satin</p></div>
+                        </div>
+                        <button class="btn-restore-cards"><i class="fas fa-undo"></i> Reset Matrix Chamber</button>
+                    </div>
                 </div>
+
+                <div class="portfolio-deck-card tilt-target blue-theme" data-card-idx="1">
+                    <div class="card-num-indicator">02</div>
+                    <h3>Cardio-Thoracic Line</h3>
+                    <div class="card-description-summary">
+                        <p>High-tensile sternal spreaders, pediatric rib retractors, and micro-vascular tissue forceps built for extreme durability.</p>
+                    </div>
+                    <div class="expanded-spec-panel">
+                        <h4>Master Blueprint Registers</h4>
+                        <div class="panel-grid-specs">
+                            <div class="spec-capsule"><h5>Passivation Code</h5><p>PAS-440-DELTA</p></div>
+                            <div class="spec-capsule"><h5>Alloy Integrity</h5><p>Surgical Steel 316L</p></div>
+                            <div class="spec-capsule"><h5>Light Yield</h5><p>Satin Matte Finish</p></div>
+                        </div>
+                        <button class="btn-restore-cards"><i class="fas fa-undo"></i> Reset Matrix Chamber</button>
+                    </div>
+                </div>
+
+                <div class="portfolio-deck-card tilt-target blue-theme" data-card-idx="2">
+                    <div class="card-num-indicator">03</div>
+                    <h3>Orthopedic Trauma</h3>
+                    <div class="card-description-summary">
+                        <p>Heavy-duty Liston bone cutting pliers, high-torque bone awls, wire tighteners, and custom articulation instrumentation sets.</p>
+                    </div>
+                    <div class="expanded-spec-panel">
+                        <h4>Master Blueprint Registers</h4>
+                        <div class="panel-grid-specs">
+                            <div class="spec-capsule"><h5>Passivation Code</h5><p>PAS-095-OMEGA</p></div>
+                            <div class="spec-capsule"><h5>Alloy Integrity</h5><p>Hardened Cobalt-Chrome</p></div>
+                            <div class="spec-capsule"><h5>Light Yield</h5><p>Specular Micro-Polished</p></div>
+                        </div>
+                        <button class="btn-restore-cards"><i class="fas fa-undo"></i> Reset Matrix Chamber</button>
+                    </div>
+                </div>
+
+                <div class="portfolio-deck-card tilt-target blue-theme" data-card-idx="3">
+                    <div class="card-num-indicator">04</div>
+                    <h3>Minimally Invasive</h3>
+                    <div class="card-description-summary">
+                        <p>Ultra-slender insulation-verified shafts optimized for laparoscopic tissue dissection, arthroscopy, and fine sinoscopy.</p>
+                    </div>
+                    <div class="expanded-spec-panel">
+                        <h4>Master Blueprint Registers</h4>
+                        <div class="panel-grid-specs">
+                            <div class="spec-capsule"><h5>Passivation Code</h5><p>PAS-220-SIGMA</p></div>
+                            <div class="spec-capsule"><h5>Alloy Integrity</h5><p>Insulation-Verified Polymer Core</p></div>
+                            <div class="spec-capsule"><h5>Light Yield</h5><p>Absorption Jet Black</p></div>
+                        </div>
+                        <button class="btn-restore-cards"><i class="fas fa-undo"></i> Reset Matrix Chamber</button>
+                    </div>
+                </div>
+
             </div>
-            <div class="portfolio-deck-card tilt-target blue-theme" data-card-idx="1">
-                <div class="card-num-indicator">02</div>
-                <h3>Cardio-Thoracic Line</h3>
-                <div class="card-description-summary">
-                    <p>High-tensile sternal spreaders, pediatric rib retractors, and micro-vascular tissue forceps built for extreme durability.</p>
-                </div>
-            </div>
-            <div class="portfolio-deck-card tilt-target blue-theme" data-card-idx="2">
-                <div class="card-num-indicator">03</div>
-                <h3>Orthopedic Trauma</h3>
-                <div class="card-description-summary">
-                    <p>Heavy-duty Liston bone cutting pliers, high-torque bone awls, wire tighteners, and custom articulation instrumentation sets.</p>
-                </div>
-            </div>
-            <div class="portfolio-deck-card tilt-target blue-theme" data-card-idx="3">
-                <div class="card-num-indicator">04</div>
-                <h3>Minimally Invasive</h3>
-                <div class="card-description-summary">
-                    <p>Ultra-slender insulation-verified shafts optimized for laparoscopic tissue dissection, arthroscopy, and fine sinoscopy.</p>
-                </div>
+            
+            <div class="matrix-drain-receptor" id="vortex-drain-node">
+                <div class="vortex-spinning-core"><i class="fas fa-radiation"></i></div>
             </div>
         </div>
     </section>
@@ -159,10 +209,15 @@
                 
                 <div class="real-anatomy-container blue-theme">
                     <img src="images/anatomy-outline.png" alt="Clinical Anatomy Search Outline" class="real-anatomy-img">
-                    <div class="anatomy-svg-hotspot" data-anatomy-region="head" style="top: 12%; left: 50%;"></div>
-                    <div class="anatomy-svg-hotspot" data-anatomy-region="torso" style="top: 38%; left: 50%;"></div>
-                    <div class="anatomy-svg-hotspot" data-anatomy-region="extremities" style="top: 55%; left: 32%;"></div>
-                    <div class="anatomy-svg-hotspot" data-anatomy-region="extremities" style="top: 55%; left: 68%;"></div>
+                    
+                    <!-- Added inline absolute coordinates with custom pull hooks -->
+                    <div class="anatomy-svg-hotspot magnetic-pull-target" data-anatomy-region="head" style="top: 12%; left: 50%;"></div>
+                    <div class="anatomy-svg-hotspot magnetic-pull-target" data-anatomy-region="torso" style="top: 38%; left: 50%;"></div>
+                    <div class="anatomy-svg-hotspot magnetic-pull-target" data-anatomy-region="extremities" style="top: 55%; left: 32%;"></div>
+                    <div class="anatomy-svg-hotspot magnetic-pull-target" data-anatomy-region="extremities" style="top: 55%; left: 68%;"></div>
+                    
+                    <!-- Dynamic absolute horizontal laser overlay scan line -->
+                    <div id="blueprint-laser-scan-line"></div>
                     
                     <div class="hover-label-overlay" id="anatomy-ui-marker">Select Structural Node</div>
                 </div>
@@ -296,7 +351,8 @@
         </div>
     </footer>
 
-    <div id="chatbot-icon"><i class="fas fa-robot" id="ai-wave"></i></div>
+    <!-- Added magnetic class indicator to AI block icon -->
+    <div id="chatbot-icon" class="magnetic-pull-target"><i class="fas fa-robot" id="ai-wave"></i></div>
     <div id="chatbot-window" class="hidden blue-theme">
         <div class="chat-header">
             <div class="ai-title-badge"><span class="live-indicator"></span> SURGIS AI</div>
