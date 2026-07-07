@@ -6,11 +6,10 @@
     <title>Surgiments | Master Surgical Instrumentation Logistics</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=7.0">
+    <link rel="stylesheet" href="style.css?v=8.0">
 </head>
 <body>
 
-    <!-- Lightweight Background Cleanroom Particle Matrix Canvas Layer -->
     <canvas id="cleanroom-passivation-canvas"></canvas>
 
     <div id="scroll-progress-bar"></div>
@@ -82,75 +81,74 @@
         </div>
 
         <div class="regulatory-document-canvas">
-            <div class="regulatory-row-grid quad-layout">
-                <div class="pure-logo-node"><img src="images/1000492947.png" alt="URS ISO 9001 Quality Certification"></div>
-                <div class="pure-logo-node"><img src="images/1000492951.png" alt="URS ISO 13485 Medical Devices Quality Certification"></div>
-                <div class="pure-logo-node"><img src="images/iso.png" alt="ISO Standard Registration"></div>
-                <div class="pure-logo-node testing-text-node"><h4>CE for Micro Instruments</h4></div>
+            <!-- Partitioned block specifically for your core Certifications -->
+            <div class="regulatory-group-block">
+                <h3 class="regulatory-subheading">Certifications</h3>
+                <div class="regulatory-row-grid quad-layout">
+                    <div class="pure-logo-node"><img src="images/1000492947.png" alt="URS ISO 9001 Quality Certification"></div>
+                    <div class="pure-logo-node"><img src="images/1000492951.png" alt="URS ISO 13485 Medical Devices Quality Certification"></div>
+                    <div class="pure-logo-node"><img src="images/iso.png" alt="ISO Standard Registration"></div>
+                    <div class="pure-logo-node testing-text-node"><h4>CE for Micro Instruments</h4></div>
+                </div>
             </div>
 
             <div class="regulatory-row-divider"></div>
 
-            <div class="regulatory-row-grid triple-layout">
-                <div class="pure-logo-node"><img src="images/msme.png" alt="MSME Registration Certificate Logo"></div>
-                <div class="pure-logo-node"><img src="images/tmr.png" alt="Trade Marks Registry Seal"></div>
-                <div class="pure-logo-node"><img src="images/cdsco.png" alt="CDSCO National Vetting Crest"></div>
+            <!-- Partitioned block specifically for your Licenses -->
+            <div class="regulatory-group-block">
+                <h3 class="regulatory-subheading">Licenses</h3>
+                <div class="regulatory-row-grid triple-layout">
+                    <div class="pure-logo-node"><img src="images/msme.png" alt="MSME Registration Certificate Logo"></div>
+                    <div class="pure-logo-node"><img src="images/tmr.png" alt="Trade Marks Registry Seal"></div>
+                    <div class="pure-logo-node"><img src="images/cdsco.png" alt="CDSCO National Vetting Crest"></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Upgraded Horizontal Scroll Tracking Timeline Container Block Structure -->
-    <div id="catalog-scroll-pin-wrapper">
-        <section id="catalog" class="catalog-section">
-            <div class="catalog-horizontal-sticky-pane">
-                <div class="catalog-header-text">
-                    <span class="section-tag">SPECIALIZED PORTFOLIO</span>
-                    <h2>Specialized Instrumentation Series</h2>
-                    <p>Scroll down naturally to watch the matrix pipeline dynamically pan horizontally across our core production series.</p>
-                </div>
-                
-                <div class="stacking-deck-container" id="horizontal-scroll-track-node">
-                    
-                    <div class="portfolio-deck-card blue-theme glare-tilt-node">
-                        <div class="glare-reflection-sheen"></div>
-                        <div class="card-num-indicator">01</div>
-                        <h3>Neuro & Skull Base</h3>
-                        <div class="card-description-summary">
-                            <p>Premium micro-canal retractors, self-retaining scalp stabilizers, and dural access tools forged for delicate cranial procedures.</p>
-                        </div>
-                    </div>
-
-                    <div class="portfolio-deck-card blue-theme glare-tilt-node">
-                        <div class="glare-reflection-sheen"></div>
-                        <div class="card-num-indicator">02</div>
-                        <h3>Cardio-Thoracic Line</h3>
-                        <div class="card-description-summary">
-                            <p>High-tensile sternal spreaders, pediatric rib retractors, and micro-vascular tissue forceps built for extreme durability.</p>
-                        </div>
-                    </div>
-
-                    <div class="portfolio-deck-card blue-theme glare-tilt-node">
-                        <div class="glare-reflection-sheen"></div>
-                        <div class="card-num-indicator">03</div>
-                        <h3>Orthopedic Trauma</h3>
-                        <div class="card-description-summary">
-                            <p>Heavy-duty Liston bone cutting pliers, high-torque bone awls, wire tighteners, and custom articulation instrumentation sets.</p>
-                        </div>
-                    </div>
-
-                    <div class="portfolio-deck-card blue-theme glare-tilt-node">
-                        <div class="glare-reflection-sheen"></div>
-                        <div class="card-num-indicator">04</div>
-                        <h3>Minimally Invasive</h3>
-                        <div class="card-description-summary">
-                            <p>Ultra-slender insulation-verified shafts optimized for laparoscopic tissue dissection, arthroscopy, and fine sinoscopy.</p>
-                        </div>
-                    </div>
-
+    <section id="catalog" class="catalog-section scroll-trigger-reveal">
+        <div class="catalog-header-text">
+            <span class="section-tag">SPECIALIZED PORTFOLIO</span>
+            <h2>Specialized Instrumentation Series</h2>
+            <p>Hover over individual classifications to expand item descriptions while forcing alternative cards to smoothly step back and hide inside the stack.</p>
+        </div>
+        
+        <div class="stacking-deck-container">
+            
+            <div class="portfolio-deck-card blue-theme" data-card-idx="0">
+                <div class="card-num-indicator">01</div>
+                <h3>Neuro & Skull Base</h3>
+                <div class="card-description-summary">
+                    <p>Premium micro-canal retractors, self-retaining scalp stabilizers, and dural access tools forged for delicate cranial procedures.</p>
                 </div>
             </div>
-        </section>
-    </div>
+
+            <div class="portfolio-deck-card blue-theme" data-card-idx="1">
+                <div class="card-num-indicator">02</div>
+                <h3>Cardio-Thoracic Line</h3>
+                <div class="card-description-summary">
+                    <p>High-tensile sternal spreaders, pediatric rib retractors, and micro-vascular tissue forceps built for extreme durability.</p>
+                </div>
+            </div>
+
+            <div class="portfolio-deck-card blue-theme" data-card-idx="2">
+                <div class="card-num-indicator">03</div>
+                <h3>Orthopedic Trauma</h3>
+                <div class="card-description-summary">
+                    <p>Heavy-duty Liston bone cutting pliers, high-torque bone awls, wire tighteners, and custom articulation instrumentation sets.</p>
+                </div>
+            </div>
+
+            <div class="portfolio-deck-card blue-theme" data-card-idx="3">
+                <div class="card-num-indicator">04</div>
+                <h3>Minimally Invasive</h3>
+                <div class="card-description-summary">
+                    <p>Ultra-slender insulation-verified shafts optimized for laparoscopic tissue dissection, arthroscopy, and fine sinoscopy.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
 
     <section id="anatomy" class="anatomy-section scroll-trigger-reveal">
         <div class="anatomy-grid-layout">
@@ -185,8 +183,9 @@
         <div class="testimonial-split-layout">
             <div class="testimonial-left-media">
                 <div class="video-mockup-frame blue-theme">
-                    <img src="https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Surgiments Production Passivation Tracking">
-                    <div class="play-overlay-icon"><i class="fas fa-play"></i></div>
+                    <img src="https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Surgiments Production Passivation Tracking" id="testimonial-media-img">
+                    <div class="play-overlay-icon" id="testimonial-play-trigger"><i class="fas fa-play"></i></div>
+                    <div class="passivation-scan-overlay"></div>
                 </div>
             </div>
             <div class="testimonial-right-feed text-track-mouse-tilt">
@@ -300,21 +299,6 @@
         </div>
     </footer>
 
-    <div id="chatbot-icon"><i class="fas fa-robot" id="ai-wave"></i></div>
-    <div id="chatbot-window" class="hidden blue-theme">
-        <div class="chat-header">
-            <div class="ai-title-badge"><span class="live-indicator"></span> SURGIS AI</div>
-            <button id="close-chat"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="chat-body" id="chat-stream-output">
-            <p class="bot-msg">Welcome. Specify an equipment classification query or SKU to verify design applications instantly.</p>
-        </div>
-        <div class="chat-input">
-            <input type="text" id="chat-input-field" placeholder="Ask Surgis AI...">
-            <button id="send-chat"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
-
-    <script src="script.js?v=7.0"></script>
+    <script src="script.js?v=8.0"></script>
 </body>
 </html>
