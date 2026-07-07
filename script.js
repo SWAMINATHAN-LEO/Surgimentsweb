@@ -43,44 +43,76 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active"));
     }
 
-    // --- 2. SMOOTH STACK STEPPING CONTROLLER ---
+    // --- 2. 3D FLIP & DASHBOARD EXPANSION ENGINE ---
     try {
         const deckCards = document.querySelectorAll(".portfolio-deck-card");
+        const rootContainer = document.getElementById("product-grid-container");
         
         deckCards.forEach(card => {
             const currentIdx = parseInt(card.getAttribute("data-card-idx"), 10);
+            const flipWrapper = card.querySelector(".card-flip-wrapper");
             
-            card.addEventListener("mouseenter", () => {
-                if (window.innerWidth < 993) return;
+            // Subtle alignment stepping on hover (Disabled if a card is currently flipped open)
+            flipWrapper.addEventListener("mouseenter", () => {
+                if (window.innerWidth < 993 || rootContainer.classList.contains("has-active-flip")) return;
                 deckCards.forEach((c, index) => {
                     if (index === currentIdx) {
                         c.style.transform = "translateZ(30px) scale(1.03)";
                         c.style.opacity = "1";
                         c.style.zIndex = "50";
-                    } else if (index < currentIdx) {
-                        const multiplier = currentIdx - index;
-                        c.style.transform = `translateX(${40 + (multiplier * 15)}px) translateZ(-${multiplier * 20}px) scale(0.92)`;
-                        c.style.opacity = "0.3"; 
-                        c.style.zIndex = `${30 - multiplier}`;
                     } else {
-                        const multiplier = index - currentIdx;
-                        c.style.transform = `translateX(-${40 + (multiplier * 15)}px) translateZ(-${multiplier * 20}px) scale(0.92)`;
-                        c.style.opacity = "0.3";
-                        c.style.zIndex = `${30 - multiplier}`;
+                        const multiplier = Math.abs(currentIdx - index);
+                        const dir = index < currentIdx ? 1 : -1;
+                        c.style.transform = `translateX(${dir * 40}px) translateZ(-20px) scale(0.92)`;
+                        c.style.opacity = "0.3"; 
+                        c.style.zIndex = "30";
                     }
                 });
             });
 
-            card.addEventListener("mouseleave", () => {
-                if (window.innerWidth < 993) return;
+            flipWrapper.addEventListener("mouseleave", () => {
+                if (window.innerWidth < 993 || rootContainer.classList.contains("has-active-flip")) return;
                 deckCards.forEach(c => {
                     c.style.transform = "translateX(0px) translateZ(0px) scale(1)";
                     c.style.opacity = "1";
                     c.style.zIndex = "10";
                 });
             });
+
+            // The Flip Execution Trigger
+            flipWrapper.addEventListener("click", (e) => {
+                if (rootContainer.classList.contains("has-active-flip")) return;
+                
+                e.stopPropagation();
+                rootContainer.classList.add("has-active-flip");
+                card.classList.add("is-flipped-active");
+
+                deckCards.forEach(c => {
+                    if (c !== card) {
+                        c.classList.add("hidden-away");
+                        c.style.transform = "scale(0.8) translateZ(-100px)"; // Flushes out the non-selected cards
+                    } else {
+                        c.style.transform = "none";
+                    }
+                });
+            });
+
+            // The Restoration Trigger
+            const closeBtn = card.querySelector(".btn-restore-deck");
+            if (closeBtn) {
+                closeBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    rootContainer.classList.remove("has-active-flip");
+                    card.classList.remove("is-flipped-active");
+
+                    deckCards.forEach(c => {
+                        c.classList.remove("hidden-away");
+                        c.style.transform = "translateX(0px) translateZ(0px) scale(1)";
+                    });
+                });
+            }
         });
-    } catch (e) { console.error(e); }
+    } catch (e) { console.error("Product card interaction fault:", e); }
 
     // --- 3. LIVELY TESTIMONIAL MEDIA SCAN ENGINE ---
     try {
@@ -143,6 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         function startReviewTimer() {
+            clearInterval(reviewsInterval);
             reviewsInterval = setInterval(() => { renderActiveReview(activeReviewIdx + 1); }, 4000);
         }
         function resetReviewTimer() { clearInterval(reviewsInterval); startReviewTimer(); }
@@ -237,6 +270,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     } catch (e) { console.error(e); }
 
+    // --- GLOBAL WINDOW-BOUND ARROW KEYBOARD ROUTING PIPELINE ---
+    window.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") {
+            const reviewBounding = document.getElementById("testimonials").getBoundingClientRect();
+            if (reviewBounding.top < window.innerHeight && reviewBounding.bottom > 0) {
+                renderActiveReview(activeReviewIdx - 1);
+                resetReviewTimer();
+            } else {
+                renderActiveSlide(currentSlideIndex - 1);
+                initAutoCycle();
+            }
+        } 
+        else if (e.key === "ArrowRight") {
+            const reviewBounding = document.getElementById("testimonials").getBoundingClientRect();
+            if (reviewBounding.top < window.innerHeight && reviewBounding.bottom > 0) {
+                renderActiveReview(activeReviewIdx + 1);
+                resetReviewTimer();
+            } else {
+                renderActiveSlide(currentSlideIndex + 1);
+                initAutoCycle();
+            }
+        }
+    }, true); 
+
     // --- HARDENED VIDEO AUTO-PLAYBACK ENGINE ---
     const promoVid = document.getElementById("hero-promo-video");
     if (promoVid) {
@@ -317,4 +374,88 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     } catch (e) { console.error(e); }
+
+    // --- OUTSIDE CLOSING ACTION HANDLER ENGINE FOR SURGIS AI TERMINAL ---
+    try {
+        const chatIcon = document.getElementById("chatbot-icon");
+        const chatWindow = document.getElementById("chatbot-window");
+        const closeBtn = document.getElementById("close-chat");
+        const sendBtn = document.getElementById("send-chat");
+        const inputField = document.getElementById("chat-input-field");
+        const outputStream = document.getElementById("chat-stream-output");
+
+        if (chatIcon && chatWindow) {
+            chatIcon.addEventListener("click", (e) => {
+                e.stopPropagation();
+                chatWindow.classList.toggle("hidden");
+            });
+            if (closeBtn) {
+                closeBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    chatWindow.classList.add("hidden");
+                });
+            }
+            window.addEventListener("click", (e) => {
+                if (!chatWindow.classList.contains("hidden") && !chatWindow.contains(e.target) && !chatIcon.contains(e.target)) {
+                    chatWindow.classList.add("hidden");
+                }
+            });
+        }
+
+        async function processChatWorkflow() {
+            if (!inputField || !outputStream) return;
+            const text = inputField.value.trim();
+            if (!text) return;
+
+            outputStream.innerHTML += `<p class="user-msg">${text}</p>`;
+            inputField.value = "";
+            outputStream.scrollTop = outputStream.scrollHeight;
+
+            const typingIndicatorIdx = Date.now();
+            outputStream.innerHTML += `<p class="bot-msg" id="msg-${typingIndicatorIdx}"><i class="fas fa-spinner fa-spin"></i> Processing index...</p>`;
+            outputStream.scrollTop = outputStream.scrollHeight;
+            const loadingBubble = document.getElementById(`msg-${typingIndicatorIdx}`);
+
+            try {
+                const res = await fetch("http://127.0.0.1:8000/api/chatbot/query", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: text })
+                });
+                if (!res.ok) throw new Error();
+                const data = await res.json();
+                if(loadingBubble) loadingBubble.innerHTML = data.reply;
+            } catch (err) {
+                setTimeout(() => {
+                    const normalizedQuery = text.toLowerCase();
+                    let responseMatch = "Inquiry logged. Dispatched to Hosur Facility regulatory database.";
+                    for (const keyString in localAIBrainFallback) {
+                        if (normalizedQuery.includes(keyString)) {
+                            responseMatch = localAIBrainFallback[keyString];
+                            break;
+                        }
+                    }
+                    if(loadingBubble) loadingBubble.innerHTML = responseMatch;
+                    outputStream.scrollTop = outputStream.scrollHeight;
+                }, 400); 
+            }
+        }
+        if (sendBtn) sendBtn.addEventListener("click", processChatWorkflow);
+        if (inputField) inputField.addEventListener("keypress", (e) => { if (e.key === "Enter") processChatWorkflow(); });
+    } catch (e) { console.error("Chat terminal engine catch:", e); }
+    
+    // --- SMARTPHONE INTERACTIVE MOBILE HEADER MENU DRIVER ---
+    const menuToggleBtn = document.getElementById("mobile-hamburger-btn");
+    const navigationMenu = document.getElementById("main-navigation-menu");
+    if (menuToggleBtn && navigationMenu) {
+        menuToggleBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            navigationMenu.classList.toggle("mobile-menu-expanded");
+        });
+        document.querySelectorAll("#main-navigation-menu .nav-item").forEach(item => {
+            item.addEventListener("click", () => {
+                navigationMenu.classList.remove("mobile-menu-expanded");
+            });
+        });
+    }
 });
