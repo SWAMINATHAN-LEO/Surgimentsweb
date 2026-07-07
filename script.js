@@ -43,42 +43,55 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active"));
     }
 
-    // --- 2. PRODUCT MATRIX LAYOUT HIDING & STEPPING ENGINE ---
+    // --- 2. RESTORED PREMIUM 3D TILT ENGINE & STACK STEPPING CONTROLLER ---
     try {
         const deckCards = document.querySelectorAll(".portfolio-deck-card");
+        
         deckCards.forEach(card => {
-            card.addEventListener("mouseenter", () => {
+            // Real-time 3D Matrix Perspective Mapping on Mouse Move
+            card.addEventListener("mousemove", (e) => {
                 if (window.innerWidth < 993) return;
+                
+                const cardBounds = card.getBoundingClientRect();
+                const mouseCoordinatesX = e.clientX - cardBounds.left;
+                const mouseCoordinatesY = e.clientY - cardBounds.top;
+                
+                // Calculates angular velocity offsets based on focal center coordinates
+                const calculatedRotationX = ((cardBounds.height / 2 - mouseCoordinatesY) / (cardBounds.height / 2)) * 12;
+                const calculatedRotationY = ((mouseCoordinatesX - cardBounds.width / 2) / (cardBounds.width / 2)) * 12;
+                
+                // Triggers structural transform scaling alongside neighboring card stepbacks
                 const currentIdx = parseInt(card.getAttribute("data-card-idx"), 10);
                 deckCards.forEach((c, index) => {
                     if (index === currentIdx) {
-                        c.style.transform = "translateX(0px) translateZ(40px) scale(1.05)";
+                        c.style.transform = `perspective(1000px) rotateX(${calculatedRotationX}deg) rotateY(${calculatedRotationY}deg) scale3d(1.04, 1.04, 1.04)`;
                         c.style.opacity = "1";
                         c.style.zIndex = "50";
                     } else if (index < currentIdx) {
                         const multiplier = currentIdx - index;
-                        c.style.transform = `translateX(${60 + (multiplier * 20)}px) translateZ(-${multiplier * 30}px) scale(0.88)`;
-                        c.style.opacity = "0.25"; 
+                        c.style.transform = `translateX(${45 + (multiplier * 15)}px) translateZ(-${multiplier * 25}px) scale(0.9)`;
+                        c.style.opacity = "0.3"; 
                         c.style.zIndex = `${30 - multiplier}`;
                     } else {
                         const multiplier = index - currentIdx;
-                        c.style.transform = `translateX(-${60 + (multiplier * 20)}px) translateZ(-${multiplier * 30}px) scale(0.88)`;
-                        c.style.opacity = "0.25";
+                        c.style.transform = `translateX(-${45 + (multiplier * 15)}px) translateZ(-${multiplier * 25}px) scale(0.9)`;
+                        c.style.opacity = "0.3";
                         c.style.zIndex = `${30 - multiplier}`;
                     }
                 });
             });
 
+            // Clean Figma-style smooth reset on mouse leave bounds
             card.addEventListener("mouseleave", () => {
                 if (window.innerWidth < 993) return;
                 deckCards.forEach(c => {
-                    c.style.transform = "translateX(0px) translateZ(0px) scale(1)";
+                    c.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
                     c.style.opacity = "1";
                     c.style.zIndex = "10";
                 });
             });
         });
-    } catch (e) { console.error("Product desk alignment catch:", e); }
+    } catch (e) { console.error("3D Tilt Stacking Engine exception:", e); }
 
     // --- 3. LIVELY TESTIMONIAL MEDIA SCAN ENGINE ---
     try {
