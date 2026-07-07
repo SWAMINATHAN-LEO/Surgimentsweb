@@ -24,7 +24,7 @@
 }
 
 /* ==========================================================================
-   2. GLOBAL VIEWS & ANTI-SCROLL RE-LOCK (ELIMINATES RIGHT WHITE SPACE)
+   2. GLOBAL VIEWS & ANTI-SCROLL RE-LOCK
    ========================================================================== */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 html { 
@@ -49,17 +49,14 @@ body {
 .topo-right { top: 25%; right: -8%; background-image: linear-gradient(220deg, #0066ff 0%, #020c22 60%, transparent 100%); clip-path: polygon(30% 0%, 100% 20%, 100% 100%, 0% 70%); }
 .ambient-luminous-flare { position: fixed; width: 700px; height: 700px; border-radius: 50%; top: 20%; left: 15%; background: radial-gradient(circle, rgba(0,102,255,0.04) 0%, transparent 70%); pointer-events: none; z-index: 0; filter: blur(100px); }
 
-/* Absolute 20px Rounded Curves for Standard Boxes */
 .blue-theme { background: var(--aegean-blue) !important; color: var(--white) !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 20px !important; }
 .blue-theme h5, .blue-theme h3, .blue-theme p, .blue-theme .stat-number-wrapper, .blue-theme .map-address-card h5 { color: var(--white) !important; }
 
 .red-theme { background: var(--crimson-red) !important; color: var(--white) !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 20px !important; }
 .red-theme h3, .red-theme p, .red-theme .reviewer-meta { color: var(--white) !important; }
 
-.glass-hull { background: var(--card-surface); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--border-glass); box-shadow: var(--shadow-premium); border-radius: 20px !important; transition: var(--transition-curve); }
-
 /* ==========================================================================
-   3. CLINICAL NAVBAR HEADER (INLINE DROPDOWNS & HAMBURGER SYSTEM)
+   3. CLINICAL NAVBAR HEADER (FIXED DROP DOWN ALIGNMENT)
    ========================================================================== */
 .main-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 4%; background: var(--aegean-blue); position: fixed; width: 100%; top: 0; left: 0; height: 80px; z-index: 9999; border-bottom: 1px solid rgba(255,255,255,0.08); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
 .header-left-brand { display: flex; align-items: center; }
@@ -72,11 +69,12 @@ body {
 }
 
 .nav-links { display: flex; align-items: center; gap: 4px; }
-.nav-item { text-decoration: none; color: rgba(255, 255, 255, 0.75); padding: 8px 18px; font-weight: 600; font-size: 14px; position: relative; transition: var(--transition-snappy); }
+.nav-item { text-decoration: none; color: rgba(255, 255, 255, 0.75); padding: 8px 18px; font-weight: 600; font-size: 14px; position: relative; transition: var(--transition-snappy); display: inline-block; }
 .nav-item:hover { color: var(--white); }
 
-/* Alignment wrapper fixing the dropped arrow configuration */
-.inline-arrow-wrapper { display: inline-flex; align-items: center; gap: 6px; vertical-align: middle; }
+/* Absolute horizontal alignment fix for the chevron dropdown arrow icon string */
+.inline-arrow-wrapper { display: inline-flex; align-items: center; gap: 5px; vertical-align: middle; line-height: 1; transform: translateY(-1px); }
+.inline-arrow-wrapper i { font-size: 11px; margin-left: 2px; }
 
 .dynamic-underline::after { content: ''; position: absolute; bottom: 0; left: 18px; right: 18px; height: 2px; background: var(--crimson-red); transform: scaleX(0); transition: transform 0.3s ease; transform-origin: right; }
 .nav-item:hover::after { transform: scaleX(1); transform-origin: left; }
@@ -103,7 +101,7 @@ body {
 .mobile-menu-toggle { display: none; background: none; border: none; color: var(--white); font-size: 24px; cursor: pointer; transition: var(--transition-snappy); }
 
 /* ==========================================================================
-   4. HARDENED HERO VIEWPORT CONTAINER FRAMEWORK (FIXED NO-WHITE GAP GAPING)
+   4. HERO FULL VIEWPORT REGION
    ========================================================================== */
 .hero-full-viewport { 
     width: 100vw !important; 
@@ -115,8 +113,9 @@ body {
     z-index: 2;
     margin: 0;
     padding: 0;
+    outline: none;
 }
-.slider-draggable-track { width: 100%; height: 100%; position: relative; cursor: grab; touch-action: pan-y; outline: none; }
+.slider-draggable-track { width: 100%; height: 100%; position: relative; cursor: grab; touch-action: pan-y; }
 .slider-draggable-track:active { cursor: grabbing; }
 .slider-wrapper-inner { display: flex; width: 100%; height: 100%; will-change: transform; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 
@@ -172,7 +171,7 @@ body {
 .regulatory-row-divider { width: 100%; height: 1px; background: rgba(11, 34, 68, 0.08); margin: 10px 0; }
 
 /* ==========================================================================
-   7. STACKING PORFOLIO MATRIX CARDS
+   7. STACKING PORTFOLIO MATRIX CARDS
    ========================================================================== */
 .catalog-section { padding: 120px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; overflow: hidden; }
 .catalog-header-text { margin-bottom: 60px; padding: 0 15px; }
@@ -214,9 +213,9 @@ body {
 .cached-badge { position: absolute; top: 14px; right: 18px; font-size: 10px; font-weight: 700; color: var(--crimson-red); background: rgba(178, 13, 21, 0.06); padding: 3px 10px; border-radius: 50px; text-transform: uppercase; border: 1px solid rgba(178, 13, 21, 0.15); }
 
 /* ==========================================================================
-   9. TESTIMONIAL REVIEWS & EXTENDED FOOTER CONTROLS
+   9. TESTIMONIAL REVIEWS & RIGHT ALIGNED CONTROL LAYOUT
    ========================================================================== */
-.testimonials-section { padding: 120px 5%; background: var(--white); position: relative; z-index: 10; overflow: hidden; }
+.testimonials-section { padding: 120px 5%; background: var(--white); position: relative; z-index: 10; overflow: hidden; outline: none; }
 .testimonial-split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 .video-mockup-frame { height: 380px; position: relative; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-premium); }
 .video-mockup-frame img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -225,8 +224,11 @@ body {
 .video-mockup-frame:hover .play-overlay-icon { background: var(--crimson-red) !important; transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 10px 30px rgba(178,13,21,0.5); }
 .video-mockup-frame:hover img { filter: brightness(0.6) contrast(1.05); }
 
-.testimonial-right-feed { width: 100%; overflow: hidden; outline: none; }
-.testimonial-right-feed h3 { font-size: 36px; font-weight: 800; color: var(--aegean-blue); margin-bottom: 30px; letter-spacing: -0.5px; }
+.testimonial-right-feed { width: 100%; overflow: hidden; }
+
+/* Structural flex heading ensuring the custom review buttons are moved fully to the right side of the layout */
+.testimonial-inline-header-block { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; width: 100%; }
+.testimonial-inline-header-block h3 { font-size: 36px; font-weight: 800; color: var(--aegean-blue); letter-spacing: -0.5px; margin-bottom: 0; }
 
 .reviews-slider-container { width: 100%; overflow: hidden; position: relative; min-height: 240px; touch-action: pan-y; }
 .reviews-slider-track { display: flex; width: 100%; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
@@ -236,9 +238,7 @@ body {
 .review-bubble p { font-size: 16px; line-height: 1.7; font-style: italic; }
 .reviewer-meta { display: block; margin-top: 20px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
 
-/* Flex alignment wrapper for arrows and page dots */
-.reviews-nav-footer-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; width: 100%; }
-.reviews-pagination-dots { display: flex; gap: 8px; }
+.reviews-pagination-dots { display: flex; gap: 8px; margin-top: 25px; }
 .reviews-pagination-dots .review-dot { width: 8px; height: 8px; background: #cbd5e1; border-radius: 50%; cursor: pointer; transition: var(--transition-snappy); }
 .reviews-pagination-dots .review-dot.active { background: var(--crimson-red); transform: scale(1.2); width: 18px; border-radius: 4px; }
 
@@ -247,7 +247,7 @@ body {
 .slider-arrow-btn:hover { background: var(--crimson-red); color: var(--white); border-color: var(--crimson-red); box-shadow: 0 4px 12px rgba(178, 13, 21, 0.2); }
 
 /* ==========================================================================
-   10. COMBINED LIVE MAP & ACCESS PORTALS
+   10. MAPS & ACCESS PORTALS
    ========================================================================== */
 .access-split-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; padding: 120px 5%; background: var(--bg-light-secondary); position: relative; z-index: 10; overflow: hidden; }
 .map-rendering-layer { height: 100%; width: 100%; border-radius: 20px; position: relative; overflow: hidden; min-height: 480px; box-shadow: var(--shadow-premium); }
@@ -271,7 +271,7 @@ body {
 .form-submit-trigger:hover { background: #d4131d !important; box-shadow: 0 4px 15px rgba(178,13,21,0.3); }
 
 /* ==========================================================================
-   11. CORPORATE FOOTER & FIXED INLINE CHANNELS
+   11. CORPORATE FOOTER & ONE-LINE EMAIL LOGO FIXES
    ========================================================================== */
 .corporate-footer { background: var(--bg-dark-core); color: var(--white); padding: 100px 5% 40px; border-radius: 40px 40px 0 0; position: relative; z-index: 10; overflow: hidden; }
 .footer-top-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.8fr; gap: 40px; margin-bottom: 60px; }
@@ -281,10 +281,10 @@ body {
 .footer-nav-column a { display: block; color: #94a3b8; text-decoration: none; margin-bottom: 16px; transition: var(--transition-snappy); font-size: 14px; }
 .footer-nav-column a:hover { color: var(--white); transform: translateX(5px); }
 
-/* Dynamic inline line wrappers for the icon alignment request */
-.inline-footer-contact { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #94a3b8; font-size: 14px; }
-.inline-footer-contact i { color: var(--crimson-red); font-size: 16px; width: 20px; text-align: center; }
-.inline-footer-contact span { color: #94a3b8; }
+/* Force inline-flex layout with vertical centering to lock icon and link text to a single line */
+.inline-footer-contact { display: flex; flex-direction: row !important; align-items: center !important; justify-content: flex-start !important; gap: 10px; margin-bottom: 16px; color: #94a3b8; font-size: 14px; width: 100%; white-space: nowrap; }
+.inline-footer-contact i { color: var(--crimson-red); font-size: 15px; width: 18px; text-align: center; display: inline-block !important; margin: 0 !important; }
+.inline-footer-contact span { color: #94a3b8; display: inline-block !important; }
 
 .footer-qr-code-column { display: flex; justify-content: flex-end; align-items: flex-start; }
 .qr-code-placeholder-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 24px; text-align: center; width: 100%; max-width: 250px; border-radius: 20px; display: flex; flex-direction: column; align-items: center; gap: 14px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
@@ -294,7 +294,7 @@ body {
 .footer-bottom-bar { border-top: 1px solid rgba(255, 255, 255, 0.03); padding-top: 40px; text-align: center; color: #475569; font-size: 13px; font-weight: 500; }
 
 /* ==========================================================================
-   12. SECURED SURGIS DIALOG TERMINAL INTERFACE
+   12. SURGIS AI WINDOW TERMINAL INTERFACE
    ========================================================================== */
 #chatbot-icon { position: fixed; bottom: 35px; right: 35px; width: 60px; height: 60px; background: var(--aegean-blue); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 10000; border: 1px solid rgba(255,255,255,0.1); }
 #chatbot-icon:hover { background: var(--crimson-red); transform: scale(1.05); }
@@ -318,7 +318,7 @@ body {
 .chat-input button:hover { background: var(--crimson-red); }
 
 /* ==========================================================================
-   13. SMARTPHONE SCREEN BREAKPOINTS (ULTRA ENHANCED SMARTPHONE INTERACTIVITY)
+   13. SMARTPHONE MEDIA QUERY BREAKPOINTS
    ========================================================================== */
 @media (max-width: 1200px) { 
     .hero-full-viewport { height: calc(100vh - 80px) !important; } 
@@ -326,8 +326,8 @@ body {
 
 @media (max-width: 992px) { 
     .mobile-menu-toggle { display: block; }
+    .testimonial-inline-header-block { flex-direction: row; }
     
-    /* Responsive Navigation Overlay Grid System */
     .nav-links { 
         display: none; 
         flex-direction: column; 
@@ -347,7 +347,7 @@ body {
     }
     .nav-links.mobile-menu-expanded { display: flex; opacity: 1; transform: translateY(0); pointer-events: auto; }
     .nav-item { width: 100%; text-align: center; font-size: 18px; padding: 12px 0; }
-    .header-dropdown-container .macro-dropdown { display: none !important; } /* Simplify submenus on mobile view */
+    .header-dropdown-container .macro-dropdown { display: none !important; }
 
     .stacking-deck-container { 
         flex-direction: column !important; 
@@ -375,7 +375,6 @@ body {
     .triple-layout { grid-template-columns: repeat(2, 1fr) !important; gap: 20px; margin: 0; }
     .pure-logo-node { max-width: 120px !important; height: 90px; }
     .regulatory-subheading { font-size: 16px; }
-    .reviews-nav-footer-controls { flex-direction: column; gap: 20px; align-items: center; }
 }
 
 @media (max-width: 576px) { 
@@ -386,9 +385,8 @@ body {
     .auth-buttons, .search-wrapper { display: none !important; } 
     
     .quad-layout, .triple-layout { grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important; }
-    .pure-logo-node { height: 80px !important; pading: 10px; background: #fff; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); }
+    .pure-logo-node { height: 80px !important; padding: 10px; background: #fff; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); }
     
-    /* 16:9 Aspect Ratio Crop Configuration Matrix */
     .hero-full-viewport { 
         height: auto !important;
         aspect-ratio: 16 / 9 !important;
