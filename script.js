@@ -27,11 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- 1. SECURE PASSIVATION CHAMBER PARTICLES CANVAS ---
     try {
         const fluidCanvas = document.getElementById("cleanroom-passivation-canvas");
-        if (fluidCanvas && window.innerWidth > 768) {
+        if (fluidCanvas) {
             const ctx = fluidCanvas.getContext("2d");
             if (ctx) {
                 let activeNodesArray = [];
-                let cursorTrackingPointer = { x: null, y: null, currentRadius: 90 };
+                let cursorTrackingPointer = { x: null, y: null, currentRadius: 100 };
 
                 const resizeCanvasViewport = () => {
                     fluidCanvas.width = window.innerWidth;
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
 
-                for (let i = 0; i < 65; i++) {
+                for (let i = 0; i < 40; i++) {
                     activeNodesArray.push(new CleanroomNodeParticle());
                 }
 
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     } catch(canvasErr) { 
-        console.warn("Canvas skipped securely to prevent blockages:", canvasErr); 
+        console.warn("Canvas skipped securely:", canvasErr); 
     }
 
     // --- 2. THE CRYSTALLINE SHARD DEPTH-PARALLAX MATRIX ---
@@ -112,20 +112,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const shardLeft = document.getElementById("parallax-shard-left");
             const shardRight = document.getElementById("parallax-shard-right");
 
-            if (shardLeft) {
-                shardLeft.style.transform = `translate3d(${normalizedCoordX * -35}px, ${normalizedCoordY * -20}px, 0px) rotate(0.01deg)`;
-            }
-            if (shardRight) {
-                shardRight.style.transform = `translate3d(${normalizedCoordX * 45}px, ${normalizedCoordY * 30}px, 0px) rotate(0.01deg)`;
-            }
+            if (shardLeft) shardLeft.style.transform = `translate3d(${normalizedCoordX * -25}px, ${normalizedCoordY * -15}px, 0px)`;
+            if (shardRight) shardRight.style.transform = `translate3d(${normalizedCoordX * 30}px, ${normalizedCoordY * 20}px, 0px)`;
         });
     } catch(err) { console.error("Parallax isolated:", err); }
 
-    // --- 3. THE "MAGNETIC SHIELD" SNAPPING ALIGNMENT ENGINE ---
+    // --- 3. THE FIGMA MAGNETIC SHIELD COMPONENT ENFORCEMENT ---
     try {
-        const pullTargets = document.querySelectorAll(".magnetic-pull-target");
+        const figmaPullTargets = document.querySelectorAll(".unique-figma-magnetic");
         if (window.innerWidth > 768) {
-            pullTargets.forEach(target => {
+            figmaPullTargets.forEach(target => {
                 window.addEventListener("mousemove", (e) => {
                     const itemBoundingRect = target.getBoundingClientRect();
                     const nodeCenterX = itemBoundingRect.left + (itemBoundingRect.width / 2);
@@ -135,19 +131,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     const vectorY = e.clientY - nodeCenterY;
                     const linearHypotenuse = Math.sqrt(vectorX * vectorX + vectorY * vectorY);
 
-                    if (linearHypotenuse < 45) {
-                        target.style.transform = `translate3d(${vectorX * 0.45}px, ${vectorY * 0.45}px, 0px) scale(1.03)`;
-                        target.style.zIndex = "100005";
+                    // Restriced to high-priority action buttons only
+                    if (linearHypotenuse < 50) {
+                        target.style.transform = `translate3d(${vectorX * 0.35}px, ${vectorY * 0.35}px, 0px)`;
                     } else {
-                        target.style.transform = "translate3d(0px, 0px, 0px) scale(1)";
+                        target.style.transform = "translate3d(0px, 0px, 0px)";
                     }
                 });
                 target.addEventListener("mouseleave", () => {
-                    target.style.transform = "translate3d(0px, 0px, 0px) scale(1)";
+                    target.style.transform = "translate3d(0px, 0px, 0px)";
                 });
             });
         }
-    } catch(err) { console.error("Magnetic tracking isolated:", err); }
+    } catch(err) { console.error("Figma magnetic system capture isolated:", err); }
 
     // --- SMARTPHONE INTERACTIVE MOBILE HEADER MENU DRIVER ---
     const menuToggleBtn = document.getElementById("mobile-hamburger-btn");
@@ -380,7 +376,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     } catch (e) { console.error("Hero touch pipeline exception:", e); }
 
-    // --- DYNAMIC ADVENTUROUS "VORTEX MATRIX FLUSH & DISSOLVE" ENGINE ---
+    // --- 5. DISSOLVE & FLUSH COMPONENT ENGINE (FIGMA MOTION CLASS DESIGN) ---
     try {
         const deckCards = document.querySelectorAll(".portfolio-deck-card");
         const drainNode = document.getElementById("vortex-drain-node");
@@ -396,18 +392,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     const currentIdx = parseInt(card.getAttribute("data-card-idx"), 10);
                     deckCards.forEach((c, index) => {
                         if (index === currentIdx) {
-                            c.style.transform = "translateX(0px) translateZ(40px) scale(1.05)";
+                            c.style.transform = "translateX(0px) translateZ(40px) scale(1.04)";
                             c.style.opacity = "1";
                             c.style.zIndex = "50";
                         } else if (index < currentIdx) {
                             const mult = currentIdx - index;
-                            c.style.transform = `translateX(${60 + (mult * 20)}px) translateZ(-${mult * 30}px) scale(0.88)`;
-                            c.style.opacity = "0.25"; 
+                            c.style.transform = `translateX(${40 + (mult * 15)}px) translateZ(-${mult * 20}px) scale(0.92)`;
+                            c.style.opacity = "0.4"; 
                             c.style.zIndex = `${30 - mult}`;
                         } else {
                             const mult = index - currentIdx;
-                            c.style.transform = `translateX(-${60 + (mult * 20)}px) translateZ(-${mult * 30}px) scale(0.88)`;
-                            c.style.opacity = "0.25";
+                            c.style.transform = `translateX(-${40 + (mult * 15)}px) translateZ(-${mult * 20}px) scale(0.92)`;
+                            c.style.opacity = "0.4";
                             c.style.zIndex = `${30 - mult}`;
                         }
                     });
@@ -456,9 +452,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
         });
-    } catch (e) { console.error("Vortex flush fault catch:", e); }
+    } catch (e) { console.error("Vortex flush system catch:", e); }
 
-    // --- 4. THE "LASER-SCAN" BLUEPRINT SWEEP ---
+    // --- 6. THE "LASER-SCAN" BLUEPRINT SWEEP ---
     try {
         const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
         const fetchTarget = document.getElementById("anatomy-fetch-target");
@@ -482,7 +478,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 if (fetchTarget) {
-                    fetchTarget.innerHTML = `<div class="fallback-prompt">Initiating localized blueprint array scan...</div>`;
+                    fetchTarget.innerHTML = `<div class="fallback-prompt">Scanning local database...</div>`;
                     
                     let deviceSpecificationsArray = [];
                     try {
@@ -507,29 +503,14 @@ document.addEventListener("DOMContentLoaded", () => {
                         setTimeout(() => {
                             cardContainerNode.classList.remove("diagnostic-card-hidden");
                             cardContainerNode.classList.add("diagnostic-card-revealed");
-                        }, index * 140);
+                        }, index * 100);
                     });
                 }
             });
         });
     } catch (e) { console.error("Anatomical diagnostic matrix fault:", e); }
 
-    // --- SCROLL REVEAL TIMING RUNTIME ---
-    try {
-        const revealElements = document.querySelectorAll(".scroll-trigger-reveal");
-        if (revealElements.length > 0 && 'IntersectionObserver' in window) {
-            const revealObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add("reveal-active");
-                });
-            }, { threshold: 0.01, rootMargin: "0px 0px -50px 0px" });
-            revealElements.forEach(element => revealObserver.observe(element));
-        } else {
-            document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active"));
-        }
-    } catch (e) { document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active")); }
-
-    // --- OUTSIDE CLOSING ACTION HANDLER ---
+    // --- OUTSIDE CLOSING ACTION HANDLER ENGINE FOR SURGIS AI TERMINAL ---
     try {
         const chatIcon = document.getElementById("chatbot-icon");
         const chatWindow = document.getElementById("chatbot-window");
