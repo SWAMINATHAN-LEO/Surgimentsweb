@@ -1,6 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // --- 1. LOCAL DATA PRE-CACHE FOR HUMAN BLUEPRINT INDEXING ---
+    const localAIBrainFallback = {
+        "neuro": "Our skull base sets utilize lightweight non-glare high passivation alloy templates.",
+        "cardio": "Sternal assemblies undergo specialized micro-polishing for smooth intraoperative adjustments.",
+        "ortho": "Titanium line components offer exceptional structural rigidity under high torque limits."
+    };
+
     const anatomyPreloadedDatabase = {
         "head": [
             { name: "Micro-Neuro Instruments Kit", sku: "SKU-MN-992", specialty: "Neurosurgery Cranial Open Access" },
@@ -19,7 +24,34 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
     };
 
-    // --- 2. SURGIS AI CONVERSATIONAL DRIVER ENGINE ---
+    // --- SMARTPHONE INTERACTIVE MOBILE HEADER MENU DRIVER ---
+    const menuToggleBtn = document.getElementById("mobile-hamburger-btn");
+    const navigationMenu = document.getElementById("main-navigation-menu");
+    if (menuToggleBtn && navigationMenu) {
+        menuToggleBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            navigationMenu.classList.toggle("mobile-menu-expanded");
+        });
+        document.querySelectorAll("#main-navigation-menu .nav-item").forEach(item => {
+            item.addEventListener("click", () => {
+                navigationMenu.classList.remove("mobile-menu-expanded");
+            });
+        });
+    }
+
+    // --- HARDENED HERO PROMO VIDEO INITIATOR PLAYBACK PIPELINE ---
+    const promoVid = document.getElementById("hero-promo-video");
+    if (promoVid) {
+        const structuralVideoPlaybackPromise = promoVid.play();
+        if (structuralVideoPlaybackPromise !== undefined) {
+            structuralVideoPlaybackPromise.catch(() => {
+                promoVid.muted = true;
+                promoVid.play();
+            });
+        }
+    }
+
+    // --- OUTSIDE CLOSING ACTION HANDLER ENGINE FOR SURGIS AI TERMINAL ---
     try {
         const chatIcon = document.getElementById("chatbot-icon");
         const chatWindow = document.getElementById("chatbot-window");
@@ -39,6 +71,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     chatWindow.classList.add("hidden");
                 });
             }
+            window.addEventListener("click", (e) => {
+                if (!chatWindow.classList.contains("hidden") && !chatWindow.contains(e.target) && !chatIcon.contains(e.target)) {
+                    chatWindow.classList.add("hidden");
+                }
+            });
         }
 
         async function processChatWorkflow() {
@@ -53,7 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const typingIndicatorIdx = Date.now();
             outputStream.innerHTML += `<p class="bot-msg" id="msg-${typingIndicatorIdx}"><i class="fas fa-spinner fa-spin"></i> Processing index...</p>`;
             outputStream.scrollTop = outputStream.scrollHeight;
-            
             const loadingBubble = document.getElementById(`msg-${typingIndicatorIdx}`);
 
             try {
@@ -82,13 +118,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         if (sendBtn) sendBtn.addEventListener("click", processChatWorkflow);
         if (inputField) inputField.addEventListener("keypress", (e) => { if (e.key === "Enter") processChatWorkflow(); });
-    } catch (e) { console.error("Chat safely caught:", e); }
+    } catch (e) { console.error("Chat terminal engine catch:", e); }
 
-    // --- 3. HARDENED REVIEWS TESTIMONIAL SWIPER ENGINE ---
+    // --- REVIEWS TESTIMONIAL NAVIGATION CONTROL SYSTEM (BUTTONS, KEYBOARDS, SWIPES) ---
     try {
         const reviewsTrack = document.getElementById("reviews-dynamic-track");
         const reviewDots = document.querySelectorAll("#reviews-dots-container .review-dot");
         const reviewsContainer = document.querySelector(".reviews-slider-container");
+        const reviewPrev = document.getElementById("review-prev-btn");
+        const reviewNext = document.getElementById("review-next-btn");
+        const reviewInteractiveBlock = document.getElementById("testimonial-interactive-block");
         
         let activeReviewIdx = 0;
         const countTotalReviews = reviewDots.length;
@@ -104,6 +143,16 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
+        if(reviewPrev) reviewPrev.addEventListener("click", () => { renderActiveReview(activeReviewIdx - 1); resetReviewTimer(); });
+        if(reviewNext) reviewNext.addEventListener("click", () => { renderActiveReview(activeReviewIdx + 1); resetReviewTimer(); });
+
+        if(reviewInteractiveBlock) {
+            reviewInteractiveBlock.addEventListener("keydown", (e) => {
+                if (e.key === "ArrowLeft") { renderActiveReview(activeReviewIdx - 1); resetReviewTimer(); }
+                else if (e.key === "ArrowRight") { renderActiveReview(activeReviewIdx + 1); resetReviewTimer(); }
+            });
+        }
+
         reviewDots.forEach(dot => {
             dot.addEventListener("click", () => {
                 renderActiveReview(parseInt(dot.getAttribute("data-review-idx"), 10));
@@ -112,17 +161,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         let touchStartReviewX = 0;
-        let touchEndReviewX = 0;
-
         if (reviewsContainer) {
             reviewsContainer.addEventListener("touchstart", (e) => {
                 touchStartReviewX = e.touches[0].clientX;
                 clearInterval(reviewsInterval);
             }, { passive: true });
-
             reviewsContainer.addEventListener("touchend", (e) => {
-                touchEndReviewX = e.changedTouches[0].clientX;
-                const swipeDistance = touchStartReviewX - touchEndReviewX;
+                const swipeDistance = touchStartReviewX - e.changedTouches[0].clientX;
                 if (Math.abs(swipeDistance) > 50) {
                     if (swipeDistance > 0) renderActiveReview(activeReviewIdx + 1);
                     else renderActiveReview(activeReviewIdx - 1);
@@ -136,9 +181,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         function resetReviewTimer() { clearInterval(reviewsInterval); startReviewTimer(); }
         startReviewTimer();
-    } catch (e) { console.error("Review swipe isolated:", e); }
+    } catch (e) { console.error("Review tracking system isolate:", e); }
 
-    // --- 4. FLUID DRAGGABLE HERO SLIDER CAROUSEL (8s LOOPS) ---
+    // --- HERO SLIDER DRAGGABLE VIEWPORT WITH KEYBOARD NAVIGATION LISTENER ---
     try {
         const sliderViewport = document.getElementById("hero-draggable-viewport");
         const sliderWrapper = document.getElementById("hero-slider-wrapper");
@@ -147,7 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let currentSlideIndex = 0;
         const countTotalSlides = beads.length;
         let autoCycleTimer = null;
-        
         let activeDragMode = false;
         let initialCursorPositionX = 0;
         let cumulativeTransformX = 0;
@@ -162,6 +206,13 @@ document.addEventListener("DOMContentLoaded", () => {
             beads.forEach((bead, idx) => {
                 if(idx === currentSlideIndex) bead.classList.add("active");
                 else bead.classList.remove("active");
+            });
+        }
+
+        if (sliderViewport) {
+            sliderViewport.addEventListener("keydown", (e) => {
+                if (e.key === "ArrowLeft") { renderActiveSlide(currentSlideIndex - 1); initAutoCycle(); }
+                else if (e.key === "ArrowRight") { renderActiveSlide(currentSlideIndex + 1); initAutoCycle(); }
             });
         }
 
@@ -180,25 +231,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 cumulativeTransformX = matrix.m41;
                 sliderViewport.style.cursor = "grabbing";
             });
-
             window.addEventListener("mousemove", (e) => {
                 if (!activeDragMode) return;
-                const deltaX = e.clientX - initialCursorPositionX;
-                sliderWrapper.style.transform = `translateX(${cumulativeTransformX + deltaX}px)`;
+                sliderWrapper.style.transform = `translateX(${cumulativeTransformX + (e.clientX - initialCursorPositionX)}px)`;
             });
-
             window.addEventListener("mouseup", (e) => {
                 if (!activeDragMode) return;
                 activeDragMode = false;
                 sliderViewport.style.cursor = "grab";
                 const displacementX = e.clientX - initialCursorPositionX;
-                const structuralWidth = sliderViewport.offsetWidth;
-                if (Math.abs(displacementX) > structuralWidth * 0.15) {
+                if (Math.abs(displacementX) > sliderViewport.offsetWidth * 0.15) {
                     if (displacementX > 0) renderActiveSlide(currentSlideIndex - 1);
                     else renderActiveSlide(currentSlideIndex + 1);
-                } else {
-                    renderActiveSlide(currentSlideIndex);
-                }
+                } else { renderActiveSlide(currentSlideIndex); }
                 initAutoCycle();
             });
 
@@ -207,27 +252,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 activeDragMode = true;
                 sliderWrapper.style.transition = "none";
                 initialCursorPositionX = e.touches[0].clientX;
-                const matrix = new WebKitCSSMatrix(window.getComputedStyle(sliderWrapper).transform);
-                cumulativeTransformX = matrix.m41;
+                cumulativeTransformX = new WebKitCSSMatrix(window.getComputedStyle(sliderWrapper).transform).m41;
             }, { passive: true });
-
             sliderViewport.addEventListener("touchmove", (e) => {
                 if (!activeDragMode) return;
-                const deltaX = e.touches[0].clientX - initialCursorPositionX;
-                sliderWrapper.style.transform = `translateX(${cumulativeTransformX + deltaX}px)`;
+                sliderWrapper.style.transform = `translateX(${cumulativeTransformX + (e.touches[0].clientX - initialCursorPositionX)}px)`;
             }, { passive: true });
-
             sliderViewport.addEventListener("touchend", (e) => {
                 if (!activeDragMode) return;
                 activeDragMode = false;
                 const displacementX = e.changedTouches[0].clientX - initialCursorPositionX;
-                const structuralWidth = sliderViewport.offsetWidth;
-                if (Math.abs(displacementX) > structuralWidth * 0.15) {
+                if (Math.abs(displacementX) > sliderViewport.offsetWidth * 0.15) {
                     if (displacementX > 0) renderActiveSlide(currentSlideIndex - 1);
                     else renderActiveSlide(currentSlideIndex + 1);
-                } else {
-                    renderActiveSlide(currentSlideIndex);
-                }
+                } else { renderActiveSlide(currentSlideIndex); }
                 initAutoCycle();
             });
 
@@ -239,40 +277,48 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             initAutoCycle();
         }
-    } catch (e) { console.error("Hero loop touch isolated:", e); }
+    } catch (e) { console.error("Hero touch pipeline exception:", e); }
 
-    // --- 5. THE CARD DECK INTERACTIVE CHANNELS ---
+    // --- HIGH FREQUENCY POINTER OVERRIDE CAPABILITIES FOR CATACLYSMIC DECK SWIPING ---
     try {
         const deckCards = document.querySelectorAll(".portfolio-deck-card");
+        let activeRAFIndex = null;
+
         deckCards.forEach(card => {
             card.addEventListener("mouseenter", () => {
                 if (window.innerWidth < 993) return;
-                const currentIdx = parseInt(card.getAttribute("data-card-idx"), 10);
-                deckCards.forEach((c, index) => {
-                    if (index === currentIdx) {
-                        c.style.transform = "translateX(0px) translateZ(40px) scale(1.05)";
-                        c.style.opacity = "1";
-                        c.style.zIndex = "50";
-                    } else if (index < currentIdx) {
-                        const multiplier = currentIdx - index;
-                        c.style.transform = `translateX(${60 + (multiplier * 20)}px) translateZ(-${multiplier * 30}px) scale(0.88)`;
-                        c.style.opacity = "0.25"; 
-                        c.style.zIndex = `${30 - multiplier}`;
-                    } else {
-                        const multiplier = index - currentIdx;
-                        c.style.transform = `translateX(-${60 + (multiplier * 20)}px) translateZ(-${multiplier * 30}px) scale(0.88)`;
-                        c.style.opacity = "0.25";
-                        c.style.zIndex = `${30 - multiplier}`;
-                    }
+                if (activeRAFIndex) cancelAnimationFrame(activeRAFIndex);
+                activeRAFIndex = requestAnimationFrame(() => {
+                    const currentIdx = parseInt(card.getAttribute("data-card-idx"), 10);
+                    deckCards.forEach((c, index) => {
+                        if (index === currentIdx) {
+                            c.style.transform = "translateX(0px) translateZ(40px) scale(1.05)";
+                            c.style.opacity = "1";
+                            c.style.zIndex = "50";
+                        } else if (index < currentIdx) {
+                            const mult = currentIdx - index;
+                            c.style.transform = `translateX(${60 + (mult * 20)}px) translateZ(-${mult * 30}px) scale(0.88)`;
+                            c.style.opacity = "0.25"; 
+                            c.style.zIndex = `${30 - mult}`;
+                        } else {
+                            const mult = index - currentIdx;
+                            c.style.transform = `translateX(-${60 + (mult * 20)}px) translateZ(-${mult * 30}px) scale(0.88)`;
+                            c.style.opacity = "0.25";
+                            c.style.zIndex = `${30 - mult}`;
+                        }
+                    });
                 });
             });
 
             card.addEventListener("mouseleave", () => {
                 if (window.innerWidth < 993) return;
-                deckCards.forEach(c => {
-                    c.style.transform = "translateX(0px) translateZ(0px) scale(1)";
-                    c.style.opacity = "1";
-                    c.style.zIndex = "10";
+                if (activeRAFIndex) cancelAnimationFrame(activeRAFIndex);
+                activeRAFIndex = requestAnimationFrame(() => {
+                    deckCards.forEach(c => {
+                        c.style.transform = "translateX(0px) translateZ(0px) scale(1)";
+                        c.style.opacity = "1";
+                        c.style.zIndex = "10";
+                    });
                 });
             });
 
@@ -283,9 +329,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (!wasActive) card.classList.add("active-mobile-tap");
             });
         });
-    } catch (e) { console.error("Card engine remapping safety catch:", e); }
+    } catch (e) { console.error("High-speed stacking array exceptions:", e); }
 
-    // --- 6. RESILIENT BI-DIRECTIONAL SCROLL REVEAL SAFETY RUNTIME ---
+    // --- SCROLL REVEAL TIMING RUNTIME ---
     try {
         const revealElements = document.querySelectorAll(".scroll-trigger-reveal");
         if (revealElements.length > 0 && 'IntersectionObserver' in window) {
@@ -301,7 +347,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     } catch (e) { document.querySelectorAll(".scroll-trigger-reveal").forEach(el => el.classList.add("reveal-active")); }
 
-    // --- 7. ANATOMICAL LOOKUP ENGINE PLATFORMS ---
+    // --- ANATOMICAL CONTROLLERS ---
     try {
         const hotspots = document.querySelectorAll(".anatomy-svg-hotspot");
         const fetchTarget = document.getElementById("anatomy-fetch-target");
@@ -336,9 +382,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         });
-    } catch (e) { console.error("Anatomy safety bypass:", e); }
+    } catch (e) { console.error("Anatomical lookup fault:", e); }
 
-    // --- 8. DUAL GATEWAY AUTHENTICATION TAB SWITCHER ---
+    // --- GATEWAY SWITCHERS ---
     try {
         const authTabs = document.querySelectorAll(".auth-tab-btn");
         authTabs.forEach(tab => {
@@ -346,14 +392,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 authTabs.forEach(t => t.classList.remove("active"));
                 document.querySelectorAll(".auth-panel-node").forEach(panel => panel.classList.remove("active"));
                 tab.classList.add("active");
-                const activePanelId = tab.getAttribute("data-target-form");
-                const targetPanel = document.getElementById(activePanelId);
+                const targetPanel = document.getElementById(tab.getAttribute("data-target-form"));
                 if(targetPanel) targetPanel.classList.add("active");
             });
         });
-    } catch (e) { console.error("Auth tab logs clear:", e); }
+    } catch (e) { console.error("Tab routing engine failure:", e); }
 
-    // --- 9. REAL-TIME CURSOR DESKTOP TRACKING TILT PERSPECTIVE ---
+    // --- VECTOR CURSOR ROTATION PERSPECTIVE GRAPHICS ---
     try {
         const trackingBox = document.querySelector(".text-track-mouse-tilt");
         const reactiveCard = document.querySelector(".mouse-hover-reactive-card");
@@ -367,5 +412,5 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             trackingBox.addEventListener("mouseleave", () => { reactiveCard.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)"; });
         }
-    } catch (e) { console.error("Torsion trackers catch:", e); }
+    } catch (e) { console.error("Torsion vector logic track catch:", e); }
 });
